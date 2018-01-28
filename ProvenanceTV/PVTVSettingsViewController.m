@@ -18,7 +18,7 @@
 
 @interface PVTVSettingsViewController ()
 
-@property (nonatomic, strong) PVGameImporter *gameImporter;
+@property (nonatomic, strong, nonnull) PVGameImporter *gameImporter;
 
 @property (weak, nonatomic) IBOutlet UILabel *autoSaveValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *autoLoadValueLabel;
@@ -27,10 +27,29 @@
 @property (weak, nonatomic) IBOutlet UILabel *modeValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *showFPSCountValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *iCadeControllerSetting;
+@property (weak, nonatomic) IBOutlet UILabel *crtFilterLabel;
 
 @end
 
 @implementation PVTVSettingsViewController
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _gameImporter = [[PVGameImporter alloc] initWithCompletionHandler:nil];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        _gameImporter = [[PVGameImporter alloc] initWithCompletionHandler:nil];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -45,6 +64,7 @@
     [self.autoSaveValueLabel setText:([settings autoSave]) ? @"On" : @"Off"];
     [self.autoLoadValueLabel setText:([settings autoLoadAutoSaves]) ? @"On" : @"Off"];
     [self.showFPSCountValueLabel setText:([settings showFPSCount]) ? @"On" : @"Off"];
+    [self.crtFilterLabel setText:([settings crtFilterEnabled]) ? @"On" : @"Off"];
 	NSString *versionText = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	versionText = [versionText stringByAppendingFormat:@" (%@)", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
 	[self.versionValueLabel setText:versionText];
@@ -80,7 +100,7 @@
 
     switch ([indexPath section]) {
         case 0:
-            // emu settings
+            // Emu Settings
             switch ([indexPath row]) {
                 case 0:
                     // Auto save
@@ -93,6 +113,10 @@
                     [self.autoLoadValueLabel setText:([settings autoLoadAutoSaves]) ? @"On" : @"Off"];
                     break;
                 case 2:
+                    [settings setCrtFilterEnabled:![settings crtFilterEnabled]];
+                    [self.crtFilterLabel setText:([settings crtFilterEnabled]) ? @"On" : @"Off"];
+                    break;
+                case 3:
                     [settings setShowFPSCount:![settings showFPSCount]];
                     [self.showFPSCountValueLabel setText:([settings showFPSCount]) ? @"On" : @"Off"];
                 default:
@@ -100,13 +124,13 @@
             }
             break;
         case 1:
-            // icase settings
+            // iCade Settings
             break;
         case 2:
-            // library settings
+            // Actions
             switch ([indexPath row]) {
 				case 0: {
-					// start webserver
+					// Start Webserver
 					// Check to see if we are connected to WiFi. Cannot continue otherwise.
 					Reachability *reachability = [Reachability reachabilityForInternetConnection];
 					[reachability startNotifier];
@@ -133,9 +157,9 @@
 #if TARGET_IPHONE_SIMULATOR
 						ipAddress = [ipAddress stringByAppendingString:@":8080"];
 #endif
-
-						NSString *message = [NSString stringWithFormat: @"You can now upload ROMs or download saves by visiting:\nhttp://%@/\non your computer", ipAddress];
-						UIAlertController *alert = [UIAlertController alertControllerWithTitle: @"Web server started!"
+                        NSString *ipURLString = [NSString stringWithFormat: @"http://%@/", ipAddress];
+						NSString *message = [NSString stringWithFormat: @"Upload/Download ROMs,\nsaves and cover art at:\n%@", ipURLString];
+						UIAlertController *alert = [UIAlertController alertControllerWithTitle: @"Web Server Active"
 																					   message: message
 																				preferredStyle:UIAlertControllerStyleAlert];
 						[alert addAction:[UIAlertAction actionWithTitle:@"Stop" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -144,8 +168,15 @@
 						[self presentViewController:alert animated:YES completion:NULL];
 					}
 				}
-                case 1: {
-                    // refresh
+                default:
+                    break;
+            }
+            break;
+        case 3:
+            // Game Library Settings
+            switch ([indexPath row]) {
+                case 0: {
+                    // Refresh
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Refresh Game Library?"
                                                                                    message:@"Attempt to get artwork and title information for your library. This can be a slow process, especially for large libraries. Only do this if you really, really want to try and get more artwork. Please be patient, as this process can take several minutes."
                                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -157,8 +188,8 @@
                     [self presentViewController:alert animated:YES completion:NULL];
                     break;
                 }
-                case 2: {
-                    // empty cache
+                case 1: {
+                    // Empty Cache
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Empty Image Cache?"
                                                                                    message:@"Empty the image cache to free up disk space. Images will be redownload on demand."
                                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -169,7 +200,7 @@
                     [self presentViewController:alert animated:YES completion:NULL];
                     break;
                 }
-                case 3: {
+                case 2: {
                     PVConflictViewController *conflictViewController = [[PVConflictViewController alloc] initWithGameImporter:self.gameImporter];
                     [self.navigationController pushViewController:conflictViewController animated:YES];
                     break;
