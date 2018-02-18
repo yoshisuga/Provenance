@@ -6,7 +6,10 @@
 //
 
 let TEST_THEMES = false
+
 import CoreSpotlight
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class PVAppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +18,9 @@ class PVAppDelegate: UIResponder, UIApplicationDelegate {
     var shortcutItemMD5 : String? = nil
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        Fabric.with([Crashlytics.self, Answers.self])
+        
         UIApplication.shared.isIdleTimerDisabled = PVSettingsModel.sharedInstance().disableAutoLock
         
 #if os(iOS)
