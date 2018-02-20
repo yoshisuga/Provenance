@@ -63,7 +63,7 @@ public final class PVCoreFactory : NSObject {
             core = PicodriveGameCore()
         case .PokemonMini:
             core = PVPokeMiniEmulatorCore()
-        case .PSX, .Lynx, .PCE, .PCECD, .NGP, .NGPC, .PCFX, .SGFX, .VirtualBoy, .WonderSwan, .WonderSwanColor:
+        case .PSX, .Saturn, .Lynx, .PCE, .PCECD, .NGP, .NGPC, .PCFX, .SGFX, .VirtualBoy, .WonderSwan, .WonderSwanColor:
             core = MednafenGameCore()
         case .N64:
             core = MupenGameCore()
@@ -109,7 +109,7 @@ public final class PVCoreFactory : NSObject {
             return PV32XControllerViewController(controlLayout: controllerLayout , systemIdentifier: systemID.rawValue)
         case .PokemonMini:
             return PVPokeMiniControllerViewController(controlLayout: controllerLayout , systemIdentifier: systemID.rawValue)
-        case .PSX:
+        case .PSX, .Saturn:
             return PVPSXControllerViewController(controlLayout: controllerLayout , systemIdentifier: systemID.rawValue)
         case .Lynx:
             return PVLynxControllerViewController(controlLayout: controllerLayout , systemIdentifier: systemID.rawValue)

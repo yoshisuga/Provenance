@@ -144,6 +144,32 @@ typedef NS_ENUM(NSInteger, OEPCECDButton) {
     OEPCECDButtonCount
 };
 
+typedef enum _OESaturnButton
+{
+    OESaturnButtonUp,
+    OESaturnButtonDown,
+    OESaturnButtonLeft,
+    OESaturnButtonRight,
+    OESaturnButtonA,
+    OESaturnButtonB,
+    OESaturnButtonC,
+    OESaturnButtonX,
+    OESaturnButtonY,
+    OESaturnButtonZ,
+    OESaturnButtonL,
+    OESaturnButtonR,
+    OESaturnButtonStart,
+    OESaturnButtonAnalogMode,
+    OESaturnLeftAnalogUp,
+    OESaturnLeftAnalogDown,
+    OESaturnLeftAnalogLeft,
+    OESaturnLeftAnalogRight,
+    OESaturnAnalogL,
+    OESaturnAnalogR,
+    OESaturnButtonCount
+} OESaturnButton;
+
+
 typedef NS_ENUM(NSInteger, OELynxButton) {
     OELynxButtonUp,
     OELynxButtonDown,

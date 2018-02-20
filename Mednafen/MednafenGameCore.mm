@@ -94,7 +94,7 @@ namespace MDFN_IEN_VB
     int mednafenCurrentDisplayMode = 1;
 }
 
-typedef enum MednaSystem {lynx, neogeo, pce, pcfx, psx, vb, wswan };
+typedef enum MednaSystem {lynx, neogeo, pce, pcfx, psx, saturn, vb, wswan };
 
 @interface MednafenGameCore ()
 {
@@ -107,6 +107,9 @@ typedef enum MednaSystem {lynx, neogeo, pce, pcfx, psx, vb, wswan };
     double sampleRate;
     double masterClock;
 
+    BOOL isSS3DControlPadSupportedGame;
+
+    
     NSString *mednafenCoreModule;
     NSTimeInterval mednafenCoreTiming;
     OEIntSize mednafenCoreAspect;
@@ -262,6 +265,12 @@ static void emulation_run() {
 {
     [[NSFileManager defaultManager] createDirectoryAtPath:[self batterySavesPath] withIntermediateDirectories:YES attributes:nil error:NULL];
 
+    
+    assert(_current);
+    mednafen_init(_current);
+    
+    game = MDFNI_LoadGame([mednafenCoreModule UTF8String], [path UTF8String]);
+    
     if([[self systemIdentifier] isEqualToString:@"com.provenance.lynx"])
     {
         systemType = lynx;
@@ -304,8 +313,8 @@ static void emulation_run() {
         
         mednafenCoreModule = @"psx";
         // Note: OpenEMU sets this to 4, 3.
-        mednafenCoreAspect = OEIntSizeMake(3, 2);
-        //mednafenCoreAspect = OEIntSizeMake(game->nominal_width, game->nominal_height);
+//        mednafenCoreAspect = OEIntSizeMake(3, 2);
+        mednafenCoreAspect = OEIntSizeMake(game->nominal_width, game->nominal_height);
         sampleRate         = 44100;
     }
     else if([[self systemIdentifier] isEqualToString:@"com.provenance.vb"])
@@ -326,16 +335,19 @@ static void emulation_run() {
         //mednafenCoreAspect = OEIntSizeMake(game->nominal_width, game->nominal_height);
         sampleRate         = 48000;
     }
+    else if([[self systemIdentifier] isEqualToString:@"com.provenance.saturn"])
+    {
+        systemType = wswan;
+        
+        mednafenCoreModule = @"ss";
+        mednafenCoreAspect = OEIntSizeMake(game->nominal_width, game->nominal_height);
+        sampleRate         = 44100;
+    }
     else
     {
         NSLog(@"MednafenGameCore loadFileAtPath: Incorrect systemIdentifier");
         assert(false);
     }
-
-    assert(_current);
-    mednafen_init(_current);
-
-    game = MDFNI_LoadGame([mednafenCoreModule UTF8String], [path UTF8String]);
 
     if(!game) {
         return NO;
@@ -366,8 +378,6 @@ static void emulation_run() {
         for(unsigned i = 0; i < multiTapPlayerCount; i++) {
             game->SetInput(i, "dualshock", (uint8_t *)inputBuffer[i]);
         }
-        
-        
         
         // Multi-Disc check
         BOOL multiDiscGame = NO;
@@ -409,6 +419,61 @@ static void emulation_run() {
             NSLog(@"Loaded m3u containing %lu cue sheets or ccd",numberOfMatches);
         }
     }
+    else if (systemType == saturn) {
+
+//        NSString *hex = [self ROMHeader];
+//            NSUInteger len = hex.length;
+//
+//        // Ensure valid hex string
+//        if ((len % 2) != 0)
+//            return NO;
+//
+        // Convert header hex to ascii
+//        NSMutableString *ascii = [[NSMutableString alloc] init];
+//        for(int i=0; i< len; i+=2)
+//        {
+//            NSString *byte = [hex substringWithRange:NSMakeRange(i, 2)];
+//            unsigned char chr = strtol([byte UTF8String], nil, 16);
+//            [ascii appendFormat:@"%c", chr];
+//        }
+//
+//        // Extract serial from header
+//        NSString *serial = [ascii substringWithRange:NSMakeRange(32, 10)];
+//        serial = [serial stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        self.romSerial = serial;
+//
+//        // SS: Check if multiple discs required
+//        if (ssMultiDiscGames[[self ROMSerial]])
+//        {
+//            current->_isMultiDiscGame = YES;
+//            current->_multiDiscTotal = [[ssMultiDiscGames objectForKey:[current ROMSerial]] intValue];
+//        }
+//
+//        // SS: Set multitap configuration if detected
+//        if (ssMultiTapGames[[self ROMSerial]])
+//        {
+//            current->_multiTapPlayerCount = [[ssMultiTapGames objectForKey:[self ROMSerial]] intValue];
+//
+//            if(current->_multiTapPlayerCount < 8)
+//                // From the Sega Saturn 6 Player Multi-Player Adaptor manual:
+//                // 3-7 Player games
+//                MDFNI_SetSetting("ss.input.sport2.multitap", "1"); // Enable multitap on SS port 2
+//            else
+//            {
+//                // 8-12 Player games
+//                MDFNI_SetSetting("ss.input.sport1.multitap", "1"); // Enable multitap on SS port 1
+//                MDFNI_SetSetting("ss.input.sport2.multitap", "1"); // Enable multitap on SS port 2
+//            }
+//        }
+//
+//        // SS: Check if 3D Control Pad is supported
+//        // Some games e.g. 3D Lemmings (Europe) / (Japan) and Chaos Control (Japan) have compat issues,
+//        // even when in digital mode, so enable on a per-game basis.
+//        if ([ss3DControlPadGames containsObject:[current ROMSerial]])
+//        {
+//            current->_isSS3DControlPadSupportedGame = YES;
+//        }
+    }
     else
     {
         game->SetInput(0, "gamepad", (uint8_t *)inputBuffer[0]);
@@ -445,6 +510,9 @@ static void emulation_run() {
             maxValue = OEPCFXButtonCount;
             map = PCFXMap;
             break;
+        case saturn:
+            maxValue = OESaturnButtonCount;
+            map = SaturnMap;
         case vb:
             maxValue = OEVBButtonCount;
             map = VBMap;
@@ -501,6 +569,14 @@ static void emulation_run() {
 
 - (void)resetEmulation
 {
+
+    if(systemType == saturn) {
+        inputBuffer[12][0] = 1;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            inputBuffer[12][0] = 0;
+        });
+    }
+
     MDFNI_Reset();
 }
 
@@ -669,6 +745,8 @@ const int LynxMap[] = { 6, 7, 4, 5, 0, 1, 3, 2 };
 const int PCEMap[]  = { 4, 6, 7, 5, 0, 1, 8, 9, 10, 11, 3, 2, 12 };
 const int PCFXMap[] = { 8, 10, 11, 9, 0, 1, 2, 3, 4, 5, 7, 6 };
 const int PSXMap[]  = { 4, 6, 7, 5, 12, 13, 14, 15, 10, 8, 1, 11, 9, 2, 3, 0, 16, 24, 23, 22, 21, 20, 19, 18, 17 };
+const int SaturnMap[]   = { 4, 5, 6, 7, 10, 8, 9, 2, 1, 0, 15, 3, 11 };
+const int Saturn3DMap[] = { 0, 1, 2, 3, 6, 4, 5, 10, 9, 8, 18, 17, 7, 12, 15, 16, 13, 14, 18, 17};
 const int VBMap[]   = { 9, 8, 7, 6, 4, 13, 12, 5, 3, 2, 0, 1, 10, 11 };
 const int WSMap[]   = { 0, 2, 3, 1, 4, 6, 7, 5, 9, 10, 8, 11 };
 const int NeoMap[]  = { 0, 1, 2, 3, 4, 5, 6};
@@ -814,6 +892,39 @@ const int NeoMap[]  = { 0, 1, 2, 3, 4, 5, 6};
     inputBuffer[player][0] &= ~(1 << PCFXMap[button]);
 }
 
+#pragma MARK Saturn
+- (oneway void)didPushSaturnButton:(OESaturnButton)button forPlayer:(NSUInteger)player
+{
+    if(isSS3DControlPadSupportedGame)
+    {
+        // Handle L and R when in digital mode
+        if (button == OESaturnButtonL) [self didMoveSaturnJoystickDirection:OESaturnAnalogL withValue:1.0 forPlayer:player];
+        if (button == OESaturnButtonR) [self didMoveSaturnJoystickDirection:OESaturnAnalogR withValue:1.0 forPlayer:player];
+        
+        if (button != OESaturnButtonAnalogMode) // Check for mode toggle
+            inputBuffer[player-1][0] |= 1 << Saturn3DMap[button];
+        else
+            inputBuffer[player-1][0] ^= 1 << Saturn3DMap[button];
+    }
+    else
+        inputBuffer[player-1][0] |= 1 << SaturnMap[button];
+    
+}
+
+- (oneway void)didReleaseSaturnButton:(OESaturnButton)button forPlayer:(NSUInteger)player
+{
+    if(isSS3DControlPadSupportedGame)
+    {
+        if (button == OESaturnButtonL) [self didMoveSaturnJoystickDirection:OESaturnAnalogL withValue:0.0 forPlayer:player];
+        if (button == OESaturnButtonR) [self didMoveSaturnJoystickDirection:OESaturnAnalogR withValue:0.0 forPlayer:player];
+        
+        if (button != OESaturnButtonAnalogMode)
+            inputBuffer[player-1][0] &= ~(1 << Saturn3DMap[button]);
+    }
+    else
+        inputBuffer[player-1][0] &= ~(1 << SaturnMap[button]);
+}
+
 #pragma mark PSX
 - (oneway void)didPushPSXButton:(PVPSXButton)button forPlayer:(NSUInteger)player;
 {
@@ -830,6 +941,16 @@ const int NeoMap[]  = { 0, 1, 2, 3, 4, 5, 6};
     int analogNumber = PSXMap[button] - 17;
     uint8_t *buf = (uint8_t *)inputBuffer[player];
     *(uint16*)& buf[3 + analogNumber * 2] = 32767 * value;
+}
+
+#pragma MARK Saturn
+- (oneway void)didMoveSaturnJoystickDirection:(OESaturnButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player
+{
+    int analogNumber = Saturn3DMap[button] - 13;
+    
+    uint8_t *buf = (uint8_t *)inputBuffer[player-1];
+    MDFN_en16lsb(&buf[2 + analogNumber * 2], 32767 * value);
+    MDFN_en16lsb(&buf[2 + (analogNumber ^ 1) * 2], 0);
 }
 
 #pragma mark Virtual Boy
@@ -1485,6 +1606,7 @@ const int NeoMap[]  = { 0, 1, 2, 3, 4, 5, 6};
 - (BOOL)supportsDiskSwapping {
     switch (systemType) {
         case psx:
+        case saturn:
             return [self discCount] > 1;
         case neogeo:
         case lynx:
