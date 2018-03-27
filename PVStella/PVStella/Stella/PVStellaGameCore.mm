@@ -32,7 +32,6 @@
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
 
-#import "OE2600SystemResponderClient.h"
 #include "libretro.h"
 
 // Size and screen buffer consants
@@ -443,11 +442,11 @@ static void writeSaveFile(const char* path, int type)
     }
 }
 
-- (oneway void)didPush2600Button:(OE2600Button)button forPlayer:(NSUInteger)player {
+- (void)didPushPV2600Button:(PV2600Button)button forPlayer:(NSUInteger)player {
     _pad[player][A2600EmulatorValues[button]] = 1;
 }
 
-- (oneway void)didRelease2600Button:(OE2600Button)button forPlayer:(NSUInteger)player {
+- (void)didReleasePV2600Button:(PV2600Button)button forPlayer:(NSUInteger)player {
     _pad[player][A2600EmulatorValues[button]] = 0;
 }
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <GameController/GameController.h>
-#import <PVSupport/OERingBuffer.h>
 
 #pragma mark -
 
@@ -28,9 +27,22 @@ typedef NS_ENUM(NSInteger, PVEmulatorCoreErrorCode) {
     PVEmulatorCoreErrorCodeStateHasWrongSize        = -4,
     PVEmulatorCoreErrorCodeCouldNotSaveState        = -5,
     PVEmulatorCoreErrorCodeDoesNotSupportSaveStates = -6,
+    PVEmulatorCoreErrorCodeMissingM3U               = -7,
 };
 
 #define GetSecondsSince(x) (-[x timeIntervalSinceNow])
+
+@protocol PVAudioDelegate
+@required
+- (void)audioSampleRateDidChange;
+@end
+
+@protocol PVRenderDelegate
+
+@required
+- (void)startRenderingOnAlternateThread;
+- (void)didRenderFrameOnAlternateThread;
+@end
 
 @interface PVEmulatorCore : NSObject {
 	
@@ -46,6 +58,10 @@ typedef NS_ENUM(NSInteger, PVEmulatorCoreErrorCode) {
 }
 
 @property (nonatomic, assign) double emulationFPS;
+@property (nonatomic, assign) double renderFPS;
+
+@property(weak)     id<PVAudioDelegate>    audioDelegate;
+@property(weak)     id<PVRenderDelegate>   renderDelegate;
 
 @property (nonatomic, copy) NSString *romName;
 @property (nonatomic, copy) NSString *saveStatesPath;
@@ -53,6 +69,7 @@ typedef NS_ENUM(NSInteger, PVEmulatorCoreErrorCode) {
 @property (nonatomic, copy) NSString *BIOSPath;
 @property (nonatomic, copy) NSString *systemIdentifier;
 @property (nonatomic, strong) NSString* romMD5;
+@property (nonatomic, strong) NSString* romSerial;
 
 @property (atomic, assign) BOOL shouldResyncTime;
 
@@ -66,9 +83,15 @@ typedef NS_ENUM(NSInteger, GameSpeed) {
 
 @property (nonatomic, strong) GCController *controller1;
 @property (nonatomic, strong) GCController *controller2;
+@property (nonatomic, strong) GCController *controller3;
+@property (nonatomic, strong) GCController *controller4;
 
 @property (nonatomic, strong) NSLock  *emulationLoopThreadLock;
+@property (nonatomic, strong) NSCondition  *frontBufferCondition;
+@property (nonatomic, strong) NSLock  *frontBufferLock;
+@property (nonatomic, assign) BOOL isFrontBufferReady;
 
+- (BOOL)rendersToOpenGL;
 - (void)startEmulation;
 - (void)resetEmulation;
 - (void)setPauseEmulation:(BOOL)flag;
@@ -79,14 +102,12 @@ typedef NS_ENUM(NSInteger, GameSpeed) {
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error;
 - (void)updateControllers;
 
-- (BOOL)supportsDiskSwapping;
-- (void)swapDisk;
-
 - (const void *)videoBuffer;
 - (CGRect)screenRect;
 - (CGSize)aspectSize;
 - (CGSize)bufferSize;
-- (BOOL)wideScreen;
+- (BOOL)isDoubleBuffered;
+- (void)swapBuffers;
 - (GLenum)pixelFormat;
 - (GLenum)pixelType;
 - (GLenum)internalPixelFormat;

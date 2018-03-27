@@ -8,33 +8,21 @@
 
 #import "PVEmulatorViewController.h"
 #import "PVGLViewController.h"
-#import <PVSupport/PVSupport.h>
-#import "PVGame.h"
-#import "JSButton.h"
-#import "JSDPad.h"
+@import PVSupport;
+#import "Provenance-Swift.h"
 #import "UIActionSheet+BlockAdditions.h"
-#import "UIAlertView+BlockAdditions.h"
-#import "PVButtonGroupOverlayView.h"
-#import "PVSettingsModel.h"
 #import "UIView+FrameAdditions.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PVEmulatorConfiguration.h"
-#import "PVControllerManager.h"
 #import "PViCade8BitdoController.h"
 
-@interface PVEmulatorViewController ()
+@interface PVEmulatorViewController () <PVAudioDelegate>
 
 @property (nonatomic, strong) PVGLViewController *glViewController;
 @property (nonatomic, strong) OEGameAudio *gameAudio;
 @property (nonatomic, strong) PVControllerViewController *controllerViewController;
 
-@property (nonatomic, strong) UIButton *menuButton;
-
 @property (nonatomic, assign) NSTimer *fpsTimer;
 @property (nonatomic, strong) UILabel *fpsLabel;
-
-@property (nonatomic, weak) UIAlertController *menuActionSheet;
-@property (nonatomic, assign) BOOL isShowingMenu;
 
 @property (nonatomic, strong) UIScreen *secondaryScreen;
 @property (nonatomic, strong) UIWindow *secondaryWindow;
@@ -87,20 +75,14 @@ void uncaughtExceptionHandler(NSException *exception)
 	[[self.glViewController view] removeFromSuperview];
 	[self.glViewController removeFromParentViewController];
 	
-	self.emulatorCore = nil;
-	self.gameAudio = nil;
-	self.glViewController = nil;
-	self.controllerViewController = nil;
-	self.menuButton = nil;
-
-    self.fpsTimer = nil;
-
 #if !TARGET_OS_TV
 	for (GCController *controller in [GCController controllers])
 	{
 		[controller setControllerPausedHandler:nil];
 	}
 #endif
+    
+    [self updatePlayedDuration];
 }
 
 - (void)viewDidLoad
@@ -148,31 +130,56 @@ void uncaughtExceptionHandler(NSException *exception)
 												 name:PVControllerManagerControllerReassignedNotification
 											   object:nil];
 
-	self.emulatorCore = [[PVEmulatorConfiguration sharedInstance] emulatorCoreForSystemIdentifier:[self.game systemIdentifier]];
+    self.emulatorCore = [PVCoreFactory emulatorCoreForGame:self.game];
+    self.emulatorCore.audioDelegate = self;
     [self.emulatorCore setSaveStatesPath:[self saveStatePath]];
 	[self.emulatorCore setBatterySavesPath:[self batterySavesPath]];
     [self.emulatorCore setBIOSPath:self.BIOSPath];
     [self.emulatorCore setController1:[[PVControllerManager sharedManager] player1]];
     [self.emulatorCore setController2:[[PVControllerManager sharedManager] player2]];
 	
-    NSString *romPath = [[self documentsPath] stringByAppendingPathComponent:[self.game romPath]];
-
-    NSError *error = nil;
-    NSString *md5Hash, *crc32Hash;
-    if(![[NSFileManager defaultManager] hashFileAtURL:[NSURL fileURLWithPath:romPath] md5:&md5Hash crc32:&crc32Hash error:&error])
-    {
-        DLog(@"%@", error);
-        return;
-    }
+    NSURL *romPath = self.game.file.url;
+    NSString *md5Hash = self.game.md5Hash;
 
     self.emulatorCore.romMD5 = md5Hash;
+    self.emulatorCore.romSerial = [self.game romSerial];
     
 	self.glViewController = [[PVGLViewController alloc] initWithEmulatorCore:self.emulatorCore];
 
         // Load now. Moved here becauase Mednafen needed to know what kind of game it's working with in order
         // to provide the correct data for creating views.
-    BOOL loaded = [self.emulatorCore loadFileAtPath:romPath error:&error];
+    NSURL *m3uFile = [PVEmulatorConfiguration m3uFileForGame:self.game];
+    if (m3uFile) {
+        romPath = m3uFile;
+    }
+    
+    NSError *error;
+    BOOL loaded = [self.emulatorCore loadFileAtPath:romPath.path error:&error];
 
+    if(!loaded) {
+        UIAlertController *alert =
+        [UIAlertController alertControllerWithTitle:error.localizedDescription
+                                            message:error.localizedRecoverySuggestion
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil]];
+        
+        if(error.code == PVEmulatorCoreErrorCodeMissingM3U) {
+            [alert addAction:[UIAlertAction actionWithTitle:@"View Wiki" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [UIApplication.sharedApplication openURL:[NSURL URLWithString:@"https://bitly.com/provm3u"]];
+            }]];
+        }
+        
+        __weak typeof(self) weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf presentViewController:alert
+                                   animated:YES
+                                 completion:nil];
+        });
+        return;
+    }
+    
     if ([[UIScreen screens] count] > 1)
     {
         self.secondaryScreen = [[UIScreen screens] objectAtIndex:1];
@@ -190,21 +197,23 @@ void uncaughtExceptionHandler(NSException *exception)
         [self.glViewController didMoveToParentViewController:self];
     }
 
-	self.controllerViewController = [[PVEmulatorConfiguration sharedInstance] controllerViewControllerForSystemIdentifier:[self.game systemIdentifier]];
+    #if !TARGET_OS_TV
+	self.controllerViewController = [PVCoreFactory controllerViewControllerForSystemIdentifier:[self.game systemIdentifier]];
 	[self.controllerViewController setEmulatorCore:self.emulatorCore];
 	[self addChildViewController:self.controllerViewController];
 	[self.view addSubview:[self.controllerViewController view]];
 	[self.controllerViewController didMoveToParentViewController:self];
-	
+    #endif
+    
 	CGFloat alpha = [[PVSettingsModel sharedInstance] controllerOpacity];
 	self.menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[self.menuButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin| UIViewAutoresizingFlexibleBottomMargin];
-	[self.menuButton setBackgroundImage:[UIImage imageNamed:@"button-thin"] forState:UIControlStateNormal];
-	[self.menuButton setBackgroundImage:[UIImage imageNamed:@"button-thin-pressed"] forState:UIControlStateHighlighted];
-	[self.menuButton setTitle:@"Menu" forState:UIControlStateNormal];
+	[self.menuButton setBackgroundImage:[UIImage imageNamed:@"button-menu"] forState:UIControlStateNormal];
+	[self.menuButton setBackgroundImage:[UIImage imageNamed:@"button-menu-pressed"] forState:UIControlStateHighlighted];
+	//[self.menuButton setTitle:@"Menu" forState:UIControlStateNormal];
 	[[self.menuButton titleLabel] setShadowOffset:CGSizeMake(0, 1)];
 	[self.menuButton setTitleShadowColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-	[[self.menuButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
+	[[self.menuButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12]];
 	[self.menuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[self.menuButton setAlpha:alpha];
 	[self.menuButton addTarget:self action:@selector(showMenu:) forControlEvents:UIControlEventTouchUpInside];
@@ -231,7 +240,11 @@ void uncaughtExceptionHandler(NSException *exception)
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
             // Block-based NSTimer method is only available on iOS 10 and later
             self.fpsTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                self.fpsLabel.text = [NSString stringWithFormat:@"%2.02f", self.emulatorCore.emulationFPS];
+                if (self.emulatorCore.renderFPS == self.emulatorCore.emulationFPS) {
+                    self.fpsLabel.text = [NSString stringWithFormat:@"%2.02f", self.emulatorCore.renderFPS];
+                } else {
+                    self.fpsLabel.text = [NSString stringWithFormat:@"%2.02f (%2.02f)", self.emulatorCore.renderFPS, self.emulatorCore.emulationFPS];
+                }
             }];
         } else {
 #endif
@@ -242,11 +255,12 @@ void uncaughtExceptionHandler(NSException *exception)
         
     }
     
-	
+#if !TARGET_OS_SIMULATOR
 	if ([[GCController controllers] count])
 	{
 		[self.menuButton setHidden:YES];
 	}
+#endif
 
     if (!loaded)
     {
@@ -320,7 +334,9 @@ void uncaughtExceptionHandler(NSException *exception)
                                                         [[PVSettingsModel sharedInstance] setAskToAutoLoad:NO];
                                                         [[PVSettingsModel sharedInstance] setAutoLoadAutoSaves:NO];
                                                     }]];
-			[self presentViewController:alert animated:YES completion:NULL];
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				[self presentViewController:alert animated:YES completion:NULL];
+			});
 		}
 	}
 
@@ -349,44 +365,24 @@ void uncaughtExceptionHandler(NSException *exception)
 #endif
 }
 
-#if !TARGET_OS_TV
+#if !TARGET_OS_TV && !TARGET_OS_SIMULATOR
 //Check Controller Manager if it has a Controller connected and thus if Home Indicator should hide…
 -(BOOL)prefersHomeIndicatorAutoHidden{
 	BOOL shouldHideHomeIndicator = [[PVControllerManager sharedManager] hasControllers];
 	return shouldHideHomeIndicator;
 }
-
--(void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:YES];
-	//Notifies UIKit that your view controller updated its preference regarding the visual indicator
-	if (@available(iOS 11.0, *))
-	{
-		[self setNeedsUpdateOfHomeIndicatorAutoHidden];
-	}
-}
-
 #endif
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
     UIEdgeInsets safeArea = UIEdgeInsetsZero;
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 11.0, tvOS 11.0, *)) {
         safeArea = self.view.safeAreaInsets;
     }
     
-    [self.menuButton setFrame:CGRectMake(([[self view] bounds].size.width - 62) / 2, safeArea.top + 10, 62, 22)];
-
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-
-#if !TARGET_OS_TV
-	[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-#endif
+    CGRect frame = CGRectMake(([[self view] bounds].size.width - 62) / 2, safeArea.top + 10, 62, 22);
+    [self.menuButton setFrame:frame];
 }
 
 - (NSString *)documentsPath
@@ -418,12 +414,12 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (void)appWillEnterForeground:(NSNotification *)note
 {
-
+    [self updatePlayedDuration];
 }
 
 - (void)appDidEnterBackground:(NSNotification *)note
 {
-
+    [self updatePlayedDuration];
 }
 
 - (void)appWillResignActive:(NSNotification *)note
@@ -444,11 +440,21 @@ void uncaughtExceptionHandler(NSException *exception)
     [self.gameAudio startAudio];
 }
 
+- (void)enableContorllerInput:(BOOL)enabled {
+#if TARGET_OS_TV
+    self.controllerUserInteractionEnabled = enabled;
+#else
+// Can enable when we change to iOS 10 base
+// and change super class to GCEventViewController
+//    if (@available(iOS 10, *)) {
+//        self.controllerUserInteractionEnabled = enabled;
+//    }
+#endif
+}
+
 - (void)showMenu:(id)sender
 {
-#if TARGET_OS_TV
-    self.controllerUserInteractionEnabled = YES;
-#endif
+    [self enableContorllerInput:YES];
 
 	__block PVEmulatorViewController *weakSelf = self;
 	
@@ -472,14 +478,12 @@ void uncaughtExceptionHandler(NSException *exception)
             [[NSNotificationCenter defaultCenter] postNotificationName:GCControllerDidDisconnectNotification object:[[PVControllerManager sharedManager] iCadeController]];
             [weakSelf.emulatorCore setPauseEmulation:NO];
             weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-            self.controllerUserInteractionEnabled = NO;
-#endif
+            [weakSelf enableContorllerInput:NO];
 		}]];
     }
 
     PVControllerManager *controllerManager = [PVControllerManager sharedManager];
-	BOOL wantsStartSelectInMenu = [[PVEmulatorConfiguration sharedInstance] systemIDWantsStartAndSelectInMenu: self.systemID];
+	BOOL wantsStartSelectInMenu = [PVEmulatorConfiguration systemIDWantsStartAndSelectInMenu: self.systemID];
 	
 	if ([controllerManager player1]) {
 		if (![[controllerManager player1] extendedGamepad] || wantsStartSelectInMenu)
@@ -493,9 +497,9 @@ void uncaughtExceptionHandler(NSException *exception)
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 					[weakSelf.controllerViewController releaseStartForPlayer:0];
 				});
-#if TARGET_OS_TV
-				weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+                
+                [weakSelf enableContorllerInput:NO];
+
 			}]];
 			[actionsheet addAction:[UIAlertAction actionWithTitle:@"P1 Select" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 				[weakSelf.emulatorCore setPauseEmulation:NO];
@@ -504,9 +508,9 @@ void uncaughtExceptionHandler(NSException *exception)
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 					[weakSelf.controllerViewController releaseSelectForPlayer:0];
 				});
-#if TARGET_OS_TV
-				weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+                
+                [weakSelf enableContorllerInput:NO];
+                
 			}]];
 		}
 	}
@@ -521,9 +525,9 @@ void uncaughtExceptionHandler(NSException *exception)
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 					[weakSelf.controllerViewController releaseStartForPlayer:1];
 				});
-#if TARGET_OS_TV
-				weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+                
+                [weakSelf enableContorllerInput:NO];
+                
 			}]];
 			[actionsheet addAction:[UIAlertAction actionWithTitle:@"P2 Select" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 				[weakSelf.emulatorCore setPauseEmulation:NO];
@@ -532,18 +536,19 @@ void uncaughtExceptionHandler(NSException *exception)
 				dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 					[weakSelf.controllerViewController releaseSelectForPlayer:1];
 				});
-#if TARGET_OS_TV
-				weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+                
+                [weakSelf enableContorllerInput:NO];
+                
 			}]];
 		}
 	}
 
-    if ([self.emulatorCore supportsDiskSwapping])
+    if ([self.emulatorCore conformsToProtocol:@protocol(DiscSwappable)])
     {
-        [actionsheet addAction:[UIAlertAction actionWithTitle:@"Swap Disk" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[weakSelf emulatorCore] swapDisk];
-            weakSelf.isShowingMenu = NO;
+        [actionsheet addAction:[UIAlertAction actionWithTitle:@"Swap Disc" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [weakSelf performSelector:@selector(showSwapDiscsMenu)
+                           withObject:nil
+                           afterDelay:0.1];
         }]];
     }
     
@@ -582,11 +587,21 @@ void uncaughtExceptionHandler(NSException *exception)
 		[weakSelf.emulatorCore setPauseEmulation:NO];
 		[weakSelf.emulatorCore resetEmulation];
 		weakSelf.isShowingMenu = NO;
-
-#if TARGET_OS_TV
-        weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+        
+        [weakSelf enableContorllerInput:NO];
+        
 	}]];
+    
+    [actionsheet addAction:[UIAlertAction actionWithTitle:@"Game Info" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Provenance" bundle:nil];
+        PVGameMoreInfoViewController * moreInfoViewContrller = (PVGameMoreInfoViewController *)[sb instantiateViewControllerWithIdentifier:@"gameMoreInfoVC"];
+        moreInfoViewContrller.game = weakSelf.game;
+        moreInfoViewContrller.showsPlayButton = NO;
+        moreInfoViewContrller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(hideModeInfo)];
+        UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:moreInfoViewContrller];
+        
+        [weakSelf presentViewController:newNav animated:YES completion:nil];
+    }]];
     
 	[actionsheet addAction:[UIAlertAction actionWithTitle:@"Return to Game Library" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf quit];
@@ -595,32 +610,47 @@ void uncaughtExceptionHandler(NSException *exception)
     UIAlertAction *resumeAction = [UIAlertAction actionWithTitle:@"Resume" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [weakSelf.emulatorCore setPauseEmulation:NO];
         weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-        weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+        
+        [weakSelf enableContorllerInput:NO];
+        
     }];
     
     [actionsheet addAction:resumeAction];
     
-    [actionsheet setPreferredAction:resumeAction];
-
+    if (@available(iOS 9.0, *)) {
+        actionsheet.preferredAction = resumeAction;
+    }
+ 
     [self presentViewController:actionsheet animated:YES completion:^{
         [[[PVControllerManager sharedManager] iCadeController] refreshListener];
     }];
+    
+    [self updatePlayedDuration];
 }
+
+- (void)hideModeInfo {
+    [self dismissViewControllerAnimated:YES completion:^{
+#if TARGET_OS_TV
+        [self showMenu:nil];
+#else
+        [self  hideMenu];
+#endif
+    }];
+}
+
 
 - (void)hideMenu
 {
-#if TARGET_OS_TV
-    self.controllerUserInteractionEnabled = NO;
-#endif
-
+    [self enableContorllerInput:NO];
+    
     if (self.menuActionSheet)
     {
         [self dismissViewControllerAnimated:YES completion:NULL];
-        [self.emulatorCore setPauseEmulation:NO];
         self.isShowingMenu = NO;
     }
+    
+    [self updateLastPlayedTime];
+    [self.emulatorCore setPauseEmulation:NO];
 }
 
 - (void)updateFPSLabel
@@ -675,18 +705,18 @@ void uncaughtExceptionHandler(NSException *exception)
 			[weakSelf.emulatorCore saveStateToFileAtPath:savePath];
 			[weakSelf.emulatorCore setPauseEmulation:NO];
 			weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-            self.controllerUserInteractionEnabled = NO;
-#endif
+            
+            [weakSelf enableContorllerInput:NO];
+            
 		}]];
 	}
 	
 	[actionsheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
 		[weakSelf.emulatorCore setPauseEmulation:NO];
 		weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-        self.controllerUserInteractionEnabled = NO;
-#endif
+        
+        [weakSelf enableContorllerInput:NO];
+        
 	}]];
 
     [self presentViewController:actionsheet animated:YES completion:^{
@@ -729,9 +759,9 @@ void uncaughtExceptionHandler(NSException *exception)
 			[weakSelf.emulatorCore loadStateFromFileAtPath:autoSavePath];
 			[weakSelf.emulatorCore setPauseEmulation:NO];
 			weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-            self.controllerUserInteractionEnabled = NO;
-#endif
+            
+            [weakSelf enableContorllerInput:NO];
+            
 		}]];
 	}
 	
@@ -745,18 +775,18 @@ void uncaughtExceptionHandler(NSException *exception)
 			}
 			[weakSelf.emulatorCore setPauseEmulation:NO];
 			weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-            self.controllerUserInteractionEnabled = NO;
-#endif
+            
+            [weakSelf enableContorllerInput:NO];
+            
 		}]];
 	}
 	
 	[actionsheet addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
 		[weakSelf.emulatorCore setPauseEmulation:NO];
 		weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-        self.controllerUserInteractionEnabled = NO;
-#endif
+        
+        [weakSelf enableContorllerInput:NO];
+        
 	}]];
 
      [self presentViewController:actionsheet animated:YES completion:^{
@@ -819,9 +849,9 @@ void uncaughtExceptionHandler(NSException *exception)
 			weakSelf.emulatorCore.gameSpeed = idx;
 			[weakSelf.emulatorCore setPauseEmulation:NO];
 			weakSelf.isShowingMenu = NO;
-#if TARGET_OS_TV
-			weakSelf.controllerUserInteractionEnabled = NO;
-#endif
+            
+            [weakSelf enableContorllerInput:NO];
+            
 		}]];
 	}];
 	
@@ -851,14 +881,15 @@ void uncaughtExceptionHandler(NSException *exception)
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 #endif
     [self dismissViewControllerAnimated:YES completion:completion];
-#if TARGET_OS_TV
-    self.controllerUserInteractionEnabled = NO;
-#endif
+    
+    [self enableContorllerInput:NO];
+    
+    [self updatePlayedDuration];
 }
 
 #pragma mark - Controllers
 
-#if TARGET_OS_TV
+//#if TARGET_OS_TV
 // Ensure that override of menu gesture is caught and handled properly for tvOS
 -(void)pressesBegan:(NSSet<UIPress *> *)presses withEvent:(nullable UIPressesEvent *)event {
     
@@ -872,7 +903,7 @@ void uncaughtExceptionHandler(NSException *exception)
         [super pressesBegan:presses withEvent:event];
     }
 }
-#endif
+//#endif
 
 - (void)controllerPauseButtonPressed:(id)sender
 {
@@ -890,6 +921,7 @@ void uncaughtExceptionHandler(NSException *exception)
 
 - (void)controllerDidConnect:(NSNotification *)note
 {
+#if !TARGET_OS_SIMULATOR
     GCController *controller = [note object];
     // 8Bitdo controllers don't have a pause button, so don't hide the menu
     if (![controller isKindOfClass:[PViCade8BitdoController class]]) {
@@ -907,6 +939,7 @@ void uncaughtExceptionHandler(NSException *exception)
 		}
 #endif
     }
+#endif
 }
 
 - (void)controllerDidDisconnect:(NSNotification *)note
@@ -960,6 +993,14 @@ void uncaughtExceptionHandler(NSException *exception)
         self.secondaryWindow = nil;
         self.secondaryScreen = nil;
     }
+}
+
+#pragma mark - PVAudioDelegate
+
+- (void)audioSampleRateDidChange
+{
+    [self.gameAudio stopAudio];
+    [self.gameAudio startAudio];
 }
 
 @end

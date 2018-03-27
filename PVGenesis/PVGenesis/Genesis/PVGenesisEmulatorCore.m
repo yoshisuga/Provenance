@@ -9,6 +9,7 @@
 #import "PVGenesisEmulatorCore.h"
 #import <PVSupport/OERingBuffer.h>
 #import <PVSupport/DebugUtils.h>
+#import <PVGenesis/libretro.h>
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES3/gl.h>
 
@@ -183,7 +184,7 @@ static bool environment_callback(unsigned cmd, void *data)
 	retro_run();
 }
 
-- (BOOL)loadFileAtPath:(NSString*)path
+- (BOOL)loadFileAtPath:(NSString*)path error:(NSError**)error
 {
 	memset(_pad, 0, sizeof(int16_t) * 10);
     
@@ -195,6 +196,17 @@ static bool environment_callback(unsigned cmd, void *data)
     NSData* dataObj = [NSData dataWithContentsOfFile:[path stringByStandardizingPath]];
     if (dataObj == nil)
 	{
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: @"Failed to load game.",
+                                   NSLocalizedFailureReasonErrorKey: @"File was unreadble.",
+                                   NSLocalizedRecoverySuggestionErrorKey: @"Check the file isn't corrupt and exists."
+                                   };
+        
+        NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+                                                code:PVEmulatorCoreErrorCodeCouldNotLoadRom
+                                            userInfo:userInfo];
+        
+        *error = newError;
 		return false;
 	}
     size = [dataObj length];
@@ -240,6 +252,18 @@ static bool environment_callback(unsigned cmd, void *data)
         
         return YES;
     }
+    
+    NSDictionary *userInfo = @{
+                               NSLocalizedDescriptionKey: @"Failed to load game.",
+                               NSLocalizedFailureReasonErrorKey: @"GenPlusGX failed to load game.",
+                               NSLocalizedRecoverySuggestionErrorKey: @"Check the file isn't corrupt and supported GenPlusGX ROM format."
+                               };
+    
+    NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+                                            code:PVEmulatorCoreErrorCodeCouldNotLoadRom
+                                        userInfo:userInfo];
+    
+    *error = newError;
     
     return NO;
 }
@@ -289,12 +313,28 @@ static bool environment_callback(unsigned cmd, void *data)
 
 - (CGRect)screenRect
 {
-	return CGRectMake(0, 0, _videoWidth, _videoHeight);
+    if([[self systemIdentifier] isEqualToString:@"com.openemu.gamegear"])
+    {
+        return CGRectMake(0, 0, 160, 144);
+    }
+    else
+    {
+        return CGRectMake(0, 0, _videoWidth, _videoHeight);
+    }
 }
 
 - (CGSize)aspectSize
 {
-	return CGSizeMake(4, 3);
+    if([[self systemIdentifier] isEqualToString:@"com.provenance.gamegear"])
+    {
+        return CGSizeMake(160, 144);
+    }
+    else if([[self systemIdentifier] isEqualToString:@"com.provenance.mastersystem"] || [[self systemIdentifier] isEqualToString:@"com.provenance.sg1000"])
+    {
+        return CGSizeMake(256 * (8.0/7.0), 192);
+    }else {
+        return CGSizeMake(4, 3);
+    }
 }
 
 - (CGSize)bufferSize
@@ -336,12 +376,12 @@ static bool environment_callback(unsigned cmd, void *data)
 
 #pragma mark - Input
 
-- (void)pushGenesisButton:(PVGenesisButton)button forPlayer:(NSInteger)player
+- (void)didPushGenesisButton:(PVGenesisButton)button forPlayer:(NSInteger)player
 {
 	_pad[player][button] = 1;
 }
 
-- (void)releaseGenesisButton:(PVGenesisButton)button forPlayer:(NSInteger)player
+- (void)didReleaseGenesisButton:(PVGenesisButton)button forPlayer:(NSInteger)player
 {
 	_pad[player][button] = 0;
 }

@@ -30,141 +30,14 @@
 
 @class OERingBuffer;
 
-typedef NS_ENUM(NSInteger, PVPSXButton)
-{
-    PVPSXButtonUp,
-    PVPSXButtonDown,
-    PVPSXButtonLeft,
-    PVPSXButtonRight,
-    PVPSXButtonTriangle,
-    PVPSXButtonCircle,
-    PVPSXButtonCross,
-    PVPSXButtonSquare,
-    PVPSXButtonL1,
-    PVPSXButtonL2,
-    PVPSXButtonL3,
-    PVPSXButtonR1,
-    PVPSXButtonR2,
-    PVPSXButtonR3,
-    PVPSXButtonStart,
-    PVPSXButtonSelect,
-    PVPSXButtonAnalogMode,
-    OEPSXLeftAnalogUp,
-    OEPSXLeftAnalogDown,
-    OEPSXLeftAnalogLeft,
-    OEPSXLeftAnalogRight,
-    OEPSXRightAnalogUp,
-    OEPSXRightAnalogDown,
-    OEPSXRightAnalogLeft,
-    OEPSXRightAnalogRight,
-    PVPSXButtonCount
-};
-
-typedef NS_ENUM(NSInteger, OEWSButton) {
-    OEWSButtonX1, // Up
-    OEWSButtonX3, // Down
-    OEWSButtonX4, // Left
-    OEWSButtonX2, // Right
-    OEWSButtonY1,
-    OEWSButtonY3,
-    OEWSButtonY4,
-    OEWSButtonY2,
-    OEWSButtonA,
-    OEWSButtonB,
-    OEWSButtonStart,
-    OEWSButtonSound,
-    OEWSButtonCount
-};
-
-typedef NS_ENUM(NSInteger, OEVBButton) {
-    OEVBButtonLeftUp,
-    OEVBButtonLeftDown,
-    OEVBButtonLeftLeft,
-    OEVBButtonLeftRight,
-    OEVBButtonRightUp,
-    OEVBButtonRightDown,
-    OEVBButtonRightLeft,
-    OEVBButtonRightRight,
-    OEVBButtonL,
-    OEVBButtonR,
-    OEVBButtonA,
-    OEVBButtonB,
-    OEVBButtonStart,
-    OEVBButtonSelect,
-    OEVBButtonCount
-};
-
-typedef NS_ENUM(NSInteger, OEPCEButton) {
-    OEPCEButtonUp,
-    OEPCEButtonDown,
-    OEPCEButtonLeft,
-    OEPCEButtonRight,
-    OEPCEButton1,
-    OEPCEButton2,
-    OEPCEButton3,
-    OEPCEButton4,
-    OEPCEButton5,
-    OEPCEButton6,
-    OEPCEButtonRun,
-    OEPCEButtonSelect,
-    OEPCEButtonMode,
-    OEPCEButtonCount
-};
-
-typedef NS_ENUM(NSInteger, OEPCFXButton) {
-    OEPCFXButtonUp,
-    OEPCFXButtonDown,
-    OEPCFXButtonLeft,
-    OEPCFXButtonRight,
-    OEPCFXButton1,
-    OEPCFXButton2,
-    OEPCFXButton3,
-    OEPCFXButton4,
-    OEPCFXButton5,
-    OEPCFXButton6,
-    OEPCFXButtonRun,
-    OEPCFXButtonSelect,
-    OEPCFXButtonCount,
-};
-
-typedef NS_ENUM(NSInteger, OEPCECDButton) {
-    OEPCECDButtonUp,
-    OEPCECDButtonDown,
-    OEPCECDButtonLeft,
-    OEPCECDButtonRight,
-    OEPCECDButton1,
-    OEPCECDButton2,
-    OEPCECDButton3,
-    OEPCECDButton4,
-    OEPCECDButton5,
-    OEPCECDButton6,
-    OEPCECDButtonRun,
-    OEPCECDButtonSelect,
-    OEPCECDButtonMode,
-    OEPCECDButtonCount
-};
-
-typedef NS_ENUM(NSInteger, OELynxButton) {
-    OELynxButtonUp,
-    OELynxButtonDown,
-    OELynxButtonLeft,
-    OELynxButtonRight,
-    OELynxButtonA,
-    OELynxButtonB,
-    OELynxButtonOption1,
-    OELynxButtonOption2,
-    OELynxButtonCount
-};
-
-typedef NS_ENUM(NSInteger, OENGPButton) {
-    OENGPButtonUp,
-    OENGPButtonDown,
-    OENGPButtonLeft,
-    OENGPButtonRight,
-    OENGPButtonA,
-    OENGPButtonB,
-    OENGPButtonOption,
-    OENGPButtonCount,
+typedef NS_ENUM(NSInteger, MednaSystem) {
+    MednaSystemLynx,
+    MednaSystemNeoGeo,
+    MednaSystemPCE,
+    MednaSystemPCFX,
+    MednaSystemPSX,
+    MednaSystemVirtualBoy,
+    MednaSystemWonderSwan
 };
 
 __attribute__((visibility("default")))
@@ -173,33 +46,11 @@ __attribute__((visibility("default")))
 @property (nonatomic) BOOL isStartPressed;
 @property (nonatomic) BOOL isSelectPressed;
 
-// Atari Lynx
-- (oneway void)didPushLynxButton:(OELynxButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleaseLynxButton:(OELynxButton)button forPlayer:(NSUInteger)player;
+@end
 
-// Neo Geo Pocket + Color
-- (oneway void)didPushNGPButton:(OENGPButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleaseNGPButton:(OENGPButton)button forPlayer:(NSUInteger)player;
-
-// PC-*
-- (oneway void)didPushPCEButton:(OEPCEButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleasePCEButton:(OEPCEButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didPushPCECDButton:(OEPCECDButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleasePCECDButton:(OEPCECDButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didPushPCFXButton:(OEPCFXButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleasePCFXButton:(OEPCFXButton)button forPlayer:(NSUInteger)player;
-
-// PSX
-- (oneway void)didPushPSXButton:(PVPSXButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleasePSXButton:(PVPSXButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didMovePSXJoystickDirection:(PVPSXButton)button withValue:(CGFloat)value forPlayer:(NSUInteger)player;
-
-// Virtual Boy
-- (oneway void)didPushVBButton:(OEVBButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleaseVBButton:(OEVBButton)button forPlayer:(NSUInteger)player;
-
-// WonderSwan
-- (oneway void)didPushWSButton:(OEWSButton)button forPlayer:(NSUInteger)player;
-- (oneway void)didReleaseWSButton:(OEWSButton)button forPlayer:(NSUInteger)player;
-
+// for Swiwt
+@interface MednafenGameCore()
+@property (nonatomic, assign) MednaSystem systemType;
+@property (nonatomic, assign) NSUInteger maxDiscs;
+-(void)setMedia:(BOOL)open forDisc:(NSUInteger)disc;
 @end

@@ -80,7 +80,7 @@ static __weak PVGBAEmulatorCore *_current;
 
 # pragma mark - Execution
 
-- (BOOL)loadFileAtPath:(NSString *)path
+- (BOOL)loadFileAtPath:(NSString *)path error:(NSError**)error
 {
     memset(pad, 0, sizeof(uint32_t) * PVGBAButtonCount);
 
@@ -88,8 +88,21 @@ static __weak PVGBAEmulatorCore *_current;
 
     int loaded = CPULoadRom([path UTF8String]);
 
-    if(loaded == 0)
+    if(loaded == 0) {
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: @"Failed to load game.",
+                                   NSLocalizedFailureReasonErrorKey: @"VisualBoyAdvanced failed to load ROM.",
+                                   NSLocalizedRecoverySuggestionErrorKey: @"Check that file isn't corrupt and in format VisualBoyAdvanced supports."
+                                   };
+        
+        NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+                                                code:PVEmulatorCoreErrorCodeCouldNotLoadRom
+                                            userInfo:userInfo];
+        
+        *error = newError;
+        
         return NO;
+    }
 
     utilUpdateSystemColorMaps(false);
 
@@ -134,11 +147,12 @@ static __weak PVGBAEmulatorCore *_current;
     
     _saveFile = [NSURL fileURLWithPath:[batterySavesDirectory stringByAppendingPathComponent:[extensionlessFilename stringByAppendingPathExtension:@"sav2"]]];
 
-    if ([_saveFile checkResourceIsReachableAndReturnError:nil] && vba.emuReadBattery([[_saveFile path] UTF8String]))
-        DLog(@"VBA: Battery loaded");
-    else
+    if ([_saveFile checkResourceIsReachableAndReturnError:nil] && vba.emuReadBattery([[_saveFile path] UTF8String])) {
+        ILOG(@"VBA: Battery loaded");
+    }
+    else {
         [self migrateSaveFile];
-
+    }
     emulating = 1;
 
     return YES;
@@ -262,12 +276,12 @@ enum {
 };
 const int GBAMap[] = {KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_BUTTON_A, KEY_BUTTON_B, KEY_BUTTON_L, KEY_BUTTON_R, KEY_BUTTON_START, KEY_BUTTON_SELECT};
 
-- (oneway void)pushGBAButton:(PVGBAButton)button forPlayer:(NSInteger)player
+- (void)didPushGBAButton:(PVGBAButton)button forPlayer:(NSInteger)player
 {
     pad[player] |= GBAMap[button];
 }
 
-- (oneway void)releaseGBAButton:(PVGBAButton)button forPlayer:(NSInteger)player
+- (void)didReleaseGBAButton:(PVGBAButton)button forPlayer:(NSInteger)player
 {
     pad[player] &= ~GBAMap[button];
 }

@@ -31,9 +31,6 @@
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
 
-#import "PVA8SystemResponderClient.h"
-#import "PV5200SystemResponderClient.h"
-
 // ataria800 project includes
 #include "afile.h"
 #include "akey.h"
@@ -240,6 +237,18 @@ __weak static ATR800GameCore * _currentCore;
     if(!AFILE_OpenFile([path UTF8String], 1, 1, FALSE))
     {
         NSLog(@"Failed to open file");
+        NSDictionary *userInfo = @{
+                                   NSLocalizedDescriptionKey: @"Failed to load game.",
+                                   NSLocalizedFailureReasonErrorKey: @"atari800 failed to load ROM.",
+                                   NSLocalizedRecoverySuggestionErrorKey: @"Check that file isn't corrupt and in format atari800 supports."
+                                   };
+        
+        NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+                                                code:PVEmulatorCoreErrorCodeCouldNotLoadRom
+                                            userInfo:userInfo];
+        
+        *error = newError;
+        
         return NO;
     }
 
@@ -305,7 +314,8 @@ __weak static ATR800GameCore * _currentCore;
 
 - (CGRect)screenRect
 {
-    return CGRectMake(24, 0, Screen_WIDTH, Screen_HEIGHT);
+    return CGRectMake(24, 0, 336, 240);
+//    return CGRectMake(24, 0, Screen_WIDTH, Screen_HEIGHT);
 }
 
 - (CGSize)aspectSize
@@ -365,42 +375,42 @@ __weak static ATR800GameCore * _currentCore;
 
 #pragma mark - Input
 
-- (oneway void)mouseMovedAtPoint:(CGPoint)point
+- (void)mouseMovedAtPoint:(CGPoint)point
 {
 
 }
 
-- (oneway void)leftMouseDownAtPoint:(CGPoint)point
+- (void)leftMouseDownAtPoint:(CGPoint)point
 {
 
 }
 
-- (oneway void)leftMouseUp
+- (void)leftMouseUp
 {
 
 }
 
-- (oneway void)rightMouseDownAtPoint:(CGPoint)point
+- (void)rightMouseDownAtPoint:(CGPoint)point
 {
 
 }
 
-- (oneway void)rightMouseUp
+- (void)rightMouseUp
 {
 
 }
 
-//- (oneway void)keyDown:(unsigned short)keyHIDCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)modifierFlags
+//- (void)keyDown:(unsigned short)keyHIDCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)modifierFlags
 //{
 
 //}
 
-//- (oneway void)keyUp:(unsigned short)keyHIDCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)modifierFlags
+//- (void)keyUp:(unsigned short)keyHIDCode characters:(NSString *)characters charactersIgnoringModifiers:(NSString *)charactersIgnoringModifiers flags:(NSEventModifierFlags)modifierFlags
 //{
 
 //}
 
-- (oneway void)didPushA8Button:(PVA8Button)button forPlayer:(NSUInteger)player
+- (void)didPushA8Button:(PVA8Button)button forPlayer:(NSUInteger)player
 {
     player--;
 
@@ -428,7 +438,7 @@ __weak static ATR800GameCore * _currentCore;
     }
 }
 
-- (oneway void)didReleaseA8Button:(PVA8Button)button forPlayer:(NSUInteger)player
+- (void)didReleaseA8Button:(PVA8Button)button forPlayer:(NSUInteger)player
 {
     player--;
 
@@ -456,7 +466,7 @@ __weak static ATR800GameCore * _currentCore;
     }
 }
 
-- (oneway void)didPush5200Button:(PV5200Button)button forPlayer:(NSUInteger)player
+- (void)didPush5200Button:(PV5200Button)button forPlayer:(NSUInteger)player
 {
 	switch (button)
     {
@@ -492,34 +502,34 @@ __weak static ATR800GameCore * _currentCore;
 //            controllerStates[player].reset = 1;
             INPUT_key_code = AKEY_5200_RESET;
             break;
-        case PV5200Button1:
+        case PV5200ButtonNumber1:
             INPUT_key_code = AKEY_5200_1;
             break;
-        case PV5200Button2:
+        case PV5200ButtonNumber2:
             INPUT_key_code = AKEY_5200_2;
             break;
-        case PV5200Button3:
+        case PV5200ButtonNumber3:
             INPUT_key_code = AKEY_5200_3;
             break;
-        case PV5200Button4:
+        case PV5200ButtonNumber4:
             INPUT_key_code = AKEY_5200_4;
             break;
-        case PV5200Button5:
+        case PV5200ButtonNumber5:
             INPUT_key_code = AKEY_5200_5;
             break;
-        case PV5200Button6:
+        case PV5200ButtonNumber6:
             INPUT_key_code = AKEY_5200_6;
             break;
-        case PV5200Button7:
+        case PV5200ButtonNumber7:
             INPUT_key_code = AKEY_5200_7;
             break;
-        case PV5200Button8:
+        case PV5200ButtonNumber8:
             INPUT_key_code = AKEY_5200_8;
             break;
-        case PV5200Button9:
+        case PV5200ButtonNumber9:
             INPUT_key_code = AKEY_5200_9;
             break;
-        case PV5200Button0:
+        case PV5200ButtonNumber0:
             INPUT_key_code = AKEY_5200_0;
             break;
         case PV5200ButtonAsterisk:
@@ -533,7 +543,7 @@ __weak static ATR800GameCore * _currentCore;
 	}
 }
 
-- (oneway void)didRelease5200Button:(PV5200Button)button forPlayer:(NSUInteger)player
+- (void)didRelease5200Button:(PV5200Button)button forPlayer:(NSUInteger)player
 {
     switch (button)
     {
@@ -565,34 +575,34 @@ __weak static ATR800GameCore * _currentCore;
         case PV5200ButtonReset:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button1:
+        case PV5200ButtonNumber1:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button2:
+        case PV5200ButtonNumber2:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button3:
+        case PV5200ButtonNumber3:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button4:
+        case PV5200ButtonNumber4:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button5:
+        case PV5200ButtonNumber5:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button6:
+        case PV5200ButtonNumber6:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button7:
+        case PV5200ButtonNumber7:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button8:
+        case PV5200ButtonNumber8:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button9:
+        case PV5200ButtonNumber9:
             INPUT_key_code = AKEY_NONE;
             break;
-        case PV5200Button0:
+        case PV5200ButtonNumber0:
             INPUT_key_code = AKEY_NONE;
             break;
         case PV5200ButtonAsterisk:

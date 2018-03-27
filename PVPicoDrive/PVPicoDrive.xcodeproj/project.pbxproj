@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3547B5D205858D800CFF7D8 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3547B5C205858D800CFF7D8 /* Core.plist */; };
+		B3547B5E205858D800CFF7D8 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3547B5C205858D800CFF7D8 /* Core.plist */; };
 		B368C2461D6D873900FE9EF8 /* compiler.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94EB17829B4400A212AC /* compiler.c */; };
 		B36BE9041DEB43120078A9CB /* stub_arm.S in Sources */ = {isa = PBXBuildFile; fileRef = 946B94F117829B4400A212AC /* stub_arm.S */; };
 		B36EE5131D6D3B5F000D545F /* compiler.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94EB17829B4400A212AC /* compiler.c */; };
@@ -14,7 +16,7 @@
 		B36EE5151D6D3BF1000D545F /* compiler.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94D517829B4400A212AC /* compiler.c */; };
 		B371709E1D6CB559005D1EFF /* carthw.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 946B94F317829B4400A212AC /* carthw.cfg */; };
 		B371709F1D6CB55A005D1EFF /* carthw.cfg in Resources */ = {isa = PBXBuildFile; fileRef = 946B94F317829B4400A212AC /* carthw.cfg */; };
-		B37937B01D6BCF8100EBAE81 /* PicoDrive.h in Headers */ = {isa = PBXBuildFile; fileRef = B37937AE1D6BCF8100EBAE81 /* PicoDrive.h */; };
+		B37937B01D6BCF8100EBAE81 /* PicoDrive.h in Headers */ = {isa = PBXBuildFile; fileRef = B37937AE1D6BCF8100EBAE81 /* PicoDrive.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B37937B41D6BCFB400EBAE81 /* PicodriveGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 82287C33101E9DB40072172D /* PicodriveGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B37937B51D6BD01300EBAE81 /* cz80.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94B017829B4400A212AC /* cz80.c */; };
 		B37937B61D6BD02D00EBAE81 /* cmn.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94BE17829B4400A212AC /* cmn.c */; };
@@ -81,7 +83,6 @@
 		B37937FB1D6BDF5A00EBAE81 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37937FA1D6BDF5A00EBAE81 /* Foundation.framework */; };
 		B37937FD1D6BDF5F00EBAE81 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B37937FC1D6BDF5F00EBAE81 /* libz.tbd */; };
 		B3A3E9701D6BE0A100CCD7C8 /* PicodriveGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 82287C34101E9DB40072172D /* PicodriveGameCore.m */; };
-		B3A3E9721D6BE0CD00CCD7C8 /* OESega32XSystemResponderClient.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A3E9711D6BE0CD00CCD7C8 /* OESega32XSystemResponderClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3A3E9731D6BE50400CCD7C8 /* sh2pico.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94DB17829B4400A212AC /* sh2pico.c */; };
 		B3A3E97B1D6BE85600CCD7C8 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B94E317829B4400A212AC /* memory.c */; };
 		B3A3E9871D6BFF6F00CCD7C8 /* PicodriveGameCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 82287C34101E9DB40072172D /* PicodriveGameCore.m */; };
@@ -151,8 +152,7 @@
 		B3A3E9C71D6BFF6F00CCD7C8 /* mp3.c in Sources */ = {isa = PBXBuildFile; fileRef = 946B954517829B4500A212AC /* mp3.c */; };
 		B3A3E9C91D6BFF6F00CCD7C8 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B37937FC1D6BDF5F00EBAE81 /* libz.tbd */; };
 		B3A3E9CA1D6BFF6F00CCD7C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B37937FA1D6BDF5A00EBAE81 /* Foundation.framework */; };
-		B3A3E9CD1D6BFF6F00CCD7C8 /* PicoDrive.h in Headers */ = {isa = PBXBuildFile; fileRef = B37937AE1D6BCF8100EBAE81 /* PicoDrive.h */; };
-		B3A3E9CE1D6BFF6F00CCD7C8 /* OESega32XSystemResponderClient.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A3E9711D6BE0CD00CCD7C8 /* OESega32XSystemResponderClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3A3E9CD1D6BFF6F00CCD7C8 /* PicoDrive.h in Headers */ = {isa = PBXBuildFile; fileRef = B37937AE1D6BCF8100EBAE81 /* PicoDrive.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3A3E9CF1D6BFF6F00CCD7C8 /* PicodriveGameCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 82287C33101E9DB40072172D /* PicodriveGameCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3D2E38A1D6E7E5C0058544D /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D2E3891D6E7E5C0058544D /* PVSupport.framework */; };
 		B3D2E38B1D6E7E650058544D /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A3E9D61D6BFFEC00CCD7C8 /* PVSupport.framework */; };
@@ -576,13 +576,13 @@
 		94E45B9A17E67B560079D59E /* mcd_arm.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = mcd_arm.s; sourceTree = "<group>"; };
 		94E45B9B17E67B560079D59E /* mcd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mcd.c; sourceTree = "<group>"; };
 		94E45B9E17E67C630079D59E /* sh2soc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sh2soc.c; sourceTree = "<group>"; };
+		B3547B5C205858D800CFF7D8 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
 		B37937AC1D6BCF8100EBAE81 /* PicoDrive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PicoDrive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37937AE1D6BCF8100EBAE81 /* PicoDrive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PicoDrive.h; sourceTree = "<group>"; };
 		B37937AF1D6BCF8100EBAE81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B37937F81D6BDF4E00EBAE81 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = "../PVSupport/build/Debug-iphoneos/PVSupport.framework"; sourceTree = "<group>"; };
 		B37937FA1D6BDF5A00EBAE81 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		B37937FC1D6BDF5F00EBAE81 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
-		B3A3E9711D6BE0CD00CCD7C8 /* OESega32XSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OESega32XSystemResponderClient.h; sourceTree = "<group>"; };
 		B3A3E9D41D6BFF6F00CCD7C8 /* PicoDrive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PicoDrive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A3E9D61D6BFFEC00CCD7C8 /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = "../../../Library/Developer/Xcode/DerivedData/Provenance-cqyrqlnsqskspscgaptpbmkqmvze/Build/Products/Debug-appletvsimulator/PVSupport.framework"; sourceTree = "<group>"; };
 		B3D2E3891D6E7E5C0058544D /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = "../../../Library/Developer/Xcode/DerivedData/Provenance-cqyrqlnsqskspscgaptpbmkqmvze/Build/Products/Debug-iphonesimulator/PVSupport.framework"; sourceTree = "<group>"; };
@@ -651,7 +651,6 @@
 			isa = PBXGroup;
 			children = (
 				946B948B17829AFD00A212AC /* picodrive */,
-				B3A3E9711D6BE0CD00CCD7C8 /* OESega32XSystemResponderClient.h */,
 				82287C33101E9DB40072172D /* PicodriveGameCore.h */,
 				82287C34101E9DB40072172D /* PicodriveGameCore.m */,
 			);
@@ -1457,6 +1456,7 @@
 			isa = PBXGroup;
 			children = (
 				B37937AE1D6BCF8100EBAE81 /* PicoDrive.h */,
+				B3547B5C205858D800CFF7D8 /* Core.plist */,
 				B37937AF1D6BCF8100EBAE81 /* Info.plist */,
 			);
 			path = PicoDrive;
@@ -1482,7 +1482,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B37937B01D6BCF8100EBAE81 /* PicoDrive.h in Headers */,
-				B3A3E9721D6BE0CD00CCD7C8 /* OESega32XSystemResponderClient.h in Headers */,
 				B37937B41D6BCFB400EBAE81 /* PicodriveGameCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1492,7 +1491,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A3E9CD1D6BFF6F00CCD7C8 /* PicoDrive.h in Headers */,
-				B3A3E9CE1D6BFF6F00CCD7C8 /* OESega32XSystemResponderClient.h in Headers */,
 				B3A3E9CF1D6BFF6F00CCD7C8 /* PicodriveGameCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1548,8 +1546,7 @@
 				TargetAttributes = {
 					B37937AB1D6BCF8100EBAE81 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = V78REPMQFZ;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					B3A3E9851D6BFF6F00CCD7C8 = {
 						DevelopmentTeam = V78REPMQFZ;
@@ -1579,6 +1576,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B371709E1D6CB559005D1EFF /* carthw.cfg in Resources */,
+				B3547B5D205858D800CFF7D8 /* Core.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1587,6 +1585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B371709F1D6CB55A005D1EFF /* carthw.cfg in Resources */,
+				B3547B5E205858D800CFF7D8 /* Core.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,8 +1853,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1883,7 +1880,7 @@
 				);
 				INFOPLIST_FILE = PicoDrive/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1902,6 +1899,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jamsoftonline.$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1922,8 +1920,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1945,7 +1941,7 @@
 				);
 				INFOPLIST_FILE = PicoDrive/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
@@ -1963,6 +1959,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jamsoftonline.$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1984,9 +1981,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2036,7 +2031,7 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)\"";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2054,9 +2049,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2099,7 +2092,7 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)\"";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -37,6 +37,9 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 		NSUInteger count = [self audioBufferCount];
         ringBuffers = (__strong OERingBuffer **)calloc(count, sizeof(OERingBuffer *));
         self.emulationLoopThreadLock = [NSLock new];
+        self.frontBufferCondition = [NSCondition new];
+        self.frontBufferLock = [NSLock new];
+        [self setIsFrontBufferReady:NO];
         _gameSpeed = GameSpeedNormal;
 	}
 	
@@ -67,7 +70,6 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 			shouldStop = NO;
             self.gameSpeed = GameSpeedNormal;
             [NSThread detachNewThreadSelector:@selector(emulationLoopThread) toTarget:self withObject:nil];
-
 		}
 	}
 }
@@ -75,6 +77,14 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 - (void)resetEmulation
 {
 	[self doesNotImplementSelector:_cmd];
+}
+
+// GameCores that render direct to OpenGL rather than a buffer should override this and return YES
+// If the GameCore subclass returns YES, the renderDelegate will set the appropriate GL Context
+// So the GameCore subclass can just draw to OpenGL
+- (BOOL)rendersToOpenGL
+{
+    return NO;
 }
 
 - (void)setPauseEmulation:(BOOL)flag
@@ -99,8 +109,11 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 	shouldStop = YES;
     isRunning  = NO;
 
-    [self.emulationLoopThreadLock lock]; // make sure emulator loop has ended
-    [self.emulationLoopThreadLock unlock];
+    [self setIsFrontBufferReady:NO];
+    [self.frontBufferCondition signal];
+    
+//    [self.emulationLoopThreadLock lock]; // make sure emulator loop has ended
+//    [self.emulationLoopThreadLock unlock];
 }
 
 - (void)updateControllers
@@ -112,6 +125,7 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 
     // For FPS computation
     int frameCount = 0;
+    int framesTorn = 0;
     NSDate *fpsCounter = [NSDate date];
     
     //Setup Initial timing
@@ -131,13 +145,45 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
         
         @synchronized (self) {
             if (isRunning) {
-                [self executeFrame];
+                if (self.isSpeedModified)
+                {
+                    [self executeFrame];
+                }
+                else
+                {
+                    @synchronized(self)
+                    {
+                        [self executeFrame];
+                    }
+                }
             }
         }
         frameCount += 1;
 
         nextEmuTick += gameInterval;
         sleepTime = nextEmuTick - GetSecondsSince(origin);
+        
+        if ([self isDoubleBuffered])
+        {
+            NSDate* bufferSwapLimit = [[NSDate date] dateByAddingTimeInterval:sleepTime];
+            if ([self.frontBufferLock tryLock] || [self.frontBufferLock lockBeforeDate:bufferSwapLimit]) {
+                [self swapBuffers];
+                [self.frontBufferLock unlock];
+                
+                [self.frontBufferCondition lock];
+                [self setIsFrontBufferReady:YES];
+                [self.frontBufferCondition signal];
+                [self.frontBufferCondition unlock];
+            } else {
+                [self swapBuffers];
+                ++framesTorn;
+                
+                [self setIsFrontBufferReady:YES];
+            }
+
+            sleepTime = nextEmuTick - GetSecondsSince(origin);
+        }
+        
         if(sleepTime >= 0) {
             [NSThread sleepForTimeInterval:sleepTime];
         }
@@ -152,7 +198,9 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
         NSTimeInterval timeSinceLastFPS = GetSecondsSince(fpsCounter);
         if (timeSinceLastFPS >= 0.5) {
             self.emulationFPS = (double)frameCount / timeSinceLastFPS;
+            self.renderFPS = (double)(frameCount - framesTorn) / timeSinceLastFPS;
             frameCount = 0;
+            framesTorn = 0;
             fpsCounter = [NSDate date];
         }
         
@@ -185,9 +233,11 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 
 - (void)setFramerateMultiplier:(CGFloat)framerateMultiplier
 {
-	_framerateMultiplier = framerateMultiplier;
-
-    NSLog(@"multiplier: %.1f", framerateMultiplier);
+    if ( _framerateMultiplier != framerateMultiplier )
+    {
+        _framerateMultiplier = framerateMultiplier;
+        NSLog(@"multiplier: %.1f", framerateMultiplier);
+    }
     gameInterval = 1.0 / ([self frameInterval] * framerateMultiplier);
 }
 
@@ -205,16 +255,6 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 - (BOOL)loadFileAtPath:(NSString *)path error:(NSError **)error
 {
     return [self loadFileAtPath:path];
-}
-
-- (BOOL)supportsDiskSwapping
-{
-    return NO;
-}
-
-- (void)swapDisk
-{
-    [self doesNotImplementOptionalSelector:_cmd];
 }
 
 #pragma mark - Video
@@ -266,8 +306,13 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 	return defaultFrameInterval;
 }
 
-- (BOOL)wideScreen {
+- (BOOL)isDoubleBuffered {
     return NO;
+}
+
+- (void)swapBuffers
+{
+    NSAssert(!self.isDoubleBuffered, @"Cores that are double-buffered must implement swapBuffers!");
 }
 
 #pragma mark - Audio
@@ -342,6 +387,10 @@ NSString *const PVEmulatorCoreErrorDomain = @"com.jamsoftonline.EmulatorCore.Err
 	}
 	
     return ringBuffers[index];
+}
+
+-(NSUInteger)discCount {
+    return 0;
 }
 
 #pragma mark - Save States

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>$(APP_DISPLAY_NAME)</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -18,6 +18,12 @@
 				<string>public.data</string>
 				<string>org.7-zip.7-zip-archive</string>
 			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string></string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -35,12 +41,33 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4</string>
+	<string>1.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLIconFile</key>
+			<string>URLIcon-83.5@2x</string>
+			<key>CFBundleURLName</key>
+			<string>com.provenance-emu.provenance</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>provenance</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>823</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>provenance</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
@@ -53,6 +80,11 @@
 	<string>Provenance can set custom artworks from your photos or save screenshots to your photos library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Provenance can set custom artworks from your photos or save screenshots to your photos library.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.provenance-emu.webserver</string>
+		<string>com.provenance-emu.game.play</string>
+	</array>
 	<key>Revision</key>
 	<string>78dc628</string>
 	<key>UIFileSharingEnabled</key>
@@ -69,6 +101,8 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -81,6 +115,121 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ROM file</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.provenance.rom</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.provenanve.org/</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ROM</string>
+					<string>rom</string>
+					<string>cue</string>
+					<string>bin</string>
+					<string>a78</string>
+					<string>a26</string>
+					<string>a52</string>
+					<string>sms</string>
+					<string>smc</string>
+					<string>fig</string>
+					<string>sfc</string>
+					<string>gb</string>
+					<string>gbc</string>
+					<string>sgb</string>
+					<string>gba</string>
+					<string>nes</string>
+					<string>fds</string>
+					<string>lnx</string>
+					<string>ngp</string>
+					<string>ngc</string>
+					<string>ngpc</string>
+					<string>npc</string>
+					<string>pce</string>
+					<string>ws</string>
+					<string>wsc</string>
+					<string>vb</string>
+					<string>n64</string>
+					<string>z64</string>
+					<string>gen</string>
+					<string>md</string>
+					<string>gg</string>
+					<string>smd</string>
+					<string>32x</string>
+					<string>32X</string>
+					<string>min</string>
+					<string>7z</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTITagTypeSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ROM</string>
+					<string>rom</string>
+					<string>cue</string>
+					<string>bin</string>
+					<string>a78</string>
+					<string>a26</string>
+					<string>a52</string>
+					<string>sms</string>
+					<string>smc</string>
+					<string>fig</string>
+					<string>sfc</string>
+					<string>gb</string>
+					<string>gbc</string>
+					<string>sgb</string>
+					<string>gba</string>
+					<string>nes</string>
+					<string>fds</string>
+					<string>lnx</string>
+					<string>ngp</string>
+					<string>ngc</string>
+					<string>ngpc</string>
+					<string>npc</string>
+					<string>pce</string>
+					<string>ws</string>
+					<string>wsc</string>
+					<string>vb</string>
+					<string>n64</string>
+					<string>z64</string>
+					<string>gen</string>
+					<string>md</string>
+					<string>gg</string>
+					<string>smd</string>
+					<string>32x</string>
+					<string>32X</string>
+					<string>min</string>
+					<string>7z</string>
+				</array>
+			</dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ROM</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.provenance.rom</string>
+		</dict>
+		<dict/>
 	</array>
 </dict>
 </plist>

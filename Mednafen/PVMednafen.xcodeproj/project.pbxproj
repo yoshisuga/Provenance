@@ -380,6 +380,9 @@
 		B340E5F51E088A4500AD0E8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B340E5F41E088A4500AD0E8B /* Foundation.framework */; };
 		B340E5FB1E088AF100AD0E8B /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B340E5FA1E088AF100AD0E8B /* PVSupport.framework */; };
 		B340E5FD1E088AF700AD0E8B /* PVSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B340E5FC1E088AF700AD0E8B /* PVSupport.framework */; };
+		B3547B60205858EF00CFF7D8 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3547B5F205858EF00CFF7D8 /* Core.plist */; };
+		B3547B61205858EF00CFF7D8 /* Core.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3547B5F205858EF00CFF7D8 /* Core.plist */; };
+		B36CBFED2039819100728482 /* PVMednafen.h in Headers */ = {isa = PBXBuildFile; fileRef = B340E4641E08887700AD0E8B /* PVMednafen.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B39578C91E6D57DD00854D7A /* neopop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3D7D817F1DE5B0090372A /* neopop.cpp */; };
 		B39578CA1E6D57DE00854D7A /* neopop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3D7D817F1DE5B0090372A /* neopop.cpp */; };
 		B39578CB1E6D57F900854D7A /* bios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3D7C717F1DE5B0090372A /* bios.cpp */; };
@@ -434,6 +437,12 @@
 		B39578FE1E6D58FF00854D7A /* gfx_scanline_mono.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3D7D117F1DE5B0090372A /* gfx_scanline_mono.cpp */; };
 		B39578FF1E6D591E00854D7A /* z80_ops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3D64C17F1DE5B0090372A /* z80_ops.cpp */; };
 		B39579001E6D591E00854D7A /* z80_ops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB3D64C17F1DE5B0090372A /* z80_ops.cpp */; };
+		B3A74C8D20522B86001D3D2E /* MednafenGameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74C8C20522B86001D3D2E /* MednafenGameCore.swift */; };
+		B3A74C8E20522B86001D3D2E /* MednafenGameCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74C8C20522B86001D3D2E /* MednafenGameCore.swift */; };
+		B3CF44B82039B64A005BEB14 /* MednafenMultiDisc.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF44B72039B64A005BEB14 /* MednafenMultiDisc.m */; };
+		B3CF44B92039B64A005BEB14 /* MednafenMultiDisc.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF44B72039B64A005BEB14 /* MednafenMultiDisc.m */; };
+		B3CF44BB2039B6D0005BEB14 /* MednafenMultiTap.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF44BA2039B6D0005BEB14 /* MednafenMultiTap.m */; };
+		B3CF44BC2039B6D0005BEB14 /* MednafenMultiTap.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF44BA2039B6D0005BEB14 /* MednafenMultiTap.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1707,14 +1716,7 @@
 		8CB3E09D17F1DFFF0090372A /* trionan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trionan.h; sourceTree = "<group>"; };
 		8CB3E09E17F1DFFF0090372A /* triop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triop.h; sourceTree = "<group>"; };
 		8CB3E09F17F1DFFF0090372A /* triostr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = triostr.h; sourceTree = "<group>"; };
-		8CB3E0A517F1E1B80090372A /* OELynxSystemResponderClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OELynxSystemResponderClient.h; path = ../OpenEmu/Lynx/OELynxSystemResponderClient.h; sourceTree = "<group>"; };
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		940553AC17A3533E009B505D /* OEPCECDSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEPCECDSystemResponderClient.h; path = "../OpenEmu/PC Engine CD/OEPCECDSystemResponderClient.h"; sourceTree = "<group>"; };
-		944543EE17852820006C057B /* OEPSXSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEPSXSystemResponderClient.h; path = ../OpenEmu/PlayStation/OEPSXSystemResponderClient.h; sourceTree = "<group>"; };
-		944543EF1785282E006C057B /* OEPCESystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEPCESystemResponderClient.h; path = "../OpenEmu/PC Engine/OEPCESystemResponderClient.h"; sourceTree = "<group>"; };
-		944543F01785283A006C057B /* OEPCFXSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEPCFXSystemResponderClient.h; path = "../OpenEmu/PC-FX/OEPCFXSystemResponderClient.h"; sourceTree = "<group>"; };
-		944543F21785288D006C057B /* OEVBSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEVBSystemResponderClient.h; path = "../OpenEmu/Virtual Boy/OEVBSystemResponderClient.h"; sourceTree = "<group>"; };
-		944543F31785289B006C057B /* OEWSSystemResponderClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OEWSSystemResponderClient.h; path = ../OpenEmu/WonderSwan/OEWSSystemResponderClient.h; sourceTree = "<group>"; };
 		94454E3617852E44006C057B /* thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = thread.cpp; sourceTree = "<group>"; };
 		94454E3717852E44006C057B /* thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = thread.h; sourceTree = "<group>"; };
 		94454E3B17852E61006C057B /* stubs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stubs.cpp; sourceTree = "<group>"; };
@@ -1825,6 +1827,12 @@
 		B340E5F41E088A4500AD0E8B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		B340E5FA1E088AF100AD0E8B /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = "../PVSupport/build/Debug-iphoneos/PVSupport.framework"; sourceTree = "<group>"; };
 		B340E5FC1E088AF700AD0E8B /* PVSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PVSupport.framework; path = "../PVSupport/build/Debug-appletvos/PVSupport.framework"; sourceTree = "<group>"; };
+		B3547B5F205858EF00CFF7D8 /* Core.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Core.plist; sourceTree = "<group>"; };
+		B3A74C8C20522B86001D3D2E /* MednafenGameCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MednafenGameCore.swift; sourceTree = "<group>"; };
+		B3A74C9220524170001D3D2E /* PVMednafen.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = PVMednafen.modulemap; sourceTree = "<group>"; };
+		B3A74C93205245C4001D3D2E /* Mednafen-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mednafen-Private.h"; sourceTree = "<group>"; };
+		B3CF44B72039B64A005BEB14 /* MednafenMultiDisc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MednafenMultiDisc.m; sourceTree = "<group>"; };
+		B3CF44BA2039B6D0005BEB14 /* MednafenMultiTap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MednafenMultiTap.m; sourceTree = "<group>"; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -1902,15 +1910,11 @@
 			children = (
 				8CB3E08917F1DFFF0090372A /* include */,
 				8CB3D51D17F1DE5A0090372A /* mednafen */,
-				8CB3E0A517F1E1B80090372A /* OELynxSystemResponderClient.h */,
-				944543EF1785282E006C057B /* OEPCESystemResponderClient.h */,
-				940553AC17A3533E009B505D /* OEPCECDSystemResponderClient.h */,
-				944543F01785283A006C057B /* OEPCFXSystemResponderClient.h */,
-				944543EE17852820006C057B /* OEPSXSystemResponderClient.h */,
-				944543F21785288D006C057B /* OEVBSystemResponderClient.h */,
-				944543F31785289B006C057B /* OEWSSystemResponderClient.h */,
 				824088340FFDDCF400F0FE7D /* MednafenGameCore.h */,
 				824088350FFDDCF400F0FE7D /* MednafenGameCore.mm */,
+				B3A74C8C20522B86001D3D2E /* MednafenGameCore.swift */,
+				B3CF44B72039B64A005BEB14 /* MednafenMultiDisc.m */,
+				B3CF44BA2039B6D0005BEB14 /* MednafenMultiTap.m */,
 				94454E3B17852E61006C057B /* stubs.cpp */,
 				94454E3617852E44006C057B /* thread.cpp */,
 				94454E3717852E44006C057B /* thread.h */,
@@ -1948,6 +1952,8 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B3A74C93205245C4001D3D2E /* Mednafen-Private.h */,
+				B3A74C9220524170001D3D2E /* PVMednafen.modulemap */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -4357,6 +4363,7 @@
 		B340E4631E08887700AD0E8B /* PVMednafen */ = {
 			isa = PBXGroup;
 			children = (
+				B3547B5F205858EF00CFF7D8 /* Core.plist */,
 				B340E4641E08887700AD0E8B /* PVMednafen.h */,
 				B340E4651E08887700AD0E8B /* Info.plist */,
 			);
@@ -4396,6 +4403,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36CBFED2039819100728482 /* PVMednafen.h in Headers */,
 				B3223CDE1E09E0CB007BB244 /* MednafenGameCore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4446,14 +4454,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0920;
 				TargetAttributes = {
 					B340E4611E08887600AD0E8B = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					B340E46E1E08888700AD0E8B = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -4480,6 +4490,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3547B60205858EF00CFF7D8 /* Core.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4487,6 +4498,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3547B61205858EF00CFF7D8 /* Core.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4510,6 +4522,7 @@
 				B340E4811E08893000AD0E8B /* PSFLoader.cpp in Sources */,
 				B340E4821E08893000AD0E8B /* input.cpp in Sources */,
 				B340E4831E08893000AD0E8B /* res012.c in Sources */,
+				B3CF44BB2039B6D0005BEB14 /* MednafenMultiTap.m in Sources */,
 				B340E4841E08893000AD0E8B /* hes.cpp in Sources */,
 				B340E4851E08893000AD0E8B /* sound.cpp in Sources */,
 				B340E4861E08893000AD0E8B /* arcade_card.cpp in Sources */,
@@ -4568,6 +4581,7 @@
 				B340E4B31E08893000AD0E8B /* qtrecord.cpp in Sources */,
 				B340E4B41E08893000AD0E8B /* streaminfo.c in Sources */,
 				B340E4B51E08893000AD0E8B /* mednafen.cpp in Sources */,
+				B3A74C8D20522B86001D3D2E /* MednafenGameCore.swift in Sources */,
 				B340E4B61E08893000AD0E8B /* Fir_Resampler.cpp in Sources */,
 				B340E4B71E08893000AD0E8B /* sharedbook.c in Sources */,
 				B340E4B81E08893000AD0E8B /* Stream.cpp in Sources */,
@@ -4667,6 +4681,7 @@
 				B340E50C1E08893000AD0E8B /* pce.cpp in Sources */,
 				B340E50D1E08893000AD0E8B /* info.c in Sources */,
 				B340E50E1E08893000AD0E8B /* king.cpp in Sources */,
+				B3CF44B82039B64A005BEB14 /* MednafenMultiDisc.m in Sources */,
 				B340E50F1E08893000AD0E8B /* resize.cpp in Sources */,
 				B340E5101E08893000AD0E8B /* v810_cpu.cpp in Sources */,
 				B340E5111E08893000AD0E8B /* WAVRecord.cpp in Sources */,
@@ -4724,6 +4739,7 @@
 				B340E5371E08893000AD0E8B /* PSFLoader.cpp in Sources */,
 				B340E5381E08893000AD0E8B /* input.cpp in Sources */,
 				B340E5391E08893000AD0E8B /* res012.c in Sources */,
+				B3CF44BC2039B6D0005BEB14 /* MednafenMultiTap.m in Sources */,
 				B340E53A1E08893000AD0E8B /* hes.cpp in Sources */,
 				B340E53B1E08893000AD0E8B /* sound.cpp in Sources */,
 				B340E53C1E08893000AD0E8B /* arcade_card.cpp in Sources */,
@@ -4782,6 +4798,7 @@
 				B340E5691E08893000AD0E8B /* qtrecord.cpp in Sources */,
 				B340E56A1E08893000AD0E8B /* streaminfo.c in Sources */,
 				B340E56B1E08893000AD0E8B /* mednafen.cpp in Sources */,
+				B3A74C8E20522B86001D3D2E /* MednafenGameCore.swift in Sources */,
 				B340E56C1E08893000AD0E8B /* Fir_Resampler.cpp in Sources */,
 				B340E56D1E08893000AD0E8B /* sharedbook.c in Sources */,
 				B340E56E1E08893000AD0E8B /* Stream.cpp in Sources */,
@@ -4881,6 +4898,7 @@
 				B340E5C21E08893000AD0E8B /* pce.cpp in Sources */,
 				B340E5C31E08893000AD0E8B /* info.c in Sources */,
 				B340E5C41E08893000AD0E8B /* king.cpp in Sources */,
+				B3CF44B92039B64A005BEB14 /* MednafenMultiDisc.m in Sources */,
 				B340E5C51E08893000AD0E8B /* resize.cpp in Sources */,
 				B340E5C61E08893000AD0E8B /* v810_cpu.cpp in Sources */,
 				B340E5C71E08893000AD0E8B /* WAVRecord.cpp in Sources */,
@@ -4943,19 +4961,28 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_EXPERIMENTAL = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -4967,6 +4994,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LLVM_LTO = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -4979,11 +5007,19 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_EXPERIMENTAL = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -4992,6 +5028,7 @@
 				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -5011,14 +5048,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -5028,6 +5067,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5051,12 +5091,14 @@
 				);
 				INFOPLIST_FILE = PVMednafen/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libsndfile",
+					"\"$(SRCROOT)\"",
 				);
+				MODULEMAP_FILE = PVMednafen.modulemap;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
@@ -5096,6 +5138,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5108,14 +5151,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -5124,6 +5169,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					LSB_FIRST,
@@ -5144,12 +5190,14 @@
 				);
 				INFOPLIST_FILE = PVMednafen/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libsndfile",
+					"\"$(SRCROOT)\"",
 				);
+				MODULEMAP_FILE = PVMednafen.modulemap;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -5187,6 +5235,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(SRCROOT)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5201,6 +5250,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -5285,7 +5335,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -5296,6 +5346,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -5374,7 +5425,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

@@ -26,11 +26,11 @@
  */
 
 #import "ProSystemGameCore.h"
-#import "OE7800SystemResponderClient.h"
 
 #import <PVSupport/OERingBuffer.h>
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
+#import <PVSupport/PVSupport-Swift.h>
 
 #include "ProSystem.h"
 #include "Database.h"
@@ -44,7 +44,16 @@
 #define VIDEO_WIDTH     320
 #define VIDEO_HEIGHT    292
 
-@interface PVProSystemGameCore () <OE7800SystemResponderClient> {
+@interface PVProSystemGameCore (PV7800SystemResponderClient) <PV7800SystemResponderClient>
+#pragma mark - OE7800SystemResponderClient
+- (void)didPush7800Button:(PV7800Button)button forPlayer:(NSInteger)player;
+- (void)didRelease7800Button:(PV7800Button)button forPlayer:(NSInteger)player;
+- (void)mouseMovedAtPoint:(CGPoint)point;
+- (void)leftMouseDownAtPoint:(CGPoint)point;
+- (void)leftMouseUp;
+@end
+
+@interface PVProSystemGameCore () <PV7800SystemResponderClient> {
     uint32_t *_videoBuffer;
     uint32_t _displayPalette[256];
     uint8_t  *_soundBuffer;
@@ -79,7 +88,7 @@
 
 #pragma mark - Execution
 
-- (BOOL)loadFileAtPath:(NSString *)path {
+- (BOOL)loadFileAtPath:(NSString *)path error:(NSError**)error {
     const int LEFT_DIFF_SWITCH  = 15;
     const int RIGHT_DIFF_SWITCH = 16;
     const int LEFT_POSITION  = 1; // also know as "B"
@@ -133,7 +142,20 @@
         return YES;
     }
 
+    NSDictionary *userInfo = @{
+                               NSLocalizedDescriptionKey: @"Failed to load game.",
+                               NSLocalizedFailureReasonErrorKey: @"ProSystem failed to load ROM.",
+                               NSLocalizedRecoverySuggestionErrorKey: @"Check that file isn't corrupt and in format ProSystem supports."
+                               };
+    
+    NSError *newError = [NSError errorWithDomain:PVEmulatorCoreErrorDomain
+                                            code:PVEmulatorCoreErrorCodeCouldNotLoadRom
+                                        userInfo:userInfo];
+    
+    *error = newError;
+    
     return NO;
+    
 }
 
 - (void)executeFrame {
@@ -295,7 +317,7 @@
 // | 15       | Console      | Left Difficulty
 // | 16       | Console      | Right Difficulty
 // +----------+--------------+-------------------------------------------------
-typedef NS_ENUM(NSUInteger, PV7800MFiButton) {
+typedef NS_ENUM(NSInteger, PV7800MFiButton) {
     PV7800MFiButtonJoy1Right,
     PV7800MFiButtonJoy1Left,
     PV7800MFiButtonJoy1Down,
@@ -410,101 +432,6 @@ const int ProSystemMap[] = { 3, 2, 1, 0, 4, 5, 9, 8, 7, 6, 10, 11, 13, 14, 12, 1
     }
 }
 
-- (oneway void)didPush7800Button:(OE7800Button)button forPlayer:(NSUInteger)player {
-    int playerShift = player == 0 ? 0 : 6;
-
-    switch(button)
-    {
-            // Controller buttons P1 + P2
-        case OE7800ButtonUp:
-//            _inputState[ProSystemMap[button + playerShift]] ^= 1;
-//            break;
-        case OE7800ButtonDown:
-        case OE7800ButtonLeft:
-        case OE7800ButtonRight:
-        case OE7800ButtonFire1:
-        case OE7800ButtonFire2:
-            _inputState[ProSystemMap[button + playerShift]] = 1;
-            break;
-            // Console buttons
-        case OE7800ButtonSelect:
-        case OE7800ButtonPause:
-        case OE7800ButtonReset:
-            _inputState[ProSystemMap[button + 6]] = 1;
-            break;
-            // Difficulty switches
-        case OE7800ButtonLeftDiff:
-        case OE7800ButtonRightDiff:
-            _inputState[ProSystemMap[button + 6]] ^= (1 << 0);
-            break;
-
-        default:
-            break;
-    }
-}
-
-- (oneway void)didRelease7800Button:(OE7800Button)button forPlayer:(NSUInteger)player {
-    int playerShift = player == 0 ? 0 : 6;
-
-    switch(button)
-    {
-            // Controller buttons P1 + P2
-        case OE7800ButtonUp:
-//            _inputState[ProSystemMap[button + playerShift]] ^= 1;
-//            break;
-        case OE7800ButtonDown:
-        case OE7800ButtonLeft:
-        case OE7800ButtonRight:
-        case OE7800ButtonFire1:
-        case OE7800ButtonFire2:
-            _inputState[ProSystemMap[button + playerShift]] = 0;
-            break;
-            // Console buttons
-        case OE7800ButtonSelect:
-        case OE7800ButtonPause:
-        case OE7800ButtonReset:
-            _inputState[ProSystemMap[button + 6]] = 0;
-            break;
-
-        default:
-            break;
-    }
-}
-
-- (oneway void)mouseMovedAtPoint:(CGPoint)aPoint {
-    if(_isLightgunEnabled) {
-        // All of this really needs to be tweaked per the 5 games that support light gun
-        int yoffset = (cartridge_region == REGION_NTSC ? 2 : -2);
-
-        // The number of scanlines for the current cartridge
-        int scanlines = _videoHeight;
-
-        float yratio = ((float)scanlines / (float)_videoHeight);
-        float xratio = ((float)LG_CYCLES_PER_SCANLINE / (float)_videoWidth);
-
-        lightgun_scanline = (((float)aPoint.y * yratio) + (maria_visibleArea.top - maria_displayArea.top + 1) + yoffset);
-        lightgun_cycle = (HBLANK_CYCLES + LG_CYCLES_INDENT + ((float)aPoint.x * xratio));
-
-        if(lightgun_cycle > CYCLES_PER_SCANLINE) {
-            lightgun_scanline++;
-            lightgun_cycle -= CYCLES_PER_SCANLINE;
-        }
-    }
-}
-
-- (oneway void)leftMouseDownAtPoint:(CGPoint)aPoint {
-    if(_isLightgunEnabled) {
-        [self mouseMovedAtPoint:aPoint];
-
-        _inputState[3] = 0;
-    }
-}
-
-- (oneway void)leftMouseUp {
-    if(_isLightgunEnabled) {
-        _inputState[3] = 1;
-    }
-}
 
 #pragma mark - Misc Helper Methods
 // Set palette 32bpp
@@ -517,4 +444,102 @@ const int ProSystemMap[] = { 3, 2, 1, 0, 4, 5, 9, 8, 7, 6, 10, 11, 13, 14, 12, 1
     }
 }
 
+@end
+
+@implementation PVProSystemGameCore (PV7800SystemResponderClient)
+- (void)didPush7800Button:(PV7800Button)button forPlayer:(NSInteger)player {
+    int playerShift = player == 0 ? 0 : 6;
+    
+    switch(button)
+    {
+            // Controller buttons P1 + P2
+        case PV7800ButtonUp:
+            //            _inputState[ProSystemMap[button + playerShift]] ^= 1;
+            //            break;
+        case PV7800ButtonDown:
+        case PV7800ButtonLeft:
+        case PV7800ButtonRight:
+        case PV7800ButtonFire1:
+        case PV7800ButtonFire2:
+            _inputState[ProSystemMap[button + playerShift]] = 1;
+            break;
+            // Console buttons
+        case PV7800ButtonSelect:
+        case PV7800ButtonPause:
+        case PV7800ButtonReset:
+            _inputState[ProSystemMap[button + 6]] = 1;
+            break;
+            // Difficulty switches
+        case PV7800ButtonLeftDiff:
+        case PV7800ButtonRightDiff:
+            _inputState[ProSystemMap[button + 6]] ^= (1 << 0);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)didRelease7800Button:(PV7800Button)button forPlayer:(NSInteger)player {
+    int playerShift = player == 0 ? 0 : 6;
+    
+    switch(button)
+    {
+            // Controller buttons P1 + P2
+        case PV7800ButtonUp:
+            //            _inputState[ProSystemMap[button + playerShift]] ^= 1;
+            //            break;
+        case PV7800ButtonDown:
+        case PV7800ButtonLeft:
+        case PV7800ButtonRight:
+        case PV7800ButtonFire1:
+        case PV7800ButtonFire2:
+            _inputState[ProSystemMap[button + playerShift]] = 0;
+            break;
+            // Console buttons
+        case PV7800ButtonSelect:
+        case PV7800ButtonPause:
+        case PV7800ButtonReset:
+            _inputState[ProSystemMap[button + 6]] = 0;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)mouseMovedAtPoint:(CGPoint)aPoint {
+    if(_isLightgunEnabled) {
+        // All of this really needs to be tweaked per the 5 games that support light gun
+        int yoffset = (cartridge_region == REGION_NTSC ? 2 : -2);
+        
+        // The number of scanlines for the current cartridge
+        int scanlines = _videoHeight;
+        
+        float yratio = ((float)scanlines / (float)_videoHeight);
+        float xratio = ((float)LG_CYCLES_PER_SCANLINE / (float)_videoWidth);
+        
+        lightgun_scanline = (((float)aPoint.y * yratio) + (maria_visibleArea.top - maria_displayArea.top + 1) + yoffset);
+        lightgun_cycle = (HBLANK_CYCLES + LG_CYCLES_INDENT + ((float)aPoint.x * xratio));
+        
+        if(lightgun_cycle > CYCLES_PER_SCANLINE) {
+            lightgun_scanline++;
+            lightgun_cycle -= CYCLES_PER_SCANLINE;
+        }
+    }
+}
+
+- (void)leftMouseDownAtPoint:(CGPoint)aPoint {
+    if(_isLightgunEnabled) {
+        [self mouseMovedAtPoint:aPoint];
+        
+        _inputState[3] = 0;
+    }
+}
+
+- (void)leftMouseUp {
+    if(_isLightgunEnabled) {
+        _inputState[3] = 1;
+    }
+}
 @end
