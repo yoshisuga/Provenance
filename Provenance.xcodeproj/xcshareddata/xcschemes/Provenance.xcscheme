@@ -224,6 +224,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B394C9952060CAB80014A65D"
+               BuildableName = "PVVirtualJaguar.framework"
+               BlueprintName = "PVVirtualJaguar"
+               ReferencedContainer = "container:Cores/VirtualJaguar/Core-VirtualJaguar.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B36DE7471D6AB19C002EE3ED"
                BuildableName = "PVAtari800.framework"
                BlueprintName = "PVAtari800"
