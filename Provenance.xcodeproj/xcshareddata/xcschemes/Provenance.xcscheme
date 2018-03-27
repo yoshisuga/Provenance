@@ -224,6 +224,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B32775221E9C8444000FEC38"
+               BuildableName = "PVYabause.framework"
+               BlueprintName = "PVYabause"
+               ReferencedContainer = "container:PVYabause/yabause/PVYabause.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B36DE7471D6AB19C002EE3ED"
                BuildableName = "PVAtari800.framework"
                BlueprintName = "PVAtari800"

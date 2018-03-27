@@ -502,6 +502,10 @@
 		B36D9DFE203605BC00D583C4 /* PVCoreFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36D9DFC203605BB00D583C4 /* PVCoreFactory.swift */; };
 		B375C68D2053E73E00BECC77 /* PVEmulatorConfiguration+Frameworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C68C2053E73E00BECC77 /* PVEmulatorConfiguration+Frameworks.swift */; };
 		B375C68E2053E73E00BECC77 /* PVEmulatorConfiguration+Frameworks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B375C68C2053E73E00BECC77 /* PVEmulatorConfiguration+Frameworks.swift */; };
+		B3768491206A08BE0007A99C /* PVSaturnControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3768490206A08BE0007A99C /* PVSaturnControllerViewController.swift */; };
+		B3768492206A08BE0007A99C /* PVSaturnControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3768490206A08BE0007A99C /* PVSaturnControllerViewController.swift */; };
+		B3768495206A0C7C0007A99C /* PVYabause.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3768494206A0C7C0007A99C /* PVYabause.framework */; };
+		B3768496206A0C7C0007A99C /* PVYabause.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3768494206A0C7C0007A99C /* PVYabause.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3780B3F2057F1F60018211E /* PVCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BE96832055F3D900281880 /* PVCore.swift */; };
 		B3780B402057F1F70018211E /* PVCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BE96832055F3D900281880 /* PVCore.swift */; };
 		B385542E20336D02006CA50B /* PVGameMoreInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B385542D20336D02006CA50B /* PVGameMoreInfoViewController.swift */; };
@@ -794,6 +798,7 @@
 				1AAE7D431BC870A8003066C0 /* Realm.framework in Embed Frameworks */,
 				B3B3B8961DECF8C200602746 /* PVMupen64PlusVideoRice.framework in Embed Frameworks */,
 				B3B3B8931DECF8BC00602746 /* PVMupen64Plus.framework in Embed Frameworks */,
+				B3768496206A0C7C0007A99C /* PVYabause.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1321,6 +1326,8 @@
 		B36D9DFC203605BB00D583C4 /* PVCoreFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVCoreFactory.swift; sourceTree = "<group>"; };
 		B36DE7C91D6B80CA002EE3ED /* PVAtari7800ControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVAtari7800ControllerViewController.swift; sourceTree = "<group>"; };
 		B375C68C2053E73E00BECC77 /* PVEmulatorConfiguration+Frameworks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PVEmulatorConfiguration+Frameworks.swift"; sourceTree = "<group>"; };
+		B3768490206A08BE0007A99C /* PVSaturnControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVSaturnControllerViewController.swift; sourceTree = "<group>"; };
+		B3768494206A0C7C0007A99C /* PVYabause.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVYabause.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B385542D20336D02006CA50B /* PVGameMoreInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVGameMoreInfoViewController.swift; sourceTree = "<group>"; };
 		B38D30FB202AC26500E9A068 /* GCDWebDAVServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebDAVServer.h; sourceTree = "<group>"; };
 		B38D30FC202AC26500E9A068 /* GCDWebDAVServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebDAVServer.m; sourceTree = "<group>"; };
@@ -1456,6 +1463,7 @@
 				B354693C1DECDA710018B6F3 /* PVAtari800.framework in Frameworks */,
 				1AD4BC6F1BFD38D6007D6C7C /* AVFoundation.framework in Frameworks */,
 				B3CB85BF1E9BFB07009155A6 /* PVPokeMini.framework in Frameworks */,
+				B3768495206A0C7C0007A99C /* PVYabause.framework in Frameworks */,
 				423BB97B17DD35B10048F457 /* AssetsLibrary.framework in Frameworks */,
 				1A4869DD17C8D60C0019F6D2 /* CFNetwork.framework in Frameworks */,
 				1A4869DE17C8D60C0019F6D2 /* MobileCoreServices.framework in Frameworks */,
@@ -1619,6 +1627,7 @@
 		1A3D408B17B2DCE4004DFFFC = {
 			isa = PBXGroup;
 			children = (
+				B3768494206A0C7C0007A99C /* PVYabause.framework */,
 				B3995E4E2058229F001D4985 /* PVFCEU.framework */,
 				B3995E4B2058228E001D4985 /* PVFCEU.framework */,
 				DFB603BD2038B6C0001E70F1 /* PVMupen64PlusVideoGlideN64.framework */,
@@ -1747,6 +1756,7 @@
 				B3B3B89A1DECF9A700602746 /* N64 */,
 				1A74171A1ABF22FD00F3CD3C /* NES */,
 				B3CB85C41E9BFB4B009155A6 /* PokeMini */,
+				B376848F206A08A50007A99C /* Saturn */,
 				1A9FBE1F1ABD28A9004E778B /* SNES */,
 				B32893701E0B24D80090B97A /* WonderSwan */,
 				B328937A1E0B87630090B97A /* VirtualBoy */,
@@ -2544,6 +2554,14 @@
 			name = Atari7800;
 			sourceTree = "<group>";
 		};
+		B376848F206A08A50007A99C /* Saturn */ = {
+			isa = PBXGroup;
+			children = (
+				B3768490206A08BE0007A99C /* PVSaturnControllerViewController.swift */,
+			);
+			name = Saturn;
+			sourceTree = "<group>";
+		};
 		B38D30FA202AC26500E9A068 /* GCDWebDAVServer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3163,6 +3181,7 @@
 				B349AF611E9ABCFA00ACD416 /* LzmaSDKObjCFileEncoder.cpp in Sources */,
 				E41448941B34BBAB0056D80A /* PViCadeReader.m in Sources */,
 				B349AEE71E9ABCF900ACD416 /* StreamUtils.cpp in Sources */,
+				B3768491206A08BE0007A99C /* PVSaturnControllerViewController.swift in Sources */,
 				B349AF011E9ABCF900ACD416 /* DeltaFilter.cpp in Sources */,
 				B349AEF91E9ABCF900ACD416 /* ByteSwap.cpp in Sources */,
 				B3BE96812055F33500281880 /* PVBIOS.swift in Sources */,
@@ -3487,6 +3506,7 @@
 				B349AF321E9ABCF900ACD416 /* NewHandler.cpp in Sources */,
 				1AD481EC1BA3548200FDA50A /* unzip.c in Sources */,
 				B349AE841E9ABCF900ACD416 /* Threads.c in Sources */,
+				B3768492206A08BE0007A99C /* PVSaturnControllerViewController.swift in Sources */,
 				B349AE741E9ABCF900ACD416 /* LzmaEnc.c in Sources */,
 				B349AEC61E9ABCF900ACD416 /* CreateCoder.cpp in Sources */,
 				B394C97C20609D0D0014A65D /* PVLynxControllerViewController.swift in Sources */,

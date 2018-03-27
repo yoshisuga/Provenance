@@ -534,3 +534,28 @@ import UIKit
     @objc(didReleaseNGPButton:forPlayer:)
     func didRelease(_ button: PVNGPButton, forPlayer player: Int)
 }
+
+// MARK: - Sega Saturn
+@objc public enum PVSaturnButton : Int {
+    case up
+    case down
+    case left
+    case right
+    case a
+    case b
+    case c
+    case x
+    case y
+    case z
+    case l
+    case r
+    case start
+    case count
+}
+
+@objc public protocol PVSaturnSystemResponderClient: ResponderClient, ButtonResponder {
+    @objc(didPushSaturnButton:forPlayer:)
+    func didPush(_ button: PVSaturnButton, forPlayer player: Int)
+    @objc(didPReleaseSaturnButton:forPlayer:)
+    func didRelease(_ button: PVSaturnButton, forPlayer player: Int)
+}
