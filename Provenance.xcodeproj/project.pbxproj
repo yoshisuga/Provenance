@@ -2869,12 +2869,12 @@
 				ORGANIZATIONNAME = "James Addyman";
 				TargetAttributes = {
 					1A3D409317B2DCE4004DFFFC = {
-						DevelopmentTeam = 63497P68S6;
+						DevelopmentTeam = V78REPMQFZ;
 						LastSwiftMigration = 0920;
 					};
 					1AD481B31BA350A400FDA50A = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = 63497P68S6;
+						DevelopmentTeam = V78REPMQFZ;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2894,7 +2894,7 @@
 					};
 					BE9FDCB61C210B9E0046DF0E = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 63497P68S6;
+						DevelopmentTeam = V78REPMQFZ;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
