@@ -537,6 +537,8 @@
 		B3995E55205840CE001D4985 /* PlistDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3995E51205840CE001D4985 /* PlistDataModels.swift */; };
 		B3A683B3206B003E0051AEE4 /* PVVirtualJaguar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A683B2206B003E0051AEE4 /* PVVirtualJaguar.framework */; };
 		B3A683B4206B003E0051AEE4 /* PVVirtualJaguar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3A683B2206B003E0051AEE4 /* PVVirtualJaguar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3A683B7206B05F10051AEE4 /* PVAtariJaguarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A683B6206B05F00051AEE4 /* PVAtariJaguarControllerViewController.swift */; };
+		B3A683B8206B05F10051AEE4 /* PVAtariJaguarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A683B6206B05F00051AEE4 /* PVAtariJaguarControllerViewController.swift */; };
 		B3A9F4251DE86389008450F5 /* ProSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD68A21D6EA7070021B949 /* ProSystem.framework */; };
 		B3AD689B1D6EA6180021B949 /* PicoDrive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD689A1D6EA6180021B949 /* PicoDrive.framework */; };
 		B3AD689C1D6EA6180021B949 /* PicoDrive.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3AD689A1D6EA6180021B949 /* PicoDrive.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -1334,6 +1336,7 @@
 		B3995E4E2058229F001D4985 /* PVFCEU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVFCEU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3995E51205840CE001D4985 /* PlistDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistDataModels.swift; sourceTree = "<group>"; };
 		B3A683B2206B003E0051AEE4 /* PVVirtualJaguar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVVirtualJaguar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3A683B6206B05F00051AEE4 /* PVAtariJaguarControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PVAtariJaguarControllerViewController.swift; sourceTree = "<group>"; };
 		B3AD689A1D6EA6180021B949 /* PicoDrive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PicoDrive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3AD68A21D6EA7070021B949 /* ProSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B3B8911DECF8BC00602746 /* PVMupen64Plus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PVMupen64Plus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1743,6 +1746,7 @@
 				B3DF87681D6A5A6200D216D4 /* Atari2600 */,
 				B35469351DECD8250018B6F3 /* Atari5200 */,
 				B36DE7CD1D6B80DA002EE3ED /* Atari7800 */,
+				B3A683B5206B05D30051AEE4 /* Atari Jaguar */,
 				B32893751E0B4E540090B97A /* Atari Lynx */,
 				1AABE0CD1ABE3E4000FF6AEF /* GB */,
 				1A9FBE201ABD28B6004E778B /* GBA */,
@@ -2576,6 +2580,14 @@
 			name = "Neo Geo";
 			sourceTree = "<group>";
 		};
+		B3A683B5206B05D30051AEE4 /* Atari Jaguar */ = {
+			isa = PBXGroup;
+			children = (
+				B3A683B6206B05F00051AEE4 /* PVAtariJaguarControllerViewController.swift */,
+			);
+			name = "Atari Jaguar";
+			sourceTree = "<group>";
+		};
 		B3B3B89A1DECF9A700602746 /* N64 */ = {
 			isa = PBXGroup;
 			children = (
@@ -3284,6 +3296,7 @@
 				B3BE96842055F3D900281880 /* PVCore.swift in Sources */,
 				B349AED31E9ABCF900ACD416 /* LimitedStreams.cpp in Sources */,
 				B349AE911E9ABCF900ACD416 /* 7zCompressionMode.cpp in Sources */,
+				B3A683B7206B05F10051AEE4 /* PVAtariJaguarControllerViewController.swift in Sources */,
 				1A48697817C8C0DE0019F6D2 /* PVMediaCache.swift in Sources */,
 				B35D26FA20337D1C00F17D58 /* GameLaunchingViewController.swift in Sources */,
 				B3F64ED8205CD22000C273C7 /* PVControllerSelectionViewController.swift in Sources */,
@@ -3438,6 +3451,7 @@
 				B349AF601E9ABCFA00ACD416 /* LzmaSDKObjCFileDecoder.cpp in Sources */,
 				1AD481E31BA3545D00FDA50A /* GCDWebServerStreamedResponse.m in Sources */,
 				B394C97D20609D0D0014A65D /* PVGBControllerViewController.swift in Sources */,
+				B3A683B8206B05F10051AEE4 /* PVAtariJaguarControllerViewController.swift in Sources */,
 				1ACE9A0A1BACBC9E00C72AA5 /* PVTVSettingsViewController.swift in Sources */,
 				1AD481CC1BA353F900FDA50A /* PVDirectoryWatcher.swift in Sources */,
 				1AD481ED1BA3548400FDA50A /* zip.c in Sources */,
