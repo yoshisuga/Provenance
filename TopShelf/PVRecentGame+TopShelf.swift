@@ -45,7 +45,7 @@ extension PVRecentGame {
         let system = game.system.enumValue
 
         switch system {
-        case .NES, .Genesis, .SegaCD, .MasterSystem, .SG1000, .Sega32X, .Atari2600, .Atari5200, .Atari7800, .Lynx, .WonderSwan, .WonderSwanColor:
+        case .NES, .Genesis, .SegaCD, .MasterSystem, .SG1000, .Sega32X, .Atari2600, .Atari5200, .AtariJaguar, .Atari7800, .Lynx, .WonderSwan, .WonderSwanColor:
             return .poster
         case .GameGear, .GB, .GBC, .GBA, .NGP, .NGPC, .PSX, .VirtualBoy, .PCE, .PCECD, .PCFX, .SGFX, .FDS, .PokemonMini:
             return .square
