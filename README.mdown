@@ -1,3 +1,28 @@
+### _Atari Jaguar Dev branch_! ###
+
+This core is the first to use a submodule system so the checkout and installation is a little different.
+
+If you haven't checked out the project at all yet
+
+`git clone git@github.com:Provenance-Emu/Provenance.git`
+
+`cd Provenance`
+
+`git checkout feature/Core-VirtualJaguar`
+
+`git submodule update --init --recursive`
+
+`open Provenance.xcworkspace`
+
+
+Build as normal instructions say on the Wiki
+
+To update:
+ `git pull`
+ 
+ `git submodule update --recursive --remote`
+ 
+ 
 # Provenance
 An iOS & tvOS Frontend for Multiple Emulators
 
