@@ -291,22 +291,10 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
     var favoritesToken: NotificationToken?
     var recentGamesToken: NotificationToken?
 
-    // Need to manually keep a count on insert and delete
-    // because realm  notifications race with the update of the
-    // query object updating, so iOS will sometimes freak out that
-    // the post / pre insertion / deletion couns don't make sense if
-    // if you just realy on recentGames.count etc
-    // https://fangpenlin.com/posts/2016/04/29/uicollectionview-invalid-number-of-items-crash-issue/#comment-3213091626
-    var favoritesCount = 0
-    var recentsCount = 0
-    var systemsCount = 0
-    
-    var favoritesIsHidden : Bool {
-        return favoritesCount == 0
-    }
-    
+    var favoritesIsHidden = true
+    var recentGamesIsEmpty = true
     var recentGamesIsHidden : Bool {
-        return recentsCount == 0 || !PVSettingsModel.shared.showRecentGames
+        return recentGamesIsEmpty || !PVSettingsModel.shared.showRecentGames
     }
     
     var favoritesSection: Int {
@@ -328,12 +316,11 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
         return section
     }
 
-    var systemSectionsCounts = [String:Int]()
     func addSectionToken(forSystem system: PVSystem) {
         let newToken = system.games.sorted(byKeyPath: #keyPath(PVGame.title), ascending: true).observe {[unowned self] (changes: RealmCollectionChange<Results<PVGame>>) in
             switch changes {
-            case .initial(let results):
-// New additions already handled by systems token
+            case .initial:
+                // New additions already handled by systems token
 //                guard let collectionView = self.collectionView else {
 //                    return
 //                }
@@ -343,14 +330,12 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
 //                    let indexSet = IndexSet(indexes)
 //                    collectionView.insertSections(indexSet)
 //                }
-                self.systemSectionsCounts[system.identifier] = results.count
+                break
             case .update(_, let deletions, let insertions, let modifications):
                 // Query results have changed, so apply them to the UICollectionView
                 let indexOfSystem = (self.systems.index(of: system) ?? 0)!
                 let section = indexOfSystem + self.systemsSectionOffset
-                DLOG("Updating counts for section #\(section) id:\(system.identifier) preupdate-count:\(self.systemSectionsCounts[system.identifier] ?? -1))")
-                self.collectionView?.reloadData()
-//                self.handleUpdate(forSection: section, deletions: deletions, insertions: insertions, modifications: modifications, needsInsert: false, counter: &self.systemSectionsCounts[system.identifier]!)
+                self.handleUpdate(forSection: section, deletions: deletions, insertions: insertions, modifications: modifications, needsInsert: false)
             case .error(let error):
                 // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(error)")
@@ -368,27 +353,20 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
 
         systemsToken = systems.observe { [unowned self] (changes: RealmCollectionChange) in
             switch changes {
-            case .initial(let results):
-                self.systemsCount = results.count
+            case .initial:
+                self.systems.forEach { system in
+                    self.addSectionToken(forSystem: system)
+                }
 
                 // Results are now populated and can be accessed without blocking the UI
                 self.setUpGameLibrary()
-
-                results.forEach { system in
-                    self.addSectionToken(forSystem: system)
-                }
-    
             case .update(_, let deletions, let insertions, _):
                 guard let collectionView = self.collectionView else {return}
                 collectionView.performBatchUpdates({
-                    self.systemsCount += insertions.count
                     let insertIndexes = insertions.map { $0 + self.systemsSectionOffset }
-                    DLOG("Need to insert system sections \(insertIndexes)")
                     collectionView.insertSections(IndexSet(insertIndexes))
 
-                    self.systemsCount -= deletions.count
                     let delectIndexes = deletions.map { $0 + self.systemsSectionOffset }
-                    DLOG("Need to delete system sections \(delectIndexes)")
                     collectionView.deleteSections(IndexSet(delectIndexes))
                     // Not needed since we have watchers per section
                     // collectionView.reloadSection(modifications.map{ return IndexPath(row: 0, section: $0 + systemsSectionOffset) })
@@ -407,25 +385,38 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
 
             switch changes {
             case .initial:
-                if !self.recentGamesIsHidden {
-                    let section = self.recentGamesSection
-                    collectionView.insertSections([section])
+                if !self.recentGames.isEmpty {
+                    self.recentGamesIsEmpty = false
+                    
+                    if !self.recentGamesIsHidden {
+                        let section = self.recentGamesSection
+                        collectionView.insertSections([section])
+                    }
                 }
-                self.recentsCount = self.recentGames.count
             case .update(_, let deletions, let insertions, let modifications):
                 let needsInsert = self.recentGamesIsHidden && !insertions.isEmpty
                 let needsDelete = self.recentGames.isEmpty && !deletions.isEmpty
 
-                if !PVSettingsModel.shared.showRecentGames {
-                    self.recentsCount += insertions.count
-                    self.recentsCount -= deletions.count
+                if self.recentGamesIsHidden {
+                    self.recentGamesIsEmpty = needsDelete
                     return
-                } else {
-                    let section = self.recentGamesSection > -1 ? self.recentGamesSection : 0
-                    
-                    // Query results have changed, so apply them to the UICollectionView
-                    self.handleUpdate(forSection: section, deletions: deletions, insertions: insertions, modifications: modifications, needsInsert: needsInsert, needsDelete: needsDelete,  counter:  &self.recentsCount)
                 }
+                
+                let section = self.recentGamesSection > -1 ? self.recentGamesSection : 0
+
+                if needsInsert {
+                    ILOG("Needs insert, recentGamesHidden - false")
+                    self.recentGamesIsEmpty = false
+                }
+
+                if needsDelete {
+                    ILOG("Needs delete, recentGamesHidden - true")
+                    self.recentGamesIsEmpty = true
+                }
+
+                // Query results have changed, so apply them to the UICollectionView
+                self.handleUpdate(forSection: section, deletions: deletions, insertions: insertions, modifications: modifications, needsInsert: needsInsert, needsDelete: needsDelete)
+                self.recentGamesIsEmpty = needsDelete
             case .error(let error):
                 // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(error)")
@@ -438,16 +429,17 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
 
             switch changes {
             case .initial:
-                self.favoritesCount = self.favoriteGames.count
                 if !self.favoriteGames.isEmpty {
+                    self.favoritesIsHidden = false
                     collectionView.insertSections([section])
                 }
             case .update(_, let deletions, let insertions, let modifications):
                 let needsInsert = self.favoritesIsHidden
                 let needsDelete = self.favoriteGames.isEmpty
-                
+                self.favoritesIsHidden = needsDelete
+
                 // Query results have changed, so apply them to the UICollectionView
-                self.handleUpdate(forSection: section, deletions: deletions, insertions: insertions, modifications: modifications, needsInsert: needsInsert, needsDelete: needsDelete, counter:  &self.favoritesCount)
+                self.handleUpdate(forSection: section, deletions: deletions, insertions: insertions, modifications: modifications, needsInsert: needsInsert, needsDelete: needsDelete)
             case .error(let error):
                 // An error occurred while opening the Realm file on the background worker thread
                 fatalError("\(error)")
@@ -455,43 +447,26 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
         }
     }
 
-    func handleUpdate(forSection section: Int, deletions: [Int], insertions: [Int], modifications: [Int], needsInsert: Bool = false, needsDelete: Bool = false, counter: inout Int) {
+    func handleUpdate(forSection section: Int, deletions: [Int], insertions: [Int], modifications: [Int], needsInsert: Bool = false, needsDelete: Bool = false) {
         guard let collectionView = collectionView else { return }
-        
-        let indexPathsToDelete = deletions.map({ IndexPath(item: $0, section: section) })
-        let indexPathsToInsert = insertions.map({ IndexPath(item: $0, section: section) })
-        let indexPathsToUpdate = modifications.map({ IndexPath(item: $0, section: section) })
-        
-        // Delay to fix realm out of sync with notifications
         collectionView.performBatchUpdates({
             if needsInsert {
                 ILOG("Inserting section \(section)")
-
-                // THIS IS CRASHING!
-                //                collectionView.insertSections([section])
-                // So do this uglier thing
+                collectionView.insertSections([section])
             }
-            
+
             ILOG("Section \(section) updated with Insertions<\(insertions.count)> Mods<\(modifications.count)> Deletions<\(deletions.count)>")
-            
-            self.collectionView!.reloadItems(at: indexPathsToUpdate)
-            
-            counter -= deletions.count
-            self.collectionView!.deleteItems(at: indexPathsToDelete)
-            
-            counter += insertions.count
-            self.collectionView!.insertItems(at: indexPathsToInsert)
-            
-//            collectionView.insertItems(at: insertions.map({ return IndexPath(row: $0, section: section) }))
-//            collectionView.deleteItems(at: deletions.map({  return IndexPath(row: $0, section: section) }))
-//            collectionView.reloadItems(at: modifications.map({  return IndexPath(row: $0, section: section) }))
-            
+            collectionView.insertItems(at: insertions.map({ return IndexPath(row: $0, section: section) }))
+            collectionView.deleteItems(at: deletions.map({  return IndexPath(row: $0, section: section) }))
+            collectionView.reloadItems(at: modifications.map({  return IndexPath(row: $0, section: section) }))
+
             if needsDelete {
                 ILOG("Deleting section \(section)")
-                // THIS IS CRASHING!
-//                collectionView.deleteSections([section])
+                collectionView.deleteSections([section])
             }
-        }, completion: nil)
+        }, completion: { (completed) in
+
+        })
     }
 
     func loadGameFromShortcut() {
@@ -1518,7 +1493,7 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
         if searchResults != nil {
             return 1
         } else {
-            let count = systemsSectionOffset + systemsCount
+            let count = systemsSectionOffset + systems.count
             ILOG("Sections : \(count)")
             return count
         }
@@ -1530,11 +1505,11 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
         } else {
             if section >= systemsSectionOffset {
                 let sectionNumber = section - systemsSectionOffset
-                return systems[sectionNumber].games.count
+                return Array(systems)[sectionNumber].games.count
             } else if section == favoritesSection {
-                return favoritesCount //favoriteGames.count
+                return favoriteGames.count
             } else if section == recentGamesSection {
-                return recentsCount // recentGames.count
+                return recentGames.count
             } else {
                 fatalError("Shouldn't be here")
             }
@@ -1573,15 +1548,15 @@ class PVGameLibraryViewController: UIViewController, UITextFieldDelegate, UINavi
     func game(at indexPath: IndexPath) -> PVGame? {
         var game: PVGame? = nil
         if let searchResults = searchResults {
-            game = searchResults[indexPath.item]
+            game = Array(searchResults)[indexPath.item]
         } else {
             let section = indexPath.section
             let row = indexPath.row
 
             if section == favoritesSection {
-                game = favoriteGames[row]
+                game = Array(favoriteGames)[row]
             } else if section == recentGamesSection {
-                game = recentGames[row].game
+                game = Array(recentGames)[row].game
             } else {
                 let system = systems[section - systemsSectionOffset]
                 game = system.games.sorted(byKeyPath: #keyPath(PVGame.title), ascending: true)[row]
