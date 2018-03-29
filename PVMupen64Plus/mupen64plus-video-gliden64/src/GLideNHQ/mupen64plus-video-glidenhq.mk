@@ -3,7 +3,7 @@
 ###########
 include $(CLEAR_VARS)
 LOCAL_PATH := $(JNI_LOCAL_PATH)
-SRCDIR := ./mupen64plus-video-gliden64/src/GLideNHQ
+SRCDIR := ./$(BASE_DIR)/src/GLideNHQ
 LOCAL_SHARED_LIBRARIES := osal
 LOCAL_MODULE := glidenhq
 LOCAL_STATIC_LIBRARIES := png
@@ -14,7 +14,7 @@ LOCAL_C_INCLUDES :=                     \
     $(LOCAL_PATH)/$(SRCDIR)/..          \
     $(LOCAL_PATH)/$(SRCDIR)/../osal     \
     $(PNG_INCLUDES)                     \
-    $(LOCAL_PATH)/GL/                   \
+    $(GL_INCLUDES)
 
 LOCAL_SRC_FILES :=                          \
     $(SRCDIR)/TextureFilters.cpp            \
@@ -43,7 +43,5 @@ LOCAL_CFLAGS :=         \
     #-DSDL_NO_COMPAT     \
 
 LOCAL_CPPFLAGS := $(COMMON_CPPFLAGS) -std=c++11 -fexceptions
-LOCAL_LDFLAGS := $(COMMON_LDFLAGS)
-LOCAL_LDLIBS := -llog
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)

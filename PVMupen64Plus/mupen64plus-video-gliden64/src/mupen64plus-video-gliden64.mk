@@ -3,10 +3,11 @@
 #############################
 include $(CLEAR_VARS)
 LOCAL_PATH := $(JNI_LOCAL_PATH)
-SRCDIR := ./mupen64plus-video-gliden64/src
+SRCDIR := ./$(BASE_DIR)/src
 
 MY_LOCAL_MODULE := mupen64plus-video-gliden64
-MY_LOCAL_SHARED_LIBRARIES := freetype glidenhq osal
+MY_LOCAL_SHARED_LIBRARIES := freetype osal
+MY_LOCAL_STATIC_LIBRARIES := glidenhq
 MY_LOCAL_ARM_MODE := arm
 
 MY_LOCAL_C_INCLUDES :=                          \
@@ -15,7 +16,7 @@ MY_LOCAL_C_INCLUDES :=                          \
     $(SDL_INCLUDES)                             \
     $(FREETYPE_INCLUDES)                        \
     $(LOCAL_PATH)/$(SRCDIR)/osal                \
-    $(ANDROID_FRAMEWORK_INCLUDES)               \
+    $(GL_INCLUDES)
 
 MY_LOCAL_SRC_FILES :=                                                              \
     $(SRCDIR)/Combiner.cpp                                                         \
@@ -114,6 +115,7 @@ MY_LOCAL_SRC_FILES :=                                                           
     $(SRCDIR)/uCodes/T3DUX.cpp                                                     \
     $(SRCDIR)/uCodes/Turbo3D.cpp                                                   \
     $(SRCDIR)/uCodes/ZSort.cpp                                                     \
+    $(SRCDIR)/uCodes/ZSortBOSS.cpp                                                 \
     $(SRCDIR)/xxHash/xxhash.c                                                      \
 
 MY_LOCAL_CFLAGS :=          \
@@ -140,7 +142,7 @@ ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
     MY_LOCAL_SRC_FILES += $(SRCDIR)/Neon/gSPNeon.cpp
     MY_LOCAL_SRC_FILES += $(SRCDIR)/Neon/RSP_LoadMatrixNeon.cpp
     MY_LOCAL_CFLAGS += -D__NEON_OPT
-    MY_LOCAL_CFLAGS += -D__VEC4_OPT -mfpu=neon -mfloat-abi=softfp -ftree-vectorize -funsafe-math-optimizations -fno-finite-math-only
+    MY_LOCAL_CFLAGS += -D__VEC4_OPT -mfpu=neon
 
 else ifeq ($(TARGET_ARCH_ABI), x86)
 #    MY_LOCAL_CFLAGS += -DX86_ASM
@@ -155,6 +157,7 @@ endif
 include $(CLEAR_VARS)
 LOCAL_MODULE            := $(MY_LOCAL_MODULE)
 LOCAL_SHARED_LIBRARIES  := $(MY_LOCAL_SHARED_LIBRARIES)
+LOCAL_STATIC_LIBRARIES  := $(MY_LOCAL_STATIC_LIBRARIES)
 LOCAL_ARM_MODE          := $(MY_LOCAL_ARM_MODE)
 LOCAL_C_INCLUDES        := $(MY_LOCAL_C_INCLUDES) $(LOCAL_PATH)/GL/
 LOCAL_SRC_FILES         := $(MY_LOCAL_SRC_FILES)
