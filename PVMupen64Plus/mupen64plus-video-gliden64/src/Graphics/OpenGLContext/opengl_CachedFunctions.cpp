@@ -27,6 +27,11 @@ void CachedEnable::enable(bool _enable)
 	}
 }
 
+u32 CachedEnable::get()
+{
+	return u32(m_cached);
+}
+
 /*---------------CachedBindTexture-------------*/
 
 void CachedBindTexture::bind(Parameter _tmuIndex, Parameter _target, ObjectHandle _name)
@@ -157,6 +162,8 @@ void CachedFunctions::reset()
 	for (auto it : m_enables)
 		it.second.reset();
 
+	m_texparams.clear();
+	m_fbattachments.clear();
 	m_bindTexture.reset();
 	m_bindFramebuffer.reset();
 	m_bindRenderbuffer.reset();
@@ -259,4 +266,14 @@ CachedUseProgram * CachedFunctions::getCachedUseProgram()
 CachedTextureUnpackAlignment * CachedFunctions::getCachedTextureUnpackAlignment()
 {
 	return &m_unpackAlignment;
+}
+
+FramebufferAttachments * CachedFunctions::getFBAttachments()
+{
+	return &m_fbattachments;
+}
+
+TextureParams * CachedFunctions::getTexParams()
+{
+	return &m_texparams;
 }

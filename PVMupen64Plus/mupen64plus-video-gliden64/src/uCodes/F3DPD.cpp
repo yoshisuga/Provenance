@@ -1,10 +1,10 @@
-#include "GLideN64.h"
-#include "DebugDump.h"
+#include "../GLideN64.h"
+#include "../DebugDump.h"
 #include "F3D.h"
 #include "F3DGOLDEN.h"
 #include "F3DPD.h"
-#include "N64.h"
-#include "gSP.h"
+#include "../N64.h"
+#include "../gSP.h"
 
 #define F3DPD_VTXCOLORBASE	0x07
 

@@ -37,7 +37,6 @@ void PaletteTexture::init()
 	m_pTexture->realWidth = 256;
 	m_pTexture->realHeight = 1;
 	m_pTexture->textureBytes = m_pTexture->realWidth * m_pTexture->realHeight * fbTexFormats.lutFormatBytes;
-	textureCache().addFrameBufferTextureSize(m_pTexture->textureBytes);
 
 	Context::InitTextureParams initParams;
 	initParams.handle = m_pTexture->name;
@@ -60,7 +59,7 @@ void PaletteTexture::init()
 	gfxContext.setTextureParameters(setParams);
 
 	// Generate Pixel Buffer Object. Initialize it with max buffer size.
-	m_pbuf.reset(gfxContext.createPixelWriteBuffer(m_pTexture->textureBytes));
+	m_pbuf = (u8*)malloc(m_pTexture->textureBytes);
 }
 
 void PaletteTexture::destroy()
@@ -80,7 +79,7 @@ void PaletteTexture::destroy()
 
 	textureCache().removeFrameBufferTexture(m_pTexture);
 	m_pTexture = nullptr;
-	m_pbuf.reset();
+	free(m_pbuf);
 }
 
 void PaletteTexture::update()
@@ -90,16 +89,13 @@ void PaletteTexture::update()
 
 	if (m_paletteCRC256 == gDP.paletteCRC256)
 		return;
-	
+
 	m_paletteCRC256 = gDP.paletteCRC256;
 
-	PixelBufferBinder<PixelWriteBuffer> binder(m_pbuf.get());
-	u8* ptr = (u8*)m_pbuf->getWriteBuffer(m_pTexture->textureBytes);
-	u32 * palette = (u32*)ptr;
+	u32 * palette = (u32*)m_pbuf;
 	u16 *src = (u16*)&TMEM[256];
 	for (int i = 0; i < 256; ++i)
 		palette[i] = swapword(src[i * 4]);
-	m_pbuf->closeWriteBuffer();
 
 	const FramebufferTextureFormats & fbTexFormats = gfxContext.getFramebufferTextureFormats();
 	Context::UpdateTextureDataParams params;
@@ -111,6 +107,6 @@ void PaletteTexture::update()
 	params.format = fbTexFormats.lutFormat;
 	params.internalFormat = fbTexFormats.lutInternalFormat;
 	params.dataType = fbTexFormats.lutType;
-	params.data = m_pbuf->getData();
+	params.data = m_pbuf;
 	gfxContext.update2DTexture(params);
 }

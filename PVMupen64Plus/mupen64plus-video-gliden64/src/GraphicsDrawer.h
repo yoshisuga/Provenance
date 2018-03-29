@@ -153,6 +153,8 @@ public:
 
 	void flush() { m_texrectDrawer.draw(); }
 
+	bool isTexrectDrawerMode() { return !m_texrectDrawer.isEmpty(); }
+
 private:
 	friend class DisplayWindow;
 	friend TexrectDrawer;
@@ -169,9 +171,10 @@ private:
 	void _setSpecialTexrect() const;
 
 	void _setBlendMode() const;
+	bool _setUnsupportedBlendMode() const;
 	void _updateCullFace() const;
 	void _updateViewport() const;
-	void _updateScreenCoordsViewport() const;
+	void _updateScreenCoordsViewport(const FrameBuffer * _pBuffer = nullptr) const;
 	void _updateDepthUpdate() const;
 	void _updateDepthCompare() const;
 	void _updateTextures() const;
@@ -190,7 +193,7 @@ private:
 
 	struct {
 		std::array<SPVertex, VERTBUFF_SIZE> vertices;
-		std::array<u8, ELEMBUFF_SIZE> elements;
+		std::array<u16, ELEMBUFF_SIZE> elements;
 		u32 num = 0;
 		int maxElement = 0;
 	} triangles;

@@ -17,13 +17,18 @@ namespace graphics {
 
 	enum class SpecialFeatures {
 		Multisampling,
-		NearPlaneClipping,
 		FragmentDepthWrite,
 		BlitFramebuffer,
 		WeakBlitFramebuffer,
 		DepthFramebufferTextures,
 		ShaderProgramBinary,
 		ImageTextures
+	};
+
+	enum class ClampMode {
+		ClippingEnabled,
+		NoNearPlaneClipping,
+		NoClipping
 	};
 
 	class ContextImpl;
@@ -39,7 +44,13 @@ namespace graphics {
 
 		void destroy();
 
+		void setClampMode(ClampMode _mode);
+
+		ClampMode getClampMode();
+
 		void enable(EnableParam _parameter, bool _enable);
+
+		u32 isEnabled(EnableParam _parameter);
 
 		void cullFace(CullModeParam _mode);
 
@@ -65,7 +76,7 @@ namespace graphics {
 
 		ObjectHandle createTexture(Parameter _target);
 
-		void deleteTexture(ObjectHandle _name);
+		void deleteTexture(ObjectHandle _name, bool _isFBTexture);
 
 		struct InitTextureParams {
 			ObjectHandle handle;
@@ -191,8 +202,6 @@ namespace graphics {
 		bool blitFramebuffers(const BlitFramebuffersParams & _params);
 
 		/*---------------Pixelbuffer-------------*/
-
-		PixelWriteBuffer * createPixelWriteBuffer(size_t _sizeInBytes);
 
 		PixelReadBuffer * createPixelReadBuffer(size_t _sizeInBytes);
 

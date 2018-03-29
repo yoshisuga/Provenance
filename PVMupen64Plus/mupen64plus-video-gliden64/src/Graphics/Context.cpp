@@ -30,9 +30,24 @@ void Context::destroy()
 	m_impl.reset();
 }
 
+void Context::setClampMode(ClampMode _mode)
+{
+	m_impl->setClampMode(_mode);
+}
+
+ClampMode Context::getClampMode()
+{
+	return m_impl->getClampMode();
+}
+
 void Context::enable(EnableParam _parameter, bool _enable)
 {
 	m_impl->enable(_parameter, _enable);
+}
+
+u32 Context::isEnabled(EnableParam _parameter)
+{
+	return m_impl->isEnabled(_parameter);
 }
 
 void Context::cullFace(CullModeParam _parameter)
@@ -90,9 +105,9 @@ ObjectHandle Context::createTexture(Parameter _target)
 	return m_impl->createTexture(_target);
 }
 
-void Context::deleteTexture(ObjectHandle _name)
+void Context::deleteTexture(ObjectHandle _name, bool _isFBTexture)
 {
-	m_impl->deleteTexture(_name);
+	m_impl->deleteTexture(_name, _isFBTexture);
 }
 
 void Context::init2DTexture(const InitTextureParams & _params)
@@ -180,11 +195,6 @@ void Context::addFrameBufferRenderTarget(const FrameBufferRenderTarget & _params
 bool Context::blitFramebuffers(const BlitFramebuffersParams & _params)
 {
 	return m_impl->blitFramebuffers(_params);
-}
-
-PixelWriteBuffer * Context::createPixelWriteBuffer(size_t _sizeInBytes)
-{
-	return m_impl->createPixelWriteBuffer(_sizeInBytes);
 }
 
 PixelReadBuffer * Context::createPixelReadBuffer(size_t _sizeInBytes)

@@ -88,7 +88,7 @@ void GraphicsDrawer::addTriangle(int _v0, int _v1, int _v2)
 		}
 	}
 
-	if (!gfxContext.isSupported(SpecialFeatures::NearPlaneClipping)) {
+	if (!gfxContext.isSupported(SpecialFeatures::FragmentDepthWrite)) {
 		if (GBI.isNoN() && gDP.otherMode.depthCompare == 0 && gDP.otherMode.depthUpdate == 0) {
 			for (u32 i = firstIndex; i < triangles.num; ++i) {
 				SPVertex & vtx = triangles.vertices[triangles.elements[i]];
@@ -155,11 +155,11 @@ void GraphicsDrawer::_updateDepthCompare() const
 
 			gfxContext.enable(enable::DEPTH_TEST, true);
 			if (!GBI.isNoN())
-				gfxContext.enable(enable::DEPTH_CLAMP, false);
+				gfxContext.setClampMode(graphics::ClampMode::ClippingEnabled);
 		} else {
 			gfxContext.enable(enable::DEPTH_TEST, false);
 			if (!GBI.isNoN())
-				gfxContext.enable(enable::DEPTH_CLAMP, true);
+				gfxContext.setClampMode(graphics::ClampMode::NoClipping);
 		}
 	}
 }
@@ -255,22 +255,25 @@ void GraphicsDrawer::_updateViewport() const
 	gSP.changed &= ~CHANGED_VIEWPORT;
 }
 
-void GraphicsDrawer::_updateScreenCoordsViewport() const
+void GraphicsDrawer::_updateScreenCoordsViewport(const FrameBuffer * _pBuffer) const
 {
 	DisplayWindow & wnd = DisplayWindow::get();
-	FrameBuffer * pCurrentBuffer = frameBufferList().getCurrent();
+	const FrameBuffer * pCurrentBuffer = _pBuffer != nullptr ? _pBuffer : frameBufferList().getCurrent();
 
-	u32 bufferWidth;
-	f32 viewportScale;
+	u32 bufferWidth, bufferHeight;
+	f32 viewportScaleX, viewportScaleY;
 	if (pCurrentBuffer == nullptr) {
 		bufferWidth = VI.width;
-		viewportScale = wnd.getScaleX();
+		bufferHeight = VI.height;
+		viewportScaleX = wnd.getScaleX();
+		viewportScaleY = wnd.getScaleY();
 	} else {
 		bufferWidth = pCurrentBuffer->m_width;
-		viewportScale = pCurrentBuffer->m_scale;
+		bufferHeight = VI_GetMaxBufferHeight(bufferWidth);
+		viewportScaleX = viewportScaleY = pCurrentBuffer->m_scale;
 	}
-	const u32 bufferHeight = VI_GetMaxBufferHeight(bufferWidth);
-	gfxContext.setViewport(0, 0, (s32)(bufferWidth * viewportScale), (s32)(bufferHeight * viewportScale));
+
+	gfxContext.setViewport(0, 0, (s32)(bufferWidth * viewportScaleX), (s32)(bufferHeight * viewportScaleY));
 	gSP.changed |= CHANGED_VIEWPORT;
 }
 
@@ -438,6 +441,39 @@ void _legacySetBlendMode()
 	}
 }
 
+bool GraphicsDrawer::_setUnsupportedBlendMode() const
+{
+	if (gDP.otherMode.cycleType != G_CYC_2CYCLE)
+		return false;
+
+	// Modes, which shader blender can't emulate
+	const u32 mode = _SHIFTR(gDP.otherMode.l, 16, 16);
+	switch (mode) {
+	case 0x0040:
+		// Mia Hamm Soccer
+		// clr_in * a_in + clr_mem * (1-a)
+		// clr_in * a_in + clr_in * (1-a)
+	case 0x0050:
+		// A Bug's Life
+		// clr_in * a_in + clr_mem * (1-a)
+		// clr_in * a_in + clr_mem * (1-a)
+		gfxContext.enable(enable::BLEND, true);
+		gfxContext.setBlending(blend::SRC_ALPHA, blend::ONE_MINUS_SRC_ALPHA);
+		return true;
+	case 0x0150:
+		// Tony Hawk
+		// clr_in * a_in + clr_mem * (1-a)
+		// clr_in * a_fog + clr_mem * (1-a_fog)
+		if ((config.generalEmulation.hacks & hack_TonyHawk) != 0) {
+			gfxContext.enable(enable::BLEND, true);
+			gfxContext.setBlending(blend::SRC_ALPHA, blend::ONE_MINUS_SRC_ALPHA);
+			return true;
+		}
+		break;
+	}
+	return false;
+}
+
 void GraphicsDrawer::_setBlendMode() const
 {
 	if (config.generalEmulation.enableLegacyBlending != 0) {
@@ -445,16 +481,8 @@ void GraphicsDrawer::_setBlendMode() const
 		return;
 	}
 
-	if ((gDP.otherMode.l & 0xFFFF0000) == 0x01500000) {
-		// clr_in * a_in + clr_mem * (1-a)
-		// clr_in * a_fog + clr_mem * (1-a)
-		// impossible to emulate
-		if (gDP.otherMode.forceBlender != 0 && gDP.otherMode.cycleType < G_CYC_COPY) {
-			gfxContext.enable(enable::BLEND, true);
-			gfxContext.setBlending(blend::SRC_ALPHA, blend::ONE_MINUS_SRC_ALPHA);
-			return;
-		}
-	}
+	if (_setUnsupportedBlendMode())
+		return;
 
 	if (gDP.otherMode.forceBlender != 0 && gDP.otherMode.cycleType < G_CYC_COPY) {
 		BlendParam srcFactor = blend::ONE;
@@ -1100,13 +1128,15 @@ void GraphicsDrawer::drawTexturedRect(const TexturedRectParams & _params)
 	gSP.changed &= ~CHANGED_GEOMETRYMODE; // Don't update cull mode
 	m_drawingState = DrawingState::TexRect;
 
-	if (!m_texrectDrawer.isEmpty()) {
+	if (m_texrectDrawer.canContinue()) {
 		CombinerInfo & cmbInfo = CombinerInfo::get();
 		cmbInfo.setPolygonMode(DrawingState::TexRect);
 		cmbInfo.update();
 		_updateTextures();
 		cmbInfo.updateParameters();
 	} else {
+		if (!m_texrectDrawer.isEmpty())
+			m_texrectDrawer.draw();
 		gSP.changed &= ~CHANGED_GEOMETRYMODE; // Don't update cull mode
 		gSP.changed &= ~CHANGED_VIEWPORT; // Don't update viewport
 		if (_params.texrectCmd && (gSP.changed | gDP.changed) != 0)
@@ -1144,11 +1174,6 @@ void GraphicsDrawer::drawTexturedRect(const TexturedRectParams & _params)
 	const f32 uly = _params.uly * (2.0f * scaleY) - 1.0f;
 	const f32 lrx = _params.lrx * (2.0f * scaleX) - 1.0f;
 	const f32 lry = _params.lry * (2.0f * scaleY) - 1.0f;
-	if (!bUseTexrectDrawer) {
-		// Flush text drawer
-		if (m_texrectDrawer.draw())
-			_updateStates(DrawingState::TexRect);
-	}
 	m_rect[0].x = ulx;
 	m_rect[0].y = uly;
 	m_rect[0].z = Z;
@@ -1325,7 +1350,17 @@ void GraphicsDrawer::drawTexturedRect(const TexturedRectParams & _params)
 		rectParams.vertices = m_rect;
 		rectParams.combiner = currentCombiner();
 		gfxContext.drawRects(rectParams);
-		g_debugger.addRects(rectParams);
+		if (g_debugger.isCaptureMode()) {
+			m_rect[0].x = _params.ulx;
+			m_rect[0].y = _params.uly;
+			m_rect[1].x = _params.lrx;
+			m_rect[1].y = _params.uly;
+			m_rect[2].x = _params.ulx;
+			m_rect[2].y = _params.lry;
+			m_rect[3].x = _params.lrx;
+			m_rect[3].y = _params.lry;
+			g_debugger.addRects(rectParams);
+		}
 
 		gSP.changed |= CHANGED_GEOMETRYMODE | CHANGED_VIEWPORT;
 	}
@@ -1388,7 +1423,12 @@ void GraphicsDrawer::_drawOSD(const char *_pText, float _x, float & _y)
 
 void GraphicsDrawer::drawOSD()
 {
-	if ((config.onScreenDisplay.fps | config.onScreenDisplay.vis | config.onScreenDisplay.percent) == 0 &&
+	if ((config.onScreenDisplay.fps |
+		config.onScreenDisplay.vis |
+		config.onScreenDisplay.percent |
+		config.onScreenDisplay.internalResolution |
+		config.onScreenDisplay.renderingResolution
+		) == 0 &&
 		m_osdMessages.empty())
 		return;
 
@@ -1419,7 +1459,7 @@ void GraphicsDrawer::drawOSD()
 	vShift *= 0.5f;
 	const float x = hp - hShift * hp;
 	float y = vp - vShift * vp;
-	char buf[16];
+	char buf[40];
 
 	if (config.onScreenDisplay.fps) {
 		sprintf(buf, "%d FPS", int(perf.getFps()));
@@ -1434,6 +1474,26 @@ void GraphicsDrawer::drawOSD()
 	if (config.onScreenDisplay.percent) {
 		sprintf(buf, "%d %%", int(perf.getPercent()));
 		_drawOSD(buf, x, y);
+	}
+
+	if (config.onScreenDisplay.renderingResolution) {
+		FrameBuffer * pBuffer = frameBufferList().getCurrent();
+		if (pBuffer != nullptr && VI.width != 0) {
+			const float aspect = float(VI.height) / float(VI.width);
+			const u32 height = u32(pBuffer->m_pTexture->width * aspect);
+			sprintf(buf, "Rendering Resolution %ux%u", pBuffer->m_pTexture->width, height);
+			_drawOSD(buf, x, y);
+		}
+	}
+
+	if (config.onScreenDisplay.internalResolution) {
+		FrameBuffer * pBuffer = frameBufferList().getCurrent();
+		if (pBuffer != nullptr && VI.width != 0) {
+			const float aspect = float(VI.height) / float(VI.width);
+			const u32 height = u32(pBuffer->m_width * aspect);
+			sprintf(buf, "Internal Resolution %ux%u", pBuffer->m_width, height);
+			_drawOSD(buf, x, y);
+		}
 	}
 
 	for (const std::string & m : m_osdMessages) {

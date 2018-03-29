@@ -103,6 +103,8 @@ namespace opengl {
 
 		void enable(bool _enable);
 
+		u32 get();
+
 	private:
 		const graphics::Parameter m_parameter;
 	};
@@ -122,33 +124,8 @@ namespace opengl {
 	private:
 		Bind m_bind;
 	};
-    
-    class CachedBindFramebuffer : public Cached2<graphics::Parameter, graphics::ObjectHandle>
-    {
-    public:
-        CachedBindFramebuffer(decltype(GET_GL_FUNCTION(glBindFramebuffer)) _bind) : m_bind(_bind) {}
-        
-        void bind(graphics::Parameter _target, graphics::ObjectHandle _name) {
-#ifdef OS_IOS
-            if (m_defaultFramebuffer == graphics::ObjectHandle::null) {
-                GLint defaultFramebuffer;
-                glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFramebuffer);
-                m_defaultFramebuffer = graphics::ObjectHandle(defaultFramebuffer);
-            }
-            if (_name == graphics::ObjectHandle::null) {
-                _name = m_defaultFramebuffer;
-            }
-#endif
-            if (update(_target, _name))
-                m_bind(GLenum(_target), GLuint(_name));
-        }
-        
-    private:
-        decltype(GET_GL_FUNCTION(glBindFramebuffer)) m_bind;
-#ifdef OS_IOS
-        graphics::ObjectHandle m_defaultFramebuffer;
-#endif
-   };
+
+	typedef CachedBind<decltype(GET_GL_FUNCTION(glBindFramebuffer))> CachedBindFramebuffer;
 
 	typedef CachedBind<decltype(GET_GL_FUNCTION(glBindRenderbuffer))> CachedBindRenderbuffer;
 
@@ -230,6 +207,18 @@ namespace opengl {
 		void setTextureUnpackAlignment(s32 _param);
 	};
 
+	struct texture_params {
+		GLint magFilter;
+		GLint minFilter;
+		GLint wrapS;
+		GLint wrapT;
+		GLint maxMipmapLevel;
+		GLfloat maxAnisotropy;
+	};
+
+	typedef std::unordered_map<u32, u32> FramebufferAttachments;
+	typedef std::unordered_map<u32, texture_params> TextureParams;
+
 	/*---------------CachedFunctions-------------*/
 
 	class CachedFunctions
@@ -272,9 +261,15 @@ namespace opengl {
 
 		CachedTextureUnpackAlignment * getCachedTextureUnpackAlignment();
 
+		FramebufferAttachments * getFBAttachments();
+
+		TextureParams * getTexParams();
+
 	private:
 		typedef std::unordered_map<u32, CachedEnable> EnableParameters;
 
+		TextureParams m_texparams;
+		FramebufferAttachments m_fbattachments;
 		EnableParameters m_enables;
 		CachedBindTexture m_bindTexture;
 		CachedBindFramebuffer m_bindFramebuffer;

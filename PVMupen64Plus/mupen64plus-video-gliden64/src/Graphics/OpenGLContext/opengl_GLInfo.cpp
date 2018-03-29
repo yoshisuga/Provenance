@@ -38,6 +38,8 @@ void GLInfo::init() {
 		renderer = Renderer::VideoCore;
 	else if (strstr((const char*)strRenderer, "Intel") != nullptr)
 		renderer = Renderer::Intel;
+	else if (strstr((const char*)strRenderer, "PowerVR") != nullptr)
+		renderer = Renderer::PowerVR;
 	LOG(LOG_VERBOSE, "OpenGL renderer: %s\n", strRenderer);
 
 	int numericVersion = majorVersion * 10 + minorVersion;
@@ -58,12 +60,15 @@ void GLInfo::init() {
 	}
 	if (isGLES2)
 		config.generalEmulation.enableFragmentDepthWrite = 0;
+
 	bufferStorage = (!isGLESX && (numericVersion >= 44)) || Utils::isExtensionSupported(*this, "GL_ARB_buffer_storage") ||
 			Utils::isExtensionSupported(*this, "GL_EXT_buffer_storage");
+
 #ifdef EGL
 	if (isGLESX && bufferStorage)
 		g_glBufferStorage = (PFNGLBUFFERSTORAGEPROC) eglGetProcAddress("glBufferStorageEXT");
 #endif
+
 	texStorage = (isGLESX && (numericVersion >= 30)) || (!isGLESX && numericVersion >= 42) ||
 			Utils::isExtensionSupported(*this, "GL_ARB_texture_storage");
 
@@ -79,7 +84,7 @@ void GLInfo::init() {
 		}
 	}
 #ifndef OS_ANDROID
-	if (isGLES2 && config.frameBufferEmulation.copyToRDRAM == Config::ctAsync) {
+	if (isGLES2 && config.frameBufferEmulation.copyToRDRAM > Config::ctSync) {
 		config.frameBufferEmulation.copyToRDRAM = Config::ctDisable;
 		LOG(LOG_WARNING, "Async color buffer copies are not supported on GLES2\n");
 	}
@@ -90,4 +95,6 @@ void GLInfo::init() {
 			LOG(LOG_WARNING, "LOD emulation not possible on this device\n");
 		}
 	}
+
+	depthTexture = !isGLES2 || Utils::isExtensionSupported(*this, "GL_OES_depth_texture");
 }

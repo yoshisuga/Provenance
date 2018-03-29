@@ -1,10 +1,9 @@
-#include <GLideN64.h>
-#include <DebugDump.h>
+#include "../GLideN64.h"
 #include "F3D.h"
 #include "F3DEX.h"
 #include "F3DEX2.h"
 #include "F3DAM.h"
-#include <gSP.h>
+#include "../gSP.h"
 
 void F3DAM_MoveWord(u32 w0, u32 w1)
 {
