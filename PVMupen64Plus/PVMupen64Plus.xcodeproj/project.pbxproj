@@ -156,6 +156,10 @@
 		B35B31C7206C8EC700AEAF88 /* T3DUX.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B35B3186206C8E1500AEAF88 /* T3DUX.cpp */; };
 		B35B31C8206C912C00AEAF88 /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB602872038AE7A001E70F1 /* Types.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B35B31C9206C9AAC00AEAF88 /* opengl_CachedFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB6037C2038AE7C001E70F1 /* opengl_CachedFunctions.cpp */; };
+		B35B31CC206CA65A00AEAF88 /* CRC_OPT_NEON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B35B31CB206CA65900AEAF88 /* CRC_OPT_NEON.cpp */; };
+		B35B31CD206CA65A00AEAF88 /* CRC_OPT_NEON.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B35B31CB206CA65900AEAF88 /* CRC_OPT_NEON.cpp */; };
+		B35B31CE206CA72800AEAF88 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = DFB6032F2038AE7B001E70F1 /* xxhash.c */; };
+		B35B31CF206CA72A00AEAF88 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = DFB6032F2038AE7B001E70F1 /* xxhash.c */; };
 		B37EFEF91C72E6CD00857158 /* Blender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94E6B889166C2A0A00082F27 /* Blender.cpp */; };
 		B37EFEFA1C72E6CD00857158 /* Combiner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94E6B88E166C2A0A00082F27 /* Combiner.cpp */; };
 		B37EFEFB1C72E6CD00857158 /* CombinerTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94E6B891166C2A0A00082F27 /* CombinerTable.cpp */; };
@@ -462,9 +466,7 @@
 		DFB603D82038B996001E70F1 /* convert.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB6033C2038AE7C001E70F1 /* convert.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB603D92038B997001E70F1 /* convert.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB6033C2038AE7C001E70F1 /* convert.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB603DA2038B9C0001E70F1 /* CRC.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB6029A2038AE7A001E70F1 /* CRC.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DFB603DB2038B9C0001E70F1 /* CRC32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB602A32038AE7A001E70F1 /* CRC32.cpp */; };
 		DFB603DC2038B9C0001E70F1 /* CRC.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB6029A2038AE7A001E70F1 /* CRC.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DFB603DD2038B9C0001E70F1 /* CRC32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB602A32038AE7A001E70F1 /* CRC32.cpp */; };
 		DFB603DE2038B9CF001E70F1 /* DebugDump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB602E32038AE7B001E70F1 /* DebugDump.cpp */; };
 		DFB603DF2038B9CF001E70F1 /* DebugDump.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB602E42038AE7B001E70F1 /* DebugDump.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB603E02038B9CF001E70F1 /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB6032A2038AE7B001E70F1 /* Debugger.cpp */; };
@@ -1451,6 +1453,7 @@
 		B35B3193206C8E1B00AEAF88 /* F3DEX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = F3DEX.h; sourceTree = "<group>"; };
 		B35B3194206C8E1C00AEAF88 /* F3DSWRS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = F3DSWRS.h; sourceTree = "<group>"; };
 		B35B3195206C8E1C00AEAF88 /* F3D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = F3D.cpp; sourceTree = "<group>"; };
+		B35B31CB206CA65900AEAF88 /* CRC_OPT_NEON.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CRC_OPT_NEON.cpp; sourceTree = "<group>"; };
 		B37EFEF01C72E63300857158 /* PVMupen64PlusVideoRice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PVMupen64PlusVideoRice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37EFEF21C72E63300857158 /* PVMupen64PlusVideoRice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVMupen64PlusVideoRice.h; sourceTree = "<group>"; };
 		B37EFEF41C72E63300857158 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -4093,6 +4096,7 @@
 		DFB603252038AE7B001E70F1 /* Neon */ = {
 			isa = PBXGroup;
 			children = (
+				B35B31CB206CA65900AEAF88 /* CRC_OPT_NEON.cpp */,
 				DFB603262038AE7B001E70F1 /* gSPNeon.cpp */,
 				DFB603272038AE7B001E70F1 /* 3DMathNeon.cpp */,
 				DFB603282038AE7B001E70F1 /* RSP_LoadMatrixNeon.cpp */,
@@ -5464,7 +5468,6 @@
 				DFB604B52038BBD5001E70F1 /* opengl_Parameters.cpp in Sources */,
 				B35B31A5206C8E2700AEAF88 /* L3D.cpp in Sources */,
 				DFB6045B2038BAB8001E70F1 /* ColorBufferToRDRAM.cpp in Sources */,
-				DFB603DB2038B9C0001E70F1 /* CRC32.cpp in Sources */,
 				DFB604522038BA9D001E70F1 /* ZlutTexture.cpp in Sources */,
 				DFB604782038BB0B001E70F1 /* ObjectHandle.cpp in Sources */,
 				DFB606152038BD4E001E70F1 /* CommonAPIImpl_mupenplus.cpp in Sources */,
@@ -5511,6 +5514,7 @@
 				B35B319B206C8E2700AEAF88 /* F3DEX2.cpp in Sources */,
 				DFB606142038BD4E001E70F1 /* MupenPlusAPIImpl.cpp in Sources */,
 				B35B3199206C8E2700AEAF88 /* F3DDKR.cpp in Sources */,
+				B35B31CE206CA72800AEAF88 /* xxhash.c in Sources */,
 				B35B319E206C8E2700AEAF88 /* F3DFLX2.cpp in Sources */,
 				DFB604D62038BC0B001E70F1 /* glsl_CombinerInputs.cpp in Sources */,
 				DFB603D42038B98C001E70F1 /* convert.cpp in Sources */,
@@ -5522,6 +5526,7 @@
 				B35B3196206C8E2700AEAF88 /* F3D.cpp in Sources */,
 				B35B319F206C8E2700AEAF88 /* F3DGOLDEN.cpp in Sources */,
 				DFB6041C2038BA3C001E70F1 /* PaletteTexture.cpp in Sources */,
+				B35B31CC206CA65A00AEAF88 /* CRC_OPT_NEON.cpp in Sources */,
 				DFB604572038BAB8001E70F1 /* DepthBufferToRDRAM.cpp in Sources */,
 				DFB604002038BA09001E70F1 /* GLideN64.cpp in Sources */,
 				DFB6061A2038BD73001E70F1 /* mupen64plus_DisplayWindow.cpp in Sources */,
@@ -5570,7 +5575,6 @@
 				DFB604C22038BBD6001E70F1 /* opengl_Parameters.cpp in Sources */,
 				DFB604622038BAB8001E70F1 /* ColorBufferToRDRAM.cpp in Sources */,
 				B35B31BD206C8E2700AEAF88 /* L3D.cpp in Sources */,
-				DFB603DD2038B9C0001E70F1 /* CRC32.cpp in Sources */,
 				DFB604542038BA9E001E70F1 /* ZlutTexture.cpp in Sources */,
 				DFB604862038BB0B001E70F1 /* ObjectHandle.cpp in Sources */,
 				DFB606192038BD4F001E70F1 /* CommonAPIImpl_mupenplus.cpp in Sources */,
@@ -5617,6 +5621,7 @@
 				DFB606182038BD4F001E70F1 /* MupenPlusAPIImpl.cpp in Sources */,
 				B35B31B1206C8E2700AEAF88 /* F3DDKR.cpp in Sources */,
 				B35B31B6206C8E2700AEAF88 /* F3DFLX2.cpp in Sources */,
+				B35B31CF206CA72A00AEAF88 /* xxhash.c in Sources */,
 				DFB604DD2038BC0C001E70F1 /* glsl_CombinerInputs.cpp in Sources */,
 				DFB603D52038B98C001E70F1 /* convert.cpp in Sources */,
 				DFB603D32038B989001E70F1 /* Config.cpp in Sources */,
@@ -5628,6 +5633,7 @@
 				B35B31B7206C8E2700AEAF88 /* F3DGOLDEN.cpp in Sources */,
 				DFB604222038BA3D001E70F1 /* PaletteTexture.cpp in Sources */,
 				DFB6045E2038BAB8001E70F1 /* DepthBufferToRDRAM.cpp in Sources */,
+				B35B31CD206CA65A00AEAF88 /* CRC_OPT_NEON.cpp in Sources */,
 				DFB604082038BA09001E70F1 /* GLideN64.cpp in Sources */,
 				DFB6061B2038BD73001E70F1 /* mupen64plus_DisplayWindow.cpp in Sources */,
 				B35B3149206C7C9300AEAF88 /* gSPNeon.cpp in Sources */,
@@ -5695,13 +5701,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
-					"-ffast-math",
+					"-mfpu=neon",
 					"-fno-strict-aliasing",
 					"-fvisibility=hidden",
 					"-DGCC",
 					"-pthread",
 					"-fPIC",
 					"-D__unix__",
+					"-D__NEON_OPT",
+					"-D__VEC4_OPT",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -5745,13 +5753,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
-					"-ffast-math",
+					"-mfpu=neon",
 					"-fno-strict-aliasing",
 					"-fvisibility=hidden",
 					"-DGCC",
 					"-pthread",
 					"-fPIC",
 					"-D__unix__",
+					"-D__NEON_OPT",
+					"-D__VEC4_OPT",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -6909,6 +6919,7 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/mupen64plus-video-gliden64/src\"";
 				USE_HEADERMAP = YES;
+				VALID_ARCHS = arm64;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -6972,6 +6983,7 @@
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/mupen64plus-video-gliden64/src\"";
 				USE_HEADERMAP = YES;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = arm64;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
