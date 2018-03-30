@@ -435,6 +435,8 @@
 		B3BDEC8C1DED5E04002BD7A4 /* RiceVideoLinux.ini in Resources */ = {isa = PBXBuildFile; fileRef = 94E6B87E166C2A0A00082F27 /* RiceVideoLinux.ini */; };
 		B3BDEC901DED6091002BD7A4 /* mupen64plus.ini in Resources */ = {isa = PBXBuildFile; fileRef = 3D208CCA11824C2200BEAA42 /* mupen64plus.ini */; };
 		B3BDEC911DED6096002BD7A4 /* mupen64plus.ini in Resources */ = {isa = PBXBuildFile; fileRef = 3D208CCA11824C2200BEAA42 /* mupen64plus.ini */; };
+		B3CB4B21206E54D20074706B /* Log_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3CB4B20206E54D10074706B /* Log_ios.mm */; };
+		B3CB4B22206E54D20074706B /* Log_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3CB4B20206E54D10074706B /* Log_ios.mm */; };
 		B3EA447C206E10C700E608F6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3EA447B206E10C700E608F6 /* OpenGLES.framework */; };
 		B3EA4482206E309500E608F6 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B3EA4481206E309500E608F6 /* libbz2.tbd */; };
 		B3EA4483206E309A00E608F6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B3303E811DED272E00896D96 /* libz.tbd */; };
@@ -528,13 +530,11 @@
 		DFB6040D2038BA1B001E70F1 /* gSP.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB603222038AE7B001E70F1 /* gSP.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB6040E2038BA1B001E70F1 /* Keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB603922038AE7D001E70F1 /* Keys.cpp */; };
 		DFB6040F2038BA1B001E70F1 /* Keys.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB601D72038AE78001E70F1 /* Keys.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DFB604102038BA1B001E70F1 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB6020B2038AE79001E70F1 /* Log.cpp */; };
 		DFB604112038BA1B001E70F1 /* Log.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB602DF2038AE7A001E70F1 /* Log.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB604122038BA1B001E70F1 /* gSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB602802038AE7A001E70F1 /* gSP.cpp */; };
 		DFB604132038BA1B001E70F1 /* gSP.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB603222038AE7B001E70F1 /* gSP.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB604142038BA1B001E70F1 /* Keys.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB603922038AE7D001E70F1 /* Keys.cpp */; };
 		DFB604152038BA1B001E70F1 /* Keys.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB601D72038AE78001E70F1 /* Keys.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DFB604162038BA1B001E70F1 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB6020B2038AE79001E70F1 /* Log.cpp */; };
 		DFB604172038BA1B001E70F1 /* Log.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB602DF2038AE7A001E70F1 /* Log.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DFB604182038BA3C001E70F1 /* N64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFB603932038AE7D001E70F1 /* N64.cpp */; };
 		DFB604192038BA3C001E70F1 /* N64.h in Headers */ = {isa = PBXBuildFile; fileRef = DFB603212038AE7B001E70F1 /* N64.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1602,6 +1602,7 @@
 		B3C103D31C72DDA000DD066C /* get_time_using_C_localtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = get_time_using_C_localtime.h; sourceTree = "<group>"; };
 		B3C103D41C72DDAD00DD066C /* rumble_via_input_plugin.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rumble_via_input_plugin.c; sourceTree = "<group>"; };
 		B3C103D51C72DDAD00DD066C /* rumble_via_input_plugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rumble_via_input_plugin.h; sourceTree = "<group>"; };
+		B3CB4B20206E54D10074706B /* Log_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Log_ios.mm; sourceTree = "<group>"; };
 		B3EA447B206E10C700E608F6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B3EA4481206E309500E608F6 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		B3EA4488206E372400E608F6 /* TextDrawerStub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextDrawerStub.cpp; sourceTree = "<group>"; };
@@ -3663,6 +3664,7 @@
 				DFB603922038AE7D001E70F1 /* Keys.cpp */,
 				DFB601D72038AE78001E70F1 /* Keys.h */,
 				DFB6038C2038AE7C001E70F1 /* Log_android.cpp */,
+				B3CB4B20206E54D10074706B /* Log_ios.mm */,
 				DFB6020B2038AE79001E70F1 /* Log.cpp */,
 				DFB602DF2038AE7A001E70F1 /* Log.h */,
 				DFB602AC2038AE7A001E70F1 /* mupen64plus-video-gliden64.mk */,
@@ -5522,6 +5524,7 @@
 				DFB604D92038BC0B001E70F1 /* glsl_CombinerProgramUniformFactory.cpp in Sources */,
 				B3EA4489206E372500E608F6 /* TextDrawerStub.cpp in Sources */,
 				B35B31A3206C8E2700AEAF88 /* F3DTEXA.cpp in Sources */,
+				B3CB4B21206E54D20074706B /* Log_ios.mm in Sources */,
 				DFB6046E2038BAE1001E70F1 /* CommonAPIImpl_common.cpp in Sources */,
 				DFB604702038BB0A001E70F1 /* ColorBufferReader.cpp in Sources */,
 				DFB603FC2038BA09001E70F1 /* GBI.cpp in Sources */,
@@ -5552,7 +5555,6 @@
 				B35B3152206C843400AEAF88 /* gSPNeon.cpp in Sources */,
 				DFB606102038BD40001E70F1 /* MupenPlusPluginAPI.cpp in Sources */,
 				DFB604B62038BBD5001E70F1 /* opengl_TextureManipulationObjectFactory.cpp in Sources */,
-				DFB604102038BA1B001E70F1 /* Log.cpp in Sources */,
 				B3EA448B206E471200E608F6 /* RSP_LoadMatrix.cpp in Sources */,
 				B35B3153206C846900AEAF88 /* RSP_LoadMatrixNeon.cpp in Sources */,
 				B3EA448F206E473F00E608F6 /* 3DMath.cpp in Sources */,
@@ -5632,6 +5634,7 @@
 				B35B31BB206C8E2700AEAF88 /* F3DTEXA.cpp in Sources */,
 				DFB6046F2038BAE1001E70F1 /* CommonAPIImpl_common.cpp in Sources */,
 				DFB6047E2038BB0B001E70F1 /* ColorBufferReader.cpp in Sources */,
+				B3CB4B22206E54D20074706B /* Log_ios.mm in Sources */,
 				DFB604042038BA09001E70F1 /* GBI.cpp in Sources */,
 				DFB604142038BA1B001E70F1 /* Keys.cpp in Sources */,
 				DFB603E42038B9CF001E70F1 /* DebugDump.cpp in Sources */,
@@ -5662,7 +5665,6 @@
 				DFB606112038BD41001E70F1 /* MupenPlusPluginAPI.cpp in Sources */,
 				DFB604C32038BBD6001E70F1 /* opengl_TextureManipulationObjectFactory.cpp in Sources */,
 				B35B314B206C7C9300AEAF88 /* RSP_LoadMatrixNeon.cpp in Sources */,
-				DFB604162038BA1B001E70F1 /* Log.cpp in Sources */,
 				B3EA448C206E471300E608F6 /* RSP_LoadMatrix.cpp in Sources */,
 				B35B31B0206C8E2700AEAF88 /* F3DBETA.cpp in Sources */,
 				B3EA4490206E474000E608F6 /* 3DMath.cpp in Sources */,
