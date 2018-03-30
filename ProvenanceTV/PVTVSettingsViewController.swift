@@ -40,7 +40,7 @@ class PVTVSettingsViewController: UITableViewController {
         versionText = versionText ?? "" + (" (\(Bundle.main.infoDictionary?["CFBundleVersion"] ?? ""))")
         if !masterBranch {
             versionText = "\(versionText ?? "") Beta"
-            versionLabel.textColor = UIColor.init(hex: "#F5F5A0")
+            versionValueLabel.textColor = UIColor.init(hex: "#F5F5A0")
         }
         versionValueLabel.text = versionText
 
