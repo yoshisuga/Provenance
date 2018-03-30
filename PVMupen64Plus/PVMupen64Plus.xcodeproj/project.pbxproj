@@ -2237,12 +2237,12 @@
 		32C88E010371C26100C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B3CB4B23206E5B4B0074706B /* Plugins */,
 				3D2090581182D92800BEAA42 /* Compatibility */,
 				94E6B83D166C2A0A00082F27 /* mupen64plus-audio-sdl */,
 				94E6B84F166C2A0A00082F27 /* mupen64plus-input-sdl */,
 				94E6B869166C2A0A00082F27 /* mupen64plus-rsp-hle */,
 				B33115941C730A2B00E9AD14 /* mupen64plus-rsp-cxd4 */,
-				DFB6018A2038AE78001E70F1 /* mupen64plus-video-gliden64 */,
 				94E6B87C166C2A0A00082F27 /* mupen64plus-video-rice */,
 				3D208CC611824C2200BEAA42 /* mupen64plus-core */,
 				32DBCF630370AF2F00C91783 /* Mupen64Plus_Prefix.pch */,
@@ -3380,6 +3380,14 @@
 				B3C103C11C72DAFF00DD066C /* ai_controller.h */,
 			);
 			path = ai;
+			sourceTree = "<group>";
+		};
+		B3CB4B23206E5B4B0074706B /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				DFB6018A2038AE78001E70F1 /* mupen64plus-video-gliden64 */,
+			);
+			path = Plugins;
 			sourceTree = "<group>";
 		};
 		DFB601812038AD13001E70F1 /* PVMupen64PlusVideoGlideN64 */ = {
@@ -6938,21 +6946,20 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/BufferCopy\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/common\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/DepthBufferRender\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNHQ\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNUI\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Graphics\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/mupenplus\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Neon\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/osal\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/uCodes\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/windows\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/xxHash\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/BufferCopy\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/common\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/DepthBufferRender\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNHQ\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNUI\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Graphics\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/inc\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/mupenplus\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Neon\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/osal\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/uCodes\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/windows\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/xxHash\"",
 				);
 				INFOPLIST_FILE = PVMupen64PlusVideoGlideN64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -6975,7 +6982,7 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/mupen64plus-video-gliden64/src\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src\"";
 				USE_HEADERMAP = NO;
 				VALID_ARCHS = arm64;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -7037,21 +7044,20 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/BufferCopy\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/common\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/DepthBufferRender\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNHQ\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNUI\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Graphics\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/mupenplus\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Neon\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/osal\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/uCodes\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/windows\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/xxHash\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/BufferCopy\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/common\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/DepthBufferRender\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNHQ\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNUI\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Graphics\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/inc\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/mupenplus\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Neon\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/osal\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/uCodes\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/windows\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/xxHash\"",
 				);
 				INFOPLIST_FILE = PVMupen64PlusVideoGlideN64/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -7074,7 +7080,7 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/mupen64plus-video-gliden64/src\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src\"";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = arm64;
@@ -7142,21 +7148,20 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/BufferCopy\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/common\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/DepthBufferRender\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNHQ\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNUI\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Graphics\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/mupenplus\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Neon\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/osal\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/uCodes\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/windows\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/xxHash\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/BufferCopy\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/common\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/DepthBufferRender\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNHQ\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNUI\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Graphics\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/inc\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/mupenplus\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Neon\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/osal\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/uCodes\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/windows\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/xxHash\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/PVMupen64PlusVideoGlideN64/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -7180,7 +7185,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.2;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/mupen64plus-video-gliden64/src\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src\"";
 				USE_HEADERMAP = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -7242,21 +7247,20 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/BufferCopy\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/common\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/DepthBufferRender\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNHQ\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/GLideNUI\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Graphics\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/inc\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/mupenplus\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/Neon\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/osal\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/uCodes\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/windows\"",
-					"\"$(SRCROOT)/mupen64plus-video-gliden64/src/xxHash\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/BufferCopy\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/common\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/DepthBufferRender\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNHQ\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/GLideNUI\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Graphics\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/inc\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/mupenplus\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/Neon\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/osal\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/uCodes\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/windows\"",
+					"\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src/xxHash\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/PVMupen64PlusVideoGlideN64/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -7280,7 +7284,7 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.2;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/mupen64plus-video-gliden64/src\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Plugins/mupen64plus-video-gliden64/src\"";
 				USE_HEADERMAP = NO;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
