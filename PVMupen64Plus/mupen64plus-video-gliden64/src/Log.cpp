@@ -16,6 +16,9 @@ void LOG(u16 type, const char * format, ...) {
 
 #ifdef OS_WINDOWS
 	FILE *dumpFile = _wfopen(logPath, wst("a+"));
+#elif defined(OS_IOS)
+    FILE *dumpFile = stdout;
+    fputs("Gliden: ", dumpFile);
 #else
 	constexpr size_t bufSize = PLUGIN_PATH_SIZE * 6;
 	char cbuf[bufSize];
