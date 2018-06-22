@@ -679,11 +679,11 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 			}
 		}
 #if os(iOS)
-        actionsheet.addAction(UIAlertAction(title: "Save Screenshot", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+        actionsheet.addAction(UIAlertAction(title: "Save Screenshot".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             self.perform(#selector(self.takeScreenshot), with: nil, afterDelay: 0.1)
         }))
 #endif
-        actionsheet.addAction(UIAlertAction(title: "Game Info", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+        actionsheet.addAction(UIAlertAction(title: "Game Info".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             let sb = UIStoryboard(name: "Provenance", bundle: nil)
             let moreInfoViewContrller = sb.instantiateViewController(withIdentifier: "gameMoreInfoVC") as? PVGameMoreInfoViewController
             moreInfoViewContrller?.game = self.game
@@ -694,15 +694,15 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
             self.isShowingMenu = false
             self.enableContorllerInput(false)
         }))
-        actionsheet.addAction(UIAlertAction(title: "Game Speed", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+        actionsheet.addAction(UIAlertAction(title: "Game Speed".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             self.perform(#selector(self.showSpeedMenu), with: nil, afterDelay: 0.1)
         }))
         if core.supportsSaveStates {
-            actionsheet.addAction(UIAlertAction(title: "Save States", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            actionsheet.addAction(UIAlertAction(title: "Save States".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                 self.perform(#selector(self.showSaveStateMenu), with: nil, afterDelay: 0.1)
             }))
         }
-        actionsheet.addAction(UIAlertAction(title: "Reset", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+        actionsheet.addAction(UIAlertAction(title: "Reset".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
             if PVSettingsModel.sharedInstance().autoSave, self.core.supportsSaveStates {
                 try? self.autoSaveState()
             }
@@ -711,15 +711,15 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
             self.isShowingMenu = false
             self.enableContorllerInput(false)
         }))
-        var quitTitle = "Quit"
+        var quitTitle = "Quit".localized()
         if let lastPlayed = game.lastPlayed, (lastPlayed.timeIntervalSinceNow * -1) > minimumPlayTimeToMakeAutosave && PVSettingsModel.shared.autoSave {
-            quitTitle = "Save & Quit"
+            quitTitle = "Save & Quit".localized()
         }
 
         actionsheet.addAction(UIAlertAction(title: quitTitle, style: .destructive, handler: {(_ action: UIAlertAction) -> Void in
             self.quit()
         }))
-        let resumeAction = UIAlertAction(title: "Resume", style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
+        let resumeAction = UIAlertAction(title: "Resume".localized(), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
                 self.core.setPauseEmulation(false)
                 self.isShowingMenu = false
                 self.enableContorllerInput(false)
@@ -805,12 +805,14 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 			do {
 				try fileManager.removeItem(at: infoURL)
 			} catch let error {
-				presentError("Unable to remove old save state info.plist: \(error.localizedDescription)")
+                presentError(String(format: "%s: %s",
+                                    "Unable to remove old save state info.plist".localized(),
+                                    error.localizedDescription))
 			}
 		}
 
 		guard let realm = try? Realm() else {
-			presentError("Unable to instantiate realm, abandoning old save state conversion")
+			presentError("Unable to instantiate realm, abandoning old save state conversion".localized())
 			return
 		}
 

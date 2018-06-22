@@ -17,3 +17,14 @@
 "P2 Start" = "P2スタート";
 "P2 Select" = "P2セレクト";
 "Swap Disc" = "ディスクを交換";
+"Save Screenshot" = "スクリーンショットを保存";
+"Game Info" = "ゲーム情報";
+"Game Speed" = "ゲーム速度";
+"Save States" = "保存状態";
+"Reset" = "リセット";
+"Quit" = "終了";
+"Save & Quit" = "保存して終了";
+"Resume" = "再開する";
+"Unable to remove old save state info.plist" = "Unable to remove old save state info.plist";
+"Unable to instantiate realm, abandoning old save state conversion" = "Unable to instantiate realm, abandoning old save state conversion";
+

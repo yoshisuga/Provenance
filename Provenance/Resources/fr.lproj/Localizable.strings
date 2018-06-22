@@ -18,3 +18,12 @@
 "P2 Start" = "P2 Start";
 "P2 Select" = "P2 Select";
 "Swap Disc" = "Swap Disc";
+"Save Screenshot" = "Save Screenshot";
+"Game Info" = "Game Info";
+"Game Speed" = "Game Speed";
+"Save States" = "Save States";
+"Reset" = "Reset";
+"Quit" = "Quit";
+"Save & Quit" = "Save & Quit";
+"Resume" = "Resume";
+"Unable to remove old save state info.plist" = "Unable to remove old save state info.plist";
