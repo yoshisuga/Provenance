@@ -11,6 +11,7 @@ import PVSupport
 import QuartzCore
 import UIKit
 import RealmSwift
+import Localize_Swift
 
 private weak var staticSelf: PVEmulatorViewController?
 
@@ -38,7 +39,7 @@ typealias PVEmulatorViewControllerRootClass = UIViewController
 extension UIViewController {
 	func presentMessage(_ message : String, title: String, completion: (() -> Swift.Void)? = nil) {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: NSLocalizedString("OK",""), style: .default, handler: nil))
+		alert.addAction(UIAlertAction(title: "OK".localized(), style: .default, handler: nil))
 
 		let presentingVC = self.presentedViewController ?? self
 
@@ -53,12 +54,12 @@ extension UIViewController {
 
 	func presentError(_ message : String, completion: (() -> Swift.Void)? = nil) {
 		ELOG("\(message)")
-		presentMessage(message, title: "Error", completion: completion)
+		presentMessage(message, title: "Error".localized(), completion: completion)
 	}
 
 	func presentWarning(_ message : String, completion: (() -> Swift.Void)? = nil) {
 		WLOG("\(message)")
-		presentMessage(message, title: "Warning", completion: completion)
+		presentMessage(message, title: "Warning".localized(), completion: completion)
 	}
 }
 
@@ -283,7 +284,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 		let romPathMaybe: URL? = m3uFile ?? game.file.url
 
 		guard let romPath = romPathMaybe else {
-			presentingViewController?.presentError("Game has a nil rom path.")
+			presentingViewController?.presentError("Game has a nil rom path.".localized())
 			return
 		}
 
@@ -302,7 +303,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 			}))
             let code = (error as NSError).code
             if code == PVEmulatorCoreErrorCode.missingM3U.rawValue {
-                alert.addAction(UIAlertAction(title: "View Wiki", style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
+                alert.addAction(UIAlertAction(title: "View Wiki".localized(), style: .cancel, handler: {(_ action: UIAlertAction) -> Void in
                     if let aString = URL(string: "https://bitly.com/provm3u") {
                         UIApplication.shared.openURL(aString)
                     }
@@ -585,7 +586,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
         }
         menuActionSheet = actionsheet
         if PVControllerManager.shared.iCadeController != nil {
-            actionsheet.addAction(UIAlertAction(title: "Disconnect iCade", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            actionsheet.addAction(UIAlertAction(title: "Disconnect iCade".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                 NotificationCenter.default.post(name: .GCControllerDidDisconnect, object: PVControllerManager.shared.iCadeController)
                 self.core.setPauseEmulation(false)
                 self.isShowingMenu = false
@@ -595,7 +596,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 
 //		if let optionCore = core as? CoreOptional {
 		if core is CoreOptional {
-			actionsheet.addAction(UIAlertAction(title: "Core Options", style: .default, handler: { (action) in
+			actionsheet.addAction(UIAlertAction(title: "Core Options".localized(), style: .default, handler: { (action) in
 				self.showCoreOptions()
 			}))
 		}
@@ -612,7 +613,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
             if (player1.extendedGamepad != nil || wantsStartSelectInMenu) && !hideP1MenuActions {
                 // left trigger bound to Start
                 // right trigger bound to Select
-                actionsheet.addAction(UIAlertAction(title: "P1 Start", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+                actionsheet.addAction(UIAlertAction(title: "P1 Start".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                     self.core.setPauseEmulation(false)
                     self.isShowingMenu = false
                     self.controllerViewController?.pressStart(forPlayer: 0)
@@ -621,7 +622,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
                     })
                     self.enableContorllerInput(false)
                 }))
-                actionsheet.addAction(UIAlertAction(title: "P1 Select", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+                actionsheet.addAction(UIAlertAction(title: "P1 Select".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                     self.core.setPauseEmulation(false)
                     self.isShowingMenu = false
                     self.controllerViewController?.pressSelect(forPlayer: 0)
@@ -634,7 +635,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
         }
         if let player2 = controllerManager.player2 {
             if (player2.extendedGamepad != nil || wantsStartSelectInMenu) {
-                actionsheet.addAction(UIAlertAction(title: "P2 Start", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+                actionsheet.addAction(UIAlertAction(title: "P2 Start".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                     self.core.setPauseEmulation(false)
                     self.isShowingMenu = false
                     self.controllerViewController?.pressStart(forPlayer: 1)
@@ -643,7 +644,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
                     })
                     self.enableContorllerInput(false)
                 }))
-                actionsheet.addAction(UIAlertAction(title: "P2 Select", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+                actionsheet.addAction(UIAlertAction(title: "P2 Select".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                     self.core.setPauseEmulation(false)
                     self.isShowingMenu = false
                     self.controllerViewController?.pressSelect(forPlayer: 1)
@@ -655,7 +656,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
             }
         }
         if let swappableCore = core as? DiscSwappable, swappableCore.currentGameSupportsMultipleDiscs {
-            actionsheet.addAction(UIAlertAction(title: "Swap Disc", style: .default, handler: {(_ action: UIAlertAction) -> Void in
+            actionsheet.addAction(UIAlertAction(title: "Swap Disc".localized(), style: .default, handler: {(_ action: UIAlertAction) -> Void in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                     self.showSwapDiscsMenu()
                 })

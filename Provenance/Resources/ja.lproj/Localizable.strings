@@ -5,3 +5,15 @@
   Created by Yoshi Sugawara on 6/17/18.
   Copyright © 2018 Provenance. All rights reserved.
 */
+
+"OK" = "確認";
+"Error" = "エラー";
+"Warning" = "警告";
+"Game has a nil rom path." = "Game has a nil rom path.";
+"Disconnect iCade" = "iCadeを取り外す";
+"Core Options" = "コア設定";
+"P1 Start" = "P1スタート";
+"P1 Select" = "P1セレクト";
+"P2 Start" = "P2スタート";
+"P2 Select" = "P2セレクト";
+"Swap Disc" = "ディスクを交換";

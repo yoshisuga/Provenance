@@ -5,3 +5,16 @@
   Created by Yoshi Sugawara on 6/17/18.
   Copyright © 2018 Provenance. All rights reserved.
 */
+
+"OK" = "OK";
+"Error" = "Error";
+"Warning" = "Warning";
+"Game has a nil rom path." = "Game has a nil rom path.";
+"View Wiki" = "View Wiki";
+"Disconnect iCade" = "Disconnect iCade";
+"Core Options" = "Core Options";
+"P1 Start" = "P1 Start";
+"P1 Select" = "P1 Select";
+"P2 Start" = "P2 Start";
+"P2 Select" = "P2 Select";
+"Swap Disc" = "Swap Disc";
