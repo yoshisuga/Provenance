@@ -1,0 +1,276 @@
+
+/* Class = "UILabel"; text = "Button Colors"; ObjectID = "1Le-2S-JxA"; */
+"1Le-2S-JxA.text" = "Button Colors";
+
+/* Class = "UILabel"; text = "Publish Date"; ObjectID = "1Sk-Zm-XR8"; */
+"1Sk-Zm-XR8.text" = "Publish Date";
+
+/* Class = "UITableViewSection"; headerTitle = "Audio/Video"; ObjectID = "39b-a5-JRG"; */
+"39b-a5-JRG.headerTitle" = "Audio/Video";
+
+/* Class = "UILabel"; text = "Developer"; ObjectID = "3Ug-6s-efq"; */
+"3Ug-6s-efq.text" = "Developer";
+
+/* Class = "UILabel"; text = "Core Version"; ObjectID = "5Fz-Yu-3Zp"; */
+"5Fz-Yu-3Zp.text" = "Core Version";
+
+/* Class = "UILabel"; text = "Developer"; ObjectID = "5Xz-P5-wov"; */
+"5Xz-P5-wov.text" = "Developer";
+
+/* Class = "UIBarButtonItem"; title = "ℹ︎"; ObjectID = "5n9-hH-dUg"; */
+"5n9-hH-dUg.title" = "ℹ︎";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "63i-bn-lje"; */
+"63i-bn-lje.title" = "Title";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "6YY-KJ-ppC"; */
+"6YY-KJ-ppC.text" = "Name";
+
+/* Class = "UILabel"; text = "Last Played"; ObjectID = "7YU-ie-a2W"; */
+"7YU-ie-a2W.text" = "Last Played";
+
+/* Class = "UITableViewSection"; headerTitle = "Build Information"; ObjectID = "7wE-gr-KHM"; */
+"7wE-gr-KHM.headerTitle" = "Build Information";
+
+/* Class = "UILabel"; text = "Region"; ObjectID = "8SD-dj-o48"; */
+"8SD-dj-o48.text" = "Region";
+
+/* Class = "UILabel"; text = "Controllers"; ObjectID = "8hH-1M-Xm1"; */
+"8hH-1M-Xm1.text" = "Controllers";
+
+/* Class = "UILabel"; text = "Created"; ObjectID = "8p2-R0-xhF"; */
+"8p2-R0-xhF.text" = "Created";
+
+/* Class = "UILabel"; text = "Publish Date"; ObjectID = "95T-Xl-orU"; */
+"95T-Xl-orU.text" = "Publish Date";
+
+/* Class = "UILabel"; text = "Disabled"; ObjectID = "9zw-Ki-2kr"; */
+"9zw-Ki-2kr.text" = "Disabled";
+
+/* Class = "UILabel"; text = "100%"; ObjectID = "B5r-jT-vgt"; */
+"B5r-jT-vgt.text" = "100%";
+
+/* Class = "UILabel"; text = "Opacity"; ObjectID = "BTu-1i-Mch"; */
+"BTu-1i-Mch.text" = "Opacity";
+
+/* Class = "UILabel"; text = "FPS Counter"; ObjectID = "BwP-i7-abe"; */
+"BwP-i7-abe.text" = "FPS Counter";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "D2n-e2-WpK"; */
+"D2n-e2-WpK.text" = "Mode";
+
+/* Class = "UILabel"; text = "System"; ObjectID = "EzF-F0-wzg"; */
+"EzF-F0-wzg.text" = "System";
+
+/* Class = "UILabel"; text = "Genres"; ObjectID = "F5Q-Nc-sDN"; */
+"F5Q-Nc-sDN.text" = "Genres";
+
+/* Class = "UILabel"; text = "Git Revision"; ObjectID = "F5Y-Hw-2WS"; */
+"F5Y-Hw-2WS.text" = "Git Revision";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "F6k-po-NkI"; */
+"F6k-po-NkI.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Auto Save"; ObjectID = "FEy-PG-TbD"; */
+"FEy-PG-TbD.text" = "Auto Save";
+
+/* Class = "UILabel"; text = "Genres"; ObjectID = "FM5-s4-tzw"; */
+"FM5-s4-tzw.text" = "Genres";
+
+/* Class = "UITextField"; placeholder = "Search"; ObjectID = "FMl-Ia-DzO"; */
+"FMl-Ia-DzO.placeholder" = "Search";
+
+/* Class = "UITextField"; text = "Search"; ObjectID = "FMl-Ia-DzO"; */
+"FMl-Ia-DzO.text" = "Search";
+
+/* Class = "UILabel"; text = "Taptic Feedback"; ObjectID = "G25-aU-DIY"; */
+"G25-aU-DIY.text" = "Taptic Feedback";
+
+/* Class = "UILabel"; text = "Import/Export ROMs, saves, cover art…"; ObjectID = "GAc-2H-eCw"; */
+"GAc-2H-eCw.text" = "Import/Export ROMs, saves, cover art…";
+
+/* Class = "UILabel"; text = "iCade Controller"; ObjectID = "GoG-Nc-lcT"; */
+"GoG-Nc-lcT.text" = "iCade Controller";
+
+/* Class = "UILabel"; text = "Supports: SNES (SNES9x), SMS, SG, GG, SCD, PSX…"; ObjectID = "HP7-wS-n7d"; */
+"HP7-wS-n7d.text" = "Supports: SNES (SNES9x), SMS, SG, GG, SCD, PSX…";
+
+/* Class = "UILabel"; text = "Empty Image Cache"; ObjectID = "IBC-zu-dJg"; */
+"IBC-zu-dJg.text" = "Empty Image Cache";
+
+/* Class = "UILabel"; text = "Region"; ObjectID = "Kqr-B4-YsT"; */
+"Kqr-B4-YsT.text" = "Region";
+
+/* Class = "UILabel"; text = "Core"; ObjectID = "L0B-4y-dic"; */
+"L0B-4y-dic.text" = "Core";
+
+/* Class = "UITableViewSection"; footerTitle = "Check wiki for Controls per system."; ObjectID = "L0J-7O-0ta"; */
+"L0J-7O-0ta.footerTitle" = "Check wiki for Controls per system.";
+
+/* Class = "UITableViewSection"; headerTitle = "Controller"; ObjectID = "L0J-7O-0ta"; */
+"L0J-7O-0ta.headerTitle" = "Controller";
+
+/* Class = "UILabel"; text = "All-Right Shoulders"; ObjectID = "LPd-fr-b7s"; */
+"LPd-fr-b7s.text" = "All-Right Shoulders";
+
+/* Class = "UILabel"; text = "Volume HUD"; ObjectID = "LRG-Fg-uAd"; */
+"LRG-Fg-uAd.text" = "Volume HUD";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "Lsc-nM-zxX"; */
+"Lsc-nM-zxX.text" = "Name";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "Nkv-Tf-Jkr"; */
+"Nkv-Tf-Jkr.text" = "Name";
+
+/* Class = "UILabel"; text = "Volume"; ObjectID = "NzO-jn-EV2"; */
+"NzO-jn-EV2.text" = "Volume";
+
+/* Class = "UILabel"; text = "Cores"; ObjectID = "Oaj-HR-Ftm"; */
+"Oaj-HR-Ftm.text" = "Cores";
+
+/* Class = "UILabel"; text = "Manage Conflicts"; ObjectID = "OiF-wU-8yr"; */
+"OiF-wU-8yr.text" = "Manage Conflicts";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "PAK-7c-QZ8"; */
+"PAK-7c-QZ8.text" = "Title";
+
+/* Class = "UILabel"; text = "Image Smoothing"; ObjectID = "Plf-rp-lVd"; */
+"Plf-rp-lVd.text" = "Image Smoothing";
+
+/* Class = "UILabel"; text = "Ask to Load Saves"; ObjectID = "TPc-HC-I7C"; */
+"TPc-HC-I7C.text" = "Ask to Load Saves";
+
+/* Class = "UILabel"; text = "Save States"; ObjectID = "TXP-Wg-PKX"; */
+"TXP-Wg-PKX.text" = "Save States";
+
+/* Class = "UILabel"; text = "System"; ObjectID = "UNt-gt-vi7"; */
+"UNt-gt-vi7.text" = "System";
+
+/* Class = "UILabel"; text = "Disable Auto Lock"; ObjectID = "VGK-uf-0BZ"; */
+"VGK-uf-0BZ.text" = "Disable Auto Lock";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "VpU-YI-9QR"; */
+"VpU-YI-9QR.text" = "Name";
+
+/* Class = "UILabel"; text = "100%"; ObjectID = "W3K-0h-lqD"; */
+"W3K-0h-lqD.text" = "100%";
+
+/* Class = "UILabel"; text = "Logs"; ObjectID = "XXH-Uh-kK3"; */
+"XXH-Uh-kK3.text" = "Logs";
+
+/* Class = "UILabel"; text = "Auto save"; ObjectID = "XfV-AX-XEk"; */
+"XfV-AX-XEk.text" = "Auto save";
+
+/* Class = "UILabel"; text = "Created"; ObjectID = "Xh5-2d-FbL"; */
+"Xh5-2d-FbL.text" = "Created";
+
+/* Class = "UILabel"; text = "Light"; ObjectID = "Ywp-5a-vQZ"; */
+"Ywp-5a-vQZ.text" = "Light";
+
+/* Class = "UILabel"; text = "Core"; ObjectID = "ZPS-Sr-ac8"; */
+"ZPS-Sr-ac8.text" = "Core";
+
+/* Class = "UILabel"; text = "Auto Load Saves"; ObjectID = "aao-YF-7RH"; */
+"aao-YF-7RH.text" = "Auto Load Saves";
+
+/* Class = "UILabel"; text = "Last Played"; ObjectID = "aqF-fy-FNA"; */
+"aqF-fy-FNA.text" = "Last Played";
+
+/* Class = "UILabel"; text = "Refresh Game Library"; ObjectID = "atp-lT-0Aq"; */
+"atp-lT-0Aq.text" = "Refresh Game Library";
+
+/* Class = "UITableViewController"; title = "Settings"; ObjectID = "bcR-zD-bPX"; */
+"bcR-zD-bPX.title" = "Settings";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "bus-Zb-5mN"; */
+"bus-Zb-5mN.text" = "Version";
+
+/* Class = "UILabel"; text = "Time Spent"; ObjectID = "eW7-VN-IH4"; */
+"eW7-VN-IH4.text" = "Time Spent";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "egp-7q-f7P"; */
+"egp-7q-f7P.text" = "Name";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "fw1-8X-P2T"; */
+"fw1-8X-P2T.text" = "Title";
+
+/* Class = "UILabel"; text = "8003.1.0 : A5200"; ObjectID = "iSh-gN-qYD"; */
+"iSh-gN-qYD.text" = "8003.1.0 : A5200";
+
+/* Class = "UILabel"; text = "Manually resolve conflicted imports"; ObjectID = "iZ4-qo-Kdy"; */
+"iZ4-qo-Kdy.text" = "Manually resolve conflicted imports";
+
+/* Class = "UILabel"; text = "Redownload covers"; ObjectID = "ifY-eR-QD5"; */
+"ifY-eR-QD5.text" = "Redownload covers";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "j5n-4O-y4I"; */
+"j5n-4O-y4I.text" = "Name";
+
+/* Class = "UILabel"; text = "Plays"; ObjectID = "ky4-nS-Phe"; */
+"ky4-nS-Phe.text" = "Plays";
+
+/* Class = "UILabel"; text = "Time Spent"; ObjectID = "laP-Xb-xEl"; */
+"laP-Xb-xEl.text" = "Time Spent";
+
+/* Class = "UILabel"; text = "DEBUG"; ObjectID = "m2L-ex-dJw"; */
+"m2L-ex-dJw.text" = "DEBUG";
+
+/* Class = "UILabel"; text = "Launch Web Server"; ObjectID = "m7A-Ve-3fQ"; */
+"m7A-Ve-3fQ.text" = "Launch Web Server";
+
+/* Class = "UILabel"; text = "Moves L1, L2, and Z to right side"; ObjectID = "pLB-LY-qR3"; */
+"pLB-LY-qR3.text" = "Moves L1, L2, and Z to right side";
+
+/* Class = "UILabel"; text = "Core Version"; ObjectID = "pzB-Ff-Rvs"; */
+"pzB-Ff-Rvs.text" = "Core Version";
+
+/* Class = "UILabel"; text = "x.x.x"; ObjectID = "qSD-YJ-6LU"; */
+"qSD-YJ-6LU.text" = "x.x.x";
+
+/* Class = "UITableViewSection"; footerTitle = "Check the wiki about Importing ROMs."; ObjectID = "qyl-ae-HnB"; */
+"qyl-ae-HnB.footerTitle" = "Check the wiki about Importing ROMs.";
+
+/* Class = "UITableViewSection"; headerTitle = "Game Library"; ObjectID = "qyl-ae-HnB"; */
+"qyl-ae-HnB.headerTitle" = "Game Library";
+
+/* Class = "UILabel"; text = "System"; ObjectID = "rFV-O1-rfi"; */
+"rFV-O1-rfi.text" = "System";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "rLm-i9-jlT"; */
+"rLm-i9-jlT.text" = "Title";
+
+/* Class = "UILabel"; text = "Plays"; ObjectID = "rVR-VQ-Jh4"; */
+"rVR-VQ-Jh4.text" = "Plays";
+
+/* Class = "UILabel"; text = "CRT Filter"; ObjectID = "roc-gC-TBN"; */
+"roc-gC-TBN.text" = "CRT Filter";
+
+/* Class = "UILabel"; text = "System"; ObjectID = "rsP-1d-QE4"; */
+"rsP-1d-QE4.text" = "System";
+
+/* Class = "UILabel"; text = "Yes"; ObjectID = "s1T-eA-pAC"; */
+"s1T-eA-pAC.text" = "Yes";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "tPX-P3-bxo"; */
+"tPX-P3-bxo.text" = "Detail";
+
+/* Class = "UILabel"; text = "Appearance"; ObjectID = "tbC-0B-9PY"; */
+"tbC-0B-9PY.text" = "Appearance";
+
+/* Class = "UILabel"; text = "Theme"; ObjectID = "tx4-Ny-kIG"; */
+"tx4-Ny-kIG.text" = "Theme";
+
+/* Class = "UILabel"; text = "Timed Auto Saves"; ObjectID = "uPe-ef-hWl"; */
+"uPe-ef-hWl.text" = "Timed Auto Saves";
+
+/* Class = "UILabel"; text = "Assign players"; ObjectID = "wUr-5z-cUs"; */
+"wUr-5z-cUs.text" = "Assign players";
+
+/* Class = "UILabel"; text = "Licenses"; ObjectID = "y1X-37-OFg"; */
+"y1X-37-OFg.text" = "Licenses";
+
+/* Class = "UILabel"; text = "Start/Select Always On-screenᵇᵉᵗᵃ"; ObjectID = "ymH-hX-dr3"; */
+"ymH-hX-dr3.text" = "Start/Select Always On-screenᵇᵉᵗᵃ";
+
+/* Class = "UILabel"; text = "abcdef"; ObjectID = "yzB-Cf-bne"; */
+"yzB-Cf-bne.text" = "abcdef";

@@ -38,7 +38,7 @@ typealias PVEmulatorViewControllerRootClass = UIViewController
 extension UIViewController {
 	func presentMessage(_ message : String, title: String, completion: (() -> Swift.Void)? = nil) {
 		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+		alert.addAction(UIAlertAction(title: NSLocalizedString("OK",""), style: .default, handler: nil))
 
 		let presentingVC = self.presentedViewController ?? self
 

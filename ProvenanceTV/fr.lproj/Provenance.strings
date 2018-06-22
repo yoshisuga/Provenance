@@ -1,0 +1,219 @@
+
+/* Class = "UITableViewSection"; headerTitle = "Audio/Video"; ObjectID = "1Z8-rj-1Oc"; */
+"1Z8-rj-1Oc.headerTitle" = "Audio/Video";
+
+/* Class = "UILabel"; text = "ON"; ObjectID = "1q7-43-Fy1"; */
+"1q7-43-Fy1.text" = "ON";
+
+/* Class = "UILabel"; text = "FPS Counter"; ObjectID = "2H5-WM-COY"; */
+"2H5-WM-COY.text" = "FPS Counter";
+
+/* Class = "UILabel"; text = "iCade Controller"; ObjectID = "2VY-ij-l26"; */
+"2VY-ij-l26.text" = "iCade Controller";
+
+/* Class = "UILabel"; text = "ON"; ObjectID = "2ba-cy-OWv"; */
+"2ba-cy-OWv.text" = "ON";
+
+/* Class = "UILabel"; text = "ON"; ObjectID = "3Fg-tn-N4x"; */
+"3Fg-tn-N4x.text" = "ON";
+
+/* Class = "UILabel"; text = "Launch Web Server"; ObjectID = "3lW-ho-V12"; */
+"3lW-ho-V12.text" = "Launch Web Server";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "3n5-3M-e7G"; */
+"3n5-3M-e7G.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Redownload covers"; ObjectID = "42p-90-EnD"; */
+"42p-90-EnD.text" = "Redownload covers";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "44K-kK-tzz"; */
+"44K-kK-tzz.text" = "Name";
+
+/* Class = "UILabel"; text = "Region"; ObjectID = "6zZ-eP-Qko"; */
+"6zZ-eP-Qko.text" = "Region";
+
+/* Class = "UILabel"; text = "Refresh Game Library"; ObjectID = "7a8-8n-uKe"; */
+"7a8-8n-uKe.text" = "Refresh Game Library";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "9iT-Eo-xjp"; */
+"9iT-Eo-xjp.text" = "Title";
+
+/* Class = "UILabel"; text = "Time Spent"; ObjectID = "AXk-NM-79f"; */
+"AXk-NM-79f.text" = "Time Spent";
+
+/* Class = "UILabel"; text = "Disabled"; ObjectID = "B2R-2i-2Fn"; */
+"B2R-2i-2Fn.text" = "Disabled";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "CO1-nQ-39N"; */
+"CO1-nQ-39N.title" = "Settings";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "D2e-Wn-qWZ"; */
+"D2e-Wn-qWZ.text" = "Title";
+
+/* Class = "UILabel"; text = "Controllers"; ObjectID = "DGW-C4-bv8"; */
+"DGW-C4-bv8.text" = "Controllers";
+
+/* Class = "UILabel"; text = "USA"; ObjectID = "Hpb-Rc-ffI"; */
+"Hpb-Rc-ffI.text" = "USA";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "I9Q-S7-0ni"; */
+"I9Q-S7-0ni.text" = "Title";
+
+/* Class = "UILabel"; text = "Timed Auto Saves"; ObjectID = "IIR-uM-OtM"; */
+"IIR-uM-OtM.text" = "Timed Auto Saves";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "JNb-CJ-NyQ"; */
+"JNb-CJ-NyQ.text" = "Title";
+
+/* Class = "UILabel"; text = "Import/Export ROMs, saves, cover art…"; ObjectID = "JPu-A3-Ob0"; */
+"JPu-A3-Ob0.text" = "Import/Export ROMs, saves, cover art…";
+
+/* Class = "UILabel"; text = "Super Mario World"; ObjectID = "KCC-IU-dJG"; */
+"KCC-IU-dJG.text" = "Super Mario World";
+
+/* Class = "UILabel"; text = "ON"; ObjectID = "Lg3-QE-lNc"; */
+"Lg3-QE-lNc.text" = "ON";
+
+/* Class = "UITabBarItem"; title = "Library"; ObjectID = "MDp-Vh-3fS"; */
+"MDp-Vh-3fS.title" = "Library";
+
+/* Class = "UILabel"; text = "Manage Conflicts"; ObjectID = "MVc-3o-Uqj"; */
+"MVc-3o-Uqj.text" = "Manage Conflicts";
+
+/* Class = "UIBarButtonItem"; title = "Play"; ObjectID = "N8T-lW-KL5"; */
+"N8T-lW-KL5.title" = "Play";
+
+/* Class = "UILabel"; text = "Image Smoothing"; ObjectID = "PH5-Z1-Pzi"; */
+"PH5-Z1-Pzi.text" = "Image Smoothing";
+
+/* Class = "UILabel"; text = "Nintendo"; ObjectID = "Pdc-6a-7AK"; */
+"Pdc-6a-7AK.text" = "Nintendo";
+
+/* Class = "UILabel"; text = "Action, Shooter"; ObjectID = "Q3T-0F-7F0"; */
+"Q3T-0F-7F0.text" = "Action, Shooter";
+
+/* Class = "UILabel"; text = "Plays"; ObjectID = "Qe5-iT-hkp"; */
+"Qe5-iT-hkp.text" = "Plays";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "Rk3-2C-Fod"; */
+"Rk3-2C-Fod.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Genres"; ObjectID = "SqZ-1K-rnE"; */
+"SqZ-1K-rnE.text" = "Genres";
+
+/* Class = "UILabel"; text = "OFF"; ObjectID = "Sun-9n-Dbp"; */
+"Sun-9n-Dbp.text" = "OFF";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "UkT-0S-PfE"; */
+"UkT-0S-PfE.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Appearance"; ObjectID = "XES-ht-Utu"; */
+"XES-ht-Utu.text" = "Appearance";
+
+/* Class = "UILabel"; text = "Web Server Always-On"; ObjectID = "YAW-t0-RFO"; */
+"YAW-t0-RFO.text" = "Web Server Always-On";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "YKo-bn-DWL"; */
+"YKo-bn-DWL.text" = "Title";
+
+/* Class = "UILabel"; text = "Developer"; ObjectID = "a9B-hX-wKc"; */
+"a9B-hX-wKc.text" = "Developer";
+
+/* Class = "UILabel"; text = "Ask to Load Saves"; ObjectID = "azn-9M-P9v"; */
+"azn-9M-P9v.text" = "Ask to Load Saves";
+
+/* Class = "UILabel"; text = "None"; ObjectID = "cyf-rY-JwD"; */
+"cyf-rY-JwD.text" = "None";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "dFB-G1-4da"; */
+"dFB-G1-4da.text" = "Title";
+
+/* Class = "UILabel"; text = "ON"; ObjectID = "dMQ-FI-TAq"; */
+"dMQ-FI-TAq.text" = "ON";
+
+/* Class = "UILabel"; text = "Save States"; ObjectID = "ebA-9N-VrK"; */
+"ebA-9N-VrK.text" = "Save States";
+
+/* Class = "UILabel"; text = "RELEASE"; ObjectID = "evc-5F-U0R"; */
+"evc-5F-U0R.text" = "RELEASE";
+
+/* Class = "UITableViewSection"; headerTitle = "Build Information"; ObjectID = "fB9-bK-2Y3"; */
+"fB9-bK-2Y3.headerTitle" = "Build Information";
+
+/* Class = "UILabel"; text = "Empty Image Cache"; ObjectID = "fxr-UW-XZC"; */
+"fxr-UW-XZC.text" = "Empty Image Cache";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "gSK-XH-gOo"; */
+"gSK-XH-gOo.text" = "Version";
+
+/* Class = "UILabel"; text = "System"; ObjectID = "ghP-r1-YtO"; */
+"ghP-r1-YtO.text" = "System";
+
+/* Class = "UILabel"; text = "May 5, 1984"; ObjectID = "hLa-ri-Ljy"; */
+"hLa-ri-Ljy.text" = "May 5, 1984";
+
+/* Class = "UITableViewSection"; footerTitle = "Check the wiki about Importing ROMs."; ObjectID = "hay-nT-eDi"; */
+"hay-nT-eDi.footerTitle" = "Check the wiki about Importing ROMs.";
+
+/* Class = "UITableViewSection"; headerTitle = "Game Library"; ObjectID = "hay-nT-eDi"; */
+"hay-nT-eDi.headerTitle" = "Game Library";
+
+/* Class = "UILabel"; text = "SNES"; ObjectID = "hxq-dF-NHS"; */
+"hxq-dF-NHS.text" = "SNES";
+
+/* Class = "UILabel"; text = "Git Revision"; ObjectID = "j00-53-6zO"; */
+"j00-53-6zO.text" = "Git Revision";
+
+/* Class = "UILabel"; text = "Manually resolve conflicted imports"; ObjectID = "kVa-3e-kWs"; */
+"kVa-3e-kWs.text" = "Manually resolve conflicted imports";
+
+/* Class = "UILabel"; text = "Assign players"; ObjectID = "lN0-Ey-r31"; */
+"lN0-Ey-r31.text" = "Assign players";
+
+/* Class = "UILabel"; text = "1.0"; ObjectID = "lbO-r2-5RW"; */
+"lbO-r2-5RW.text" = "1.0";
+
+/* Class = "UILabel"; text = "CRT Filter"; ObjectID = "loZ-2R-vQ2"; */
+"loZ-2R-vQ2.text" = "CRT Filter";
+
+/* Class = "UILabel"; text = "Cores"; ObjectID = "nNZ-Vp-JHZ"; */
+"nNZ-Vp-JHZ.text" = "Cores";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "nQR-Qa-dFK"; */
+"nQR-Qa-dFK.text" = "Detail";
+
+/* Class = "UILabel"; text = "OFF"; ObjectID = "nXy-af-Mdk"; */
+"nXy-af-Mdk.text" = "OFF";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "oFm-Az-31h"; */
+"oFm-Az-31h.text" = "Detail";
+
+/* Class = "UILabel"; text = "Auto Save"; ObjectID = "oZ7-q6-yWJ"; */
+"oZ7-q6-yWJ.text" = "Auto Save";
+
+/* Class = "UILabel"; text = "ON"; ObjectID = "qHb-so-i8t"; */
+"qHb-so-i8t.text" = "ON";
+
+/* Class = "UILabel"; text = "Auto Load Saves"; ObjectID = "rRw-5M-NDu"; */
+"rRw-5M-NDu.text" = "Auto Load Saves";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "rl8-1l-zmc"; */
+"rl8-1l-zmc.text" = "Mode";
+
+/* Class = "UILabel"; text = "Publish Date"; ObjectID = "smT-TK-CSw"; */
+"smT-TK-CSw.text" = "Publish Date";
+
+/* Class = "UITableViewSection"; footerTitle = "Check wiki for Controls per system."; ObjectID = "vms-xZ-LIf"; */
+"vms-xZ-LIf.footerTitle" = "Check wiki for Controls per system.";
+
+/* Class = "UITableViewSection"; headerTitle = "Controller"; ObjectID = "vms-xZ-LIf"; */
+"vms-xZ-LIf.headerTitle" = "Controller";
+
+/* Class = "UILabel"; text = "Licenses"; ObjectID = "wHi-7M-dvZ"; */
+"wHi-7M-dvZ.text" = "Licenses";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "yOt-tY-FGg"; */
+"yOt-tY-FGg.text" = "0";
+
+/* Class = "UILabel"; text = "abcdef"; ObjectID = "yQi-nk-11J"; */
+"yQi-nk-11J.text" = "abcdef";
