@@ -27,4 +27,10 @@
 "Resume" = "再開する";
 "Unable to remove old save state info.plist" = "Unable to remove old save state info.plist";
 "Unable to instantiate realm, abandoning old save state conversion" = "Unable to instantiate realm, abandoning old save state conversion";
+"Slow" = "遅い";
+"Normal" = "通常";
+"Fast" = "速い";
+"Internal error: No core found." = "エラーが発生しました。コアが見つかりませんでした。";
+"Game only supports 1 disc." = "このゲームは１枚のディスクにしか対応していません。";
+"Cancel" = "キャンセル";
 

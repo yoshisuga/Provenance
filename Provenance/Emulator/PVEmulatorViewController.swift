@@ -1042,12 +1042,12 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 
 #endif
     @objc func showSpeedMenu() {
-        let actionSheet = UIAlertController(title: "Game Speed", message: nil, preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "Game Speed".localized(), message: nil, preferredStyle: .actionSheet)
         if traitCollection.userInterfaceIdiom == .pad, let menuButton = menuButton {
             actionSheet.popoverPresentationController?.sourceView = menuButton
             actionSheet.popoverPresentationController?.sourceRect = menuButton.bounds
         }
-        let speeds = ["Slow", "Normal", "Fast"]
+        let speeds = ["Slow".localized(), "Normal".localized(), "Fast".localized()]
         speeds.enumerated().forEach { (idx, title) in
             actionSheet.addAction(UIAlertAction(title: title, style: .default, handler: {(_ action: UIAlertAction) -> Void in
                 self.core.gameSpeed = GameSpeed(rawValue: idx) ?? .normal
@@ -1193,7 +1193,7 @@ class PVEmulatorViewController: PVEmulatorViewControllerRootClass, PVAudioDelega
 extension PVEmulatorViewController {
     func showSwapDiscsMenu() {
         guard let core = self.core as? (PVEmulatorCore & DiscSwappable) else {
-			presentError("Internal error: No core found.")
+			presentError("Internal error: No core found.".localized())
 			self.isShowingMenu = false
 			self.enableContorllerInput(false)
             return
@@ -1201,7 +1201,7 @@ extension PVEmulatorViewController {
 
         let numberOfDiscs = core.numberOfDiscs
         guard numberOfDiscs > 1 else {
-            presentError("Game only supports 1 disc.")
+            presentError("Game only supports 1 disc.".localized())
 			core.setPauseEmulation(false)
 			self.isShowingMenu = false
 			self.enableContorllerInput(false)
@@ -1225,7 +1225,7 @@ extension PVEmulatorViewController {
         }
 
         // Add cancel action
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {[unowned self] (sheet) in
+        actionSheet.addAction(UIAlertAction(title: "Cancel".localized(), style: .cancel, handler: {[unowned self] (sheet) in
             core.setPauseEmulation(false)
             self.isShowingMenu = false
 			self.enableContorllerInput(false)

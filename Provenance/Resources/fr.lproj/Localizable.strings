@@ -27,3 +27,9 @@
 "Save & Quit" = "Save & Quit";
 "Resume" = "Resume";
 "Unable to remove old save state info.plist" = "Unable to remove old save state info.plist";
+"Slow" = "Slow";
+"Normal" = "Normal";
+"Fast" = "Fast";
+"Internal error: No core found." = "Internal error: No core found.";
+"Game only supports 1 disc." = "Game only supports 1 disc.";
+"Cancel" = "Cancel";
